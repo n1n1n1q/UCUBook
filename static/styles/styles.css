@@ -1,0 +1,207 @@
+html {
+  font-size: 50%; /* Set base font size to 10px */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+input {
+  border: none;
+}
+
+body {
+  width: 100%; /* Let the body adjust to the viewport width */
+  font-size: 16px; /* Equivalent to 16px */
+}
+
+.ucubook-container {
+  min-width: 1200px; /* Minimum width of 1200px */
+  padding-bottom: 10rem; /* Adjust as needed */
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  align-items: center;
+}
+
+.ucubook-container .header-group {
+  margin-bottom: 6.4rem; /* Adjust as needed */
+  width: 100%;
+  max-width: 100%; /* Allow header to scale */
+  height: 11rem; /* Adjust as needed */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ucubook-container .header-group .red-rectangle {
+  width: 100%;
+  height: 100%;
+  background-color: #7f1716;
+}
+
+.ucubook-container .header-group .logo-text {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem; /* Adjust as needed */
+  font-weight: 400;
+  line-height: 1.2;
+  color: #ffffff;
+  font-family: 'Source Serif Pro', 'Source Sans Pro';
+  text-align: center;
+}
+
+.ucubook-container .header-group .logo-image {
+  position: absolute;
+  left: 2rem; /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20rem; /* Adjust as needed */
+  height: auto;
+}
+
+.ucubook-container .header-group .login-icon {
+  position: absolute;
+  right: 2rem; /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4.5rem; /* Adjust width as needed */
+  height: auto; /* Adjust height as needed */
+  cursor: pointer;
+  margin-right: 25px;
+}
+
+.popup-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Position the menu below the user icon */
+  right: 0; /* Align the menu with the user icon */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.popup-menu ul {
+  padding: 0;
+}
+
+.popup-menu li {
+  padding: 10px 20px;
+}
+
+.popup-menu a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+}
+
+.popup-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+.ucubook-container .sidebar-group {
+  margin: 0rem 30.9rem 0rem 38.2rem;
+  width: calc(100% - 70 rem);
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .floor-group {
+  margin: 2rem 4.4rem 0rem 0rem;
+  width: 12.1rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .floor-group .floor-list {
+  max-width: 12.1rem;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2125;
+  color: #000000;
+  font-family: 'Inter', 'Source Sans Pro';
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .floor-group .floor-options {
+  box-sizing: border-box;
+  padding-top: 3.1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .floor-group .floor-options .floor-rectangle {
+  margin-bottom: 2.8rem;
+  width: 12rem;
+  height: 3.4rem;
+  cursor: pointer;
+  background-color: #903a39;
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .sidebar-rectangle {
+  margin-right: 4.6rem;
+  width: 82.6rem;
+  height: 50.8rem;
+  background-color: #903a39;
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .building-group {
+  margin-top: 2.5rem;
+  width: 19.2rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .building-group .building-list {
+  max-width: 19.2rem;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2125;
+  color: #000000;
+  font-family: 'Inter', 'Source Sans Pro';
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .building-group .building-options {
+  box-sizing: border-box;
+  padding-top: 2.6rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.ucubook-container .sidebar-group .building-group .building-options .building-rectangle {
+  margin-bottom: 2.8rem;
+  width: 12rem;
+  height: 3.4rem;
+  cursor: pointer;
+  background-color: #903a39;
+  flex-shrink: 0;
+}
+
+
