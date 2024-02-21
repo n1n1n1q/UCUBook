@@ -8,7 +8,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def read_index():
-    with open("index.html", "r") as file:
+    with open("templates/index.html", "r") as file:
         html_content = file.read()
     return html_content
 
