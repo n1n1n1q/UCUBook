@@ -9,15 +9,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Serif+Pro%3A400"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter%3A400"/>
-  <link rel="stylesheet" href="./static/styles/styles.css"/>
+  <link rel="stylesheet" href="../static/styles/styles.css">
 </head>
 <body>
 <div class="ucubook-container">
   <div class="header-group">
     <div class="red-rectangle">
     </div>
-    <img id="loginIcon" class="login-icon" src="./static/assets/user.png" alt="Login/User icon">
-    <img class="logo-image" src="./static/assets/image-1.png"/>
+    <img id="loginIcon" class="login-icon" src="../static/assets/user.png" alt="Login/User icon">
+    <img class="logo-image" src="../static/assets/image-1.png"/>
     <div class="popup-menu" id="popupMenu">
       <ul>
         <li><a href="#">Profile</a></li>
@@ -28,31 +28,29 @@
   </div>
   <div class="sidebar-group">
     <div class="floor-group">
-      <p class="floor-list">floors list</p>
+      <p class="floor-list">Поверхи</p>
       <div class="floor-options">
-        <div class="floor-rectangle">
-        </div>
-        <div class="floor-rectangle">
-        </div>
-        <div class="floor-rectangle">
-        </div>
-        <div class="floor-rectangle">
-        </div>
+        {% for i in range(floors[building]) %}
+        {% if i==curr_floor %}
+        <button class="floor-button-current" id="{{i}}">Поверх {{i}}</button>
+        {% else %}
+        <button class="floor-button" id="{{i}}">Поверх {{i}}</button>
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
     <div class="sidebar-rectangle">
     </div>
     <div class="building-group">
-      <p class="building-list">buildings list</p>
+      <p class="building-list">Корпуси</p>
       <div class="building-options">
-        <div class="building-rectangle">
-        </div>
-        <div class="building-rectangle">
-        </div>
-        <div class="building-rectangle">
-        </div>
-        <div class="building-rectangle">
-        </div>
+        {% for b in buildings %}
+        {% if b == building %}
+        <button class="building-button-current" id="{{building}}">{{b}}</button>
+        {% else %}
+        <button class="building-button" id="{{building}}">{{b}}</button>
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
   </div>
