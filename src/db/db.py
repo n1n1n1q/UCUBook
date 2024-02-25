@@ -50,6 +50,16 @@ def get_user(user,project_id=project_id,dataset_id=dataset_id,table_id="users"):
     return row_data[0]
     
 def add_user(table,data,dataset_id=dataset_id):
+    if not isinstance(data,dict):
+        raise ValueError("Data must be a dictionary")
+    if not isinstance(data.values()[0],str):
+        raise ValueError("Login must be a string")
+    if not isinstance(data.values()[1],str):
+        raise ValueError("Password must be a string")
+    if not isinstance(data.values()[2],bool):
+        raise ValueError("Can rent must be a boolean")
+    if not isinstance(data.values()[3],int):
+        raise ValueError("Group must be an integer")
     table_id=dataset_id+"."+table
     errors = client.insert_rows_json(table_id, data)
     if errors == []:
