@@ -14,6 +14,8 @@ def get_data(datatype, name):
     """
     Get data from the database
     """
+    if not isinstance(name, str):
+        raise ValueError("Invalid input data")
     _name=""
     match datatype:
         case "users":
@@ -43,33 +45,54 @@ def get_data(datatype, name):
         raise ValueError(f"Multiple {datatype} with name {name} found")
     return row_data[0] if len(row_data)==1 else row_data
 
+def check_input(input_data, expected_keys):
+    """
+    Check if input data has all expected keys
+    """
+    return all(set(i)==set(expected_keys) for i in input_data) if isinstance(input_data, list) \
+        else set(input_data.keys())==set(expected_keys)
+
 def add_data(datatype, data):
     """
     Add data to the database
     """
-    if not isinstance(data, dict):
+    if (isinstance(data,list) and all(isinstance(i, dict) for i in data)) \
+        or isinstance(data, dict):
+        _name=""
+    else:
         raise ValueError("Invalid input data")
     match datatype:
         case "users":
             table_id="users"
-            if set(data.keys())!=set(["login","password","can_rent","group"]):
+            _name="login"
+            if not check_input(data,["login","password","can_rent","group"]):
                 raise ValueError("Invalid input data")
         case "building":
+            _name="name"
             table_id="building"
-            if set(data.keys())!=set(["name","floors"]):
+            if not check_input(data,["name","floors"]):
                 raise ValueError("Invalid input data")
         case "rooms":
+            _name="name"
             table_id="rooms"
-            if set(data.keys())!=set(["name","capacity","is_free"]):
+            if not check_input(data,["name","capacity","is_free"]):
                 raise ValueError("Invalid input data")
         case "requests":
+            _name="room_name"
             table_id="requests"
-            if set(data.keys())!=set(["room_name","renter","busy_from","busy_to","day"]):
+            if not check_input(data,["room_name","renter","busy_from","busy_to","day"]):
                 raise ValueError("Invalid input data")
         case _:
             raise ValueError(f"Invalid data type {datatype}")
+    if datatype in ["building","rooms","users"]:
+        for i in [data] if isinstance(data, dict) else data:
+            try:
+                get_data(datatype, i[_name])
+                raise FileExistsError(f"{datatype} {data[_name]} already exists")
+            except ValueError:
+                pass
     table_id=data_id+"."+table_id
-    errors = client.insert_rows_json(table_id, data)
+    errors = client.insert_rows_json(table_id, data if isinstance(data, list) else [data])
     if not errors:
         print("New rows have been added.")
     else:
@@ -77,9 +100,15 @@ def add_data(datatype, data):
 
 if __name__=='__main__':
     data=[
-        {"name":"ЦШ", "floors":5},
-        {"name":"БФК", "floors":5},
-        {"name":"ХС", "floors": 5}
+        {"name":"ЦШ", "floors": 6},
+        {"name":"АК", "floors": 5},
+        {"name":"ХС", "floors": 2}
     ]
-
-    print(get_data("building","ЦШ"))
+    print(get_data("building","ХС"))
+    print(get_data("users","admin"))
+    # add_data("users",{"login":"admin","password":"admin","can_rent":True,"group":9})
+    # add_data("rooms",{"name":"ЦШ-403","capacity":10,"is_free":True})
+    # add_data("requests",[
+    #     {"room_name":"ХС-301","renter":"user1","busy_from":"12","busy_to":"13","day":"2022-01-01"},
+    #     {"room_name":"ХС-301","renter":"user2","busy_from":"13","busy_to":"14","day":"2022-01-01"},]
+    #     )
