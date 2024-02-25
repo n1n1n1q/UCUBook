@@ -27,16 +27,14 @@
     </div>
   </div>
   <div class="sidebar-group">
-    <div class="floor-group">
+    <div class="floor-group-sh">
       <p class="floor-list">Поверхи</p>
       <div class="floor-options">
-        {% for i in range(floors[building]) %}
-        {% if i==curr_floor %}
-        <button class="floor-button-current" id="{{i}}">Поверх {{i}}</button>
-        {% else %}
-        <button class="floor-button" id="{{i}}">Поверх {{i}}</button>
-        {% endif %}
-        {% endfor %}
+        <button class="floor-button" id="sh-0">Поверх 0</button>
+        <button class="floor-button" id="sh-1">Поверх 1</button>
+        <button class="floor-button" id="sh-2">Поверх 2</button>
+        <button class="floor-button" id="sh-3">Поверх 3</button>
+        <button class="floor-button" id="sh-4">Поверх 4</button>
       </div>
     </div>
     <div class="sidebar-rectangle">
@@ -44,13 +42,9 @@
     <div class="building-group">
       <p class="building-list">Корпуси</p>
       <div class="building-options">
-        {% for b in buildings %}
-        {% if b == building %}
-        <button class="building-button-current" id="{{building}}">{{b}}</button>
-        {% else %}
-        <button class="building-button" id="{{building}}">{{b}}</button>
-        {% endif %}
-        {% endfor %}
+        <button class="building-button" id="sh">Центр Шептицького</button>
+        <button class="building-button" id="ak">Академічний корпус</button>
+        <button class="building-button" id="khs">Храм Софії</button>
       </div>
     </div>
   </div>

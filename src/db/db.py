@@ -69,7 +69,7 @@ def add_data(datatype, data):
         case _:
             raise ValueError(f"Invalid data type {datatype}")
     table_id=data_id+"."+table_id
-    errors = client.insert_rows_json(table_id, data)
+errors = client.insert_rows_json(table_id, data)
     if not errors:
         print("New rows have been added.")
     else:
