@@ -37,11 +37,11 @@ def get_data(datatype, name):
 """
     query_job=client.query(sql_query)
     row_data=[dict(row.items()) for row in query_job]
-    if len(row_data)==0:
+    if len(row_data)==0 and datatype!="requests":
         raise ValueError(f"{datatype} {name} not found")
-    if len(row_data)>1:
+    if len(row_data)>1 and datatype!="requests":
         raise ValueError(f"Multiple {datatype} with name {name} found")
-    return row_data[0]
+    return row_data[0] if len(row_data)==1 else row_data
 
 def add_data(datatype, data):
     """
@@ -69,7 +69,7 @@ def add_data(datatype, data):
         case _:
             raise ValueError(f"Invalid data type {datatype}")
     table_id=data_id+"."+table_id
-errors = client.insert_rows_json(table_id, data)
+    errors = client.insert_rows_json(table_id, data)
     if not errors:
         print("New rows have been added.")
     else:
