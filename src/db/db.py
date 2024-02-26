@@ -4,23 +4,25 @@ DB module
 import os
 from google.cloud import bigquery
 
-os.environ[
-    "GOOGLE_APPLICATION_CREDENTIALS"
-] = "src/db/magnetic-nimbus-414610-2bcd9c115d01.json"
-client = bigquery.Client()
-proj_id = client.project
-data_id = "ucubook"
-dataset = bigquery.Dataset(f"{client.project}.{data_id}")
-dataset.location = "EU"
 
 
 class DBOperations:
     """
     Db operations class
     """
-
-    @staticmethod
-    def get_data(datatype, name):
+    def __init__(self):
+        """
+        Set up the database
+        """
+        os.environ[
+        "GOOGLE_APPLICATION_CREDENTIALS"
+        ] = "src/db/magnetic-nimbus-414610-2bcd9c115d01.json"
+        self.client = bigquery.Client()
+        self.proj_id = self.client.project
+        self.data_id = "ucubook"
+        self.dataset = bigquery.Dataset(f"{self.client.project}.{self.data_id}")
+        self.dataset.location = "EU"
+    def get_data(self, datatype, name):
         """
         Get data from the database
         """
@@ -44,17 +46,16 @@ class DBOperations:
                 raise ValueError(f"Invalid data type {datatype}")
         sql_query = f"""
         SELECT *
-        FROM `{proj_id}.{data_id}.{table_id}`
+        FROM `{self.proj_id}.{self.data_id}.{table_id}`
         WHERE {_name} = '{name}'
     """
-        query_job = client.query(sql_query)
+        query_job = self.client.query(sql_query)
         row_data = [dict(row.items()) for row in query_job]
         if len(row_data) == 0 and datatype != "requests":
             raise ValueError(f"{datatype} {name} not found")
         if len(row_data) > 1 and datatype != "requests":
             raise ValueError(f"Multiple {datatype} with name {name} found")
         return row_data[0] if len(row_data) == 1 else row_data
-
     @staticmethod
     def check_input(input_data, expected_keys):
         """
@@ -66,8 +67,7 @@ class DBOperations:
             else set(input_data.keys()) == set(expected_keys)
         )
 
-    @staticmethod
-    def add_data(datatype, data):
+    def add_data(self, datatype, data):
         """
         Add data to the database
         """
@@ -107,13 +107,13 @@ class DBOperations:
         if datatype in ["building", "rooms", "users"]:
             for i in [data] if isinstance(data, dict) else data:
                 try:
-                    DBOperations.get_data(datatype, i[_name])
+                    self.get_data(datatype, i[_name])
                 except ValueError:
                     pass
                 else:
                     raise FileExistsError(f"{datatype} {i[_name]} already exists")
-        table_id = data_id + "." + table_id
-        errors = client.insert_rows_json(
+        table_id = self.data_id + "." + table_id
+        errors = self.client.insert_rows_json(
             table_id, data if isinstance(data, list) else [data]
         )
         if not errors:
@@ -129,8 +129,9 @@ if __name__ == "__main__":
         {"name": "ХС", "floors": 2},
     ]
     # DBOperations.add_data("building",data)
-    print(DBOperations.get_data("building", "ХС"))
-    print(DBOperations.get_data("users", "admin"))
+    MyDb=   DBOperations()
+    print(MyDb.get_data("building", "ХС"))
+    print(MyDb.get_data("users", "admin"))
     # add_data("users",{"login":"admin","password":"admin","can_rent":True,"group":9})
     # add_data("rooms",{"name":"ЦШ-403","capacity":10,"is_free":True})
     # add_data("requests",[
