@@ -82,7 +82,7 @@ class DBOperations:
                 table_id = "users"
                 _name = "login"
                 if not DBOperations.check_input(
-                    data, ["login", "password", "can_rent", "group"]
+                    data, ["login", "password", "can_rent", "group", "display_name"]
                 ):
                     raise ValueError("Invalid input data")
             case "building":
@@ -99,7 +99,8 @@ class DBOperations:
                 _name = "room_name"
                 table_id = "requests"
                 if not DBOperations.check_input(
-                    data, ["room_name", "renter", "busy_from", "busy_to", "day"]
+                    data, ["room_name", "renter", "busy_from", "busy_to", "day",
+                            "event_name", "description"]
                 ):
                     raise ValueError("Invalid input data")
             case _:
@@ -129,7 +130,7 @@ if __name__ == "__main__":
         {"name": "ХС", "floors": 2},
     ]
     # DBOperations.add_data("building",data)
-    MyDb=   DBOperations()
+    MyDb=DBOperations()
     print(MyDb.get_data("building", "ХС"))
     print(MyDb.get_data("users", "admin"))
     # add_data("users",{"login":"admin","password":"admin","can_rent":True,"group":9})
