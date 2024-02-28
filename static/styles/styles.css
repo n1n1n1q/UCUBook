@@ -1,29 +1,13 @@
-html {
-  font-size: 50%;
-}
+/* base styles */
+html {font-size: 50%;}
+* {margin: 0;padding: 0;box-sizing: border-box;}
+ul,li {list-style: none;}
+input {border: none;}
+body {width: 100%;font-size: 16px;}
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-ul,
-li {
-  list-style: none;
-}
-
-input {
-  border: none;
-}
-
-body {
-  width: 100%;
-  font-size: 16px;
-}
-
-.ucubook-container {
-  min-width: 1200px;
+/* main page container */
+.ucubook {
+  min-width: 50%;
   padding-bottom: 10rem;
   width: 100%;
   overflow: hidden;
@@ -34,24 +18,23 @@ body {
   align-items: center;
 }
 
-.ucubook-container .header-group {
+/* header styles */
+.header-group {
   margin-bottom: 6.4rem;
   width: 100%;
-  max-width: 100%;
+  max-width: 150%;
   height: 11rem;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.ucubook-container .header-group .red-rectangle {
+.header-background {
   width: 100%;
   height: 100%;
   background-color: #7f1716;
 }
-
-.ucubook-container .header-group .logo-text {
+.logo-text {
   position: absolute;
   left: 10%;
   top: 50%;
@@ -63,8 +46,7 @@ body {
   font-family: 'Source Serif Pro', 'Source Sans Pro';
   text-align: center;
 }
-
-.ucubook-container .header-group .logo-image {
+.logo-image {
   position: absolute;
   left: 2rem;
   top: 50%;
@@ -72,8 +54,7 @@ body {
   width: 20rem;
   height: auto;
 }
-
-.ucubook-container .header-group .login-icon {
+.login-icon {
   position: absolute;
   right: 2rem;
   top: 50%;
@@ -84,6 +65,7 @@ body {
   margin-right: 25px;
 }
 
+/* pop-up menu styles */
 .popup-menu {
   font-family: 'Inter', 'Source Sans Pro';
   margin-right: 10px;
@@ -99,27 +81,17 @@ body {
   font-size: 16px;
   text-align: left;
 }
-
-.popup-menu ul {
-  padding: 10px;
-}
-
-.popup-menu li {
-  padding: 10px 20px;
-}
-
+.popup-menu ul {padding: 10px;}
+.popup-menu li {padding: 10px 20px;}
 .popup-menu a {
   display: block;
   text-decoration: none;
   color: #333;
 }
+.popup-menu li:hover {background-color: #f0f0f0; padding: 10px 20px;}
 
-.popup-menu li:hover {
-  background-color: #f0f0f0;
-  padding: 10px 20px;
-}
-
-.ucubook-container .sidebar-group {
+/* sidebars styles */
+.sidebars {
   margin: 0rem 30.9rem 0rem 38.2rem;
   width: calc(100% - 70 rem);
   display: flex;
@@ -127,7 +99,8 @@ body {
   flex-shrink: 0;
 }
 
-.ucubook-container .sidebar-group .floor-group {
+/* floors bar styles */
+.floors {
   margin: 2rem 4.4rem 0rem 0rem;
   width: 12.1rem;
   align-items: center;
@@ -136,7 +109,7 @@ body {
   flex-shrink: 0;
 }
 
-.ucubook-container .sidebar-group .floor-group .floor-list {
+.floor-title {
   max-width: 12.1rem;
   font-size: 20px;
   font-weight: 400;
@@ -145,8 +118,8 @@ body {
   font-family: 'Inter', 'Source Sans Pro';
   flex-shrink: 0;
 }
-
-.ucubook-container .sidebar-group .floor-group .floor-options {
+#floorsContainer {
+  display: none;
   box-sizing: border-box;
   padding-top: 3.1rem;
   width: 100%;
@@ -154,8 +127,7 @@ body {
   flex-direction: column;
   flex-shrink: 0;
 }
-
-.ucubook-container .sidebar-group .floor-group .floor-options .floor-button {
+.floor-button {
   background-color: #903a39;
   color: #ffffff;
   border-radius: 3px;
@@ -168,46 +140,19 @@ body {
   transition: all 0.5s;
 }
 
-.ucubook-container .sidebar-group .floor-group .floor-options .floor-button-current {
-  background-color: #DB7941;
-  color: #ffffff;
-  font-weight: 700;
-  border-radius: 3px;
-  border: none;
-  width: 12rem;
-  margin-bottom: 2.8rem;
-  height: 3.4rem;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
-  box-shadow: 0 0 0 transparent;
-}
-
-.ucubook-container .sidebar-group .floor-group .floor-options .floor-button:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.ucubook-container .sidebar-group .floor-group .floor-options .floor-button:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.ucubook-container .sidebar-group .floor-group .floor-options .floor-button-current:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.ucubook-container .sidebar-group .floor-group .floor-options .floor-button-current:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.ucubook-container .sidebar-group .sidebar-rectangle {
+/* map styles */
+.map-container {
+  min-width: 30%;
+  min-height: 30%;
   margin-right: 4.6rem;
   width: 82.6rem;
   height: 50.8rem;
-  background-color: #903a39;
+  background-color: #7f1716;
   flex-shrink: 0;
 }
 
-.ucubook-container .sidebar-group .building-group {
+/* buildings bar styled */
+.buildings {
   margin-top: 2.5rem;
   width: 19.2rem;
   align-items: center;
@@ -216,7 +161,7 @@ body {
   flex-shrink: 0;
 }
 
-.ucubook-container .sidebar-group .building-group .building-list {
+.building-title {
   max-width: 19.2rem;
   font-size: 20px;
   font-weight: 400;
@@ -226,7 +171,7 @@ body {
   flex-shrink: 0;
 }
 
-.ucubook-container .sidebar-group .building-group .building-options {
+#buildingsContainer {
   box-sizing: border-box;
   padding-top: 2.6rem;
   width: 100%;
@@ -235,47 +180,156 @@ body {
   flex-shrink: 0;
 }
 
-.ucubook-container .sidebar-group .building-group .building-options .building-button {
+.floors-section {display: none;}
+.active {display: block;}
+
+.building-button {
   background-color: #903a39;
   color: #ffffff;
   border-radius: 3px;
   border: none;
-  width: 12rem;
+  width: 150px;
   margin-bottom: 2.8rem;
-  height: 3.4rem;
+  height: 30px;
   flex-shrink: 0;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
-  box-shadow: 0 0 0 transparent;
+  transition: all 0.5s;
 }
 
-.ucubook-container .sidebar-group .building-group .building-options .building-button-current {
-  background-color: #DB7941;
+.current {background-color: #DB7941;}
+
+
+@media only screen and (max-width: 768px) {
+  .map-container{
+    width: 60%;
+  }
+}
+
+
+/* login */
+
+section .signin
+{
+  width: 29vw;
+  background: #f6f6f6;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #B9B9B9;
+}
+  
+section .signin .content 
+{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signin .content .form 
+{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+section .signin .content .form .loginButtons
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.loginButtons button {
+  background-color: #707070;
   color: #ffffff;
-  font-weight: 700;
   border-radius: 3px;
   border: none;
-  width: 12rem;
-  margin-bottom: 2.8rem;
-  height: 3.4rem;
-  flex-shrink: 0;
+  width: 13vw;
+  height: 3vw;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
-  box-shadow: 0 0 0 transparent;
+  transition: all 0.5s;
 }
 
-.ucubook-container .sidebar-group .building-group .building-options .building-button:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.loginButtons button:hover {
+  background-color: #585858;
 }
 
-.ucubook-container .sidebar-group .building-group .building-options .building-button:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+section .signin .content .form .inputBox
+{
+  position: relative;
+  width: 100%;
 }
 
-.ucubook-container .sidebar-group .building-group .building-options .building-button-current:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+section .signin .content .form .inputBox input 
+{
+  position: relative;
+  width: 100%;
+  background: #FDFDFD;
+  padding: 10px 10px 7.5px;
+  border-radius: 4px;
+  color: #828282;
+  border: 1px solid #B9B9B9;
 }
 
-.ucubook-container .sidebar-group .building-group .building-options .building-button-current:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+section .signin .content .form .inputBox i 
+{
+  position: absolute;
+  left: 0;
+  padding: 1.7% 10px;
+  font-style: normal;
+  color: #171717;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.signin .content .form .inputBox input:focus ~ i,
+.signin .content .form .inputBox input:valid ~ i
+
+{
+  transform: translateY(-7.5px);
+  font-size: 0.8em;
+  color: #fff;
+}
+
+section .signin .content .form .links 
+{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+section .signin .content .form .links a
+{
+  color: #4f4f4f;
+  text-decoration: none;
+}
+section .signin .content .form .links a:hover 
+{
+  color: #1e1e1e;
+  text-decoration: none;
+}
+
+@media (max-width: 900px)
+{
+  section span 
+  {
+    width: calc(10vw - 2px);
+    height: calc(10vw - 2px);
+  }
+}
+@media (max-width: 600px)
+{
+  section span 
+  {
+    width: calc(20vw - 2px);
+    height: calc(20vw - 2px);
+  }
 }
