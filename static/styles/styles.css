@@ -99,6 +99,37 @@ body {width: 100%;font-size: 16px;}
   flex-shrink: 0;
 }
 
+.search-bar {
+  margin-right: 4.4rem;
+  width: 19.2rem;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  margin-top: 2.5rem;
+}
+
+#searchInput {
+  background-color: #f6f6f6;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.search-bar button {
+  background-color: #903a39;
+  color: #ffffff;
+  border-radius: 3px;
+  border: none;
+  width: 5rem;
+  height: 3rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.5s;
+
+}
+
+
+
 /* floors bar styles */
 .floors {
   margin: 2rem 4.4rem 0rem 0rem;
