@@ -4,8 +4,6 @@ DB module
 import os
 from google.cloud import bigquery
 
-
-
 class DBOperations:
     """
     Db operations class
