@@ -20,7 +20,7 @@ class DBOperations:
         self.data_id = "ucubook"
         self.dataset = bigquery.Dataset(f"{self.client.project}.{self.data_id}")
         self.dataset.location = "EU"
-    def get_data(self, datatype, name):
+    def get_data(self, datatype, name, attr=None):
         """
         Get data from the database
         """
@@ -42,6 +42,11 @@ class DBOperations:
                 _name = "room_name"
             case _:
                 raise ValueError(f"Invalid data type {datatype}")
+        if attr:
+            table=self.client.get_table(self.dataset.table(table_id))
+            if not any(i.name==attr for i in table.schema):
+                raise ValueError(f"No {attr} in {datatype}")
+            _name=attr
         sql_query = f"""
         SELECT *
         FROM `{self.proj_id}.{self.data_id}.{table_id}`
@@ -51,8 +56,6 @@ class DBOperations:
         row_data = [dict(row.items()) for row in query_job]
         if len(row_data) == 0 and datatype != "requests":
             raise ValueError(f"{datatype} {name} not found")
-        if len(row_data) > 1 and datatype != "requests":
-            raise ValueError(f"Multiple {datatype} with name {name} found")
         return row_data[0] if len(row_data) == 1 else row_data
     @staticmethod
     def check_input(input_data, expected_keys):
@@ -127,15 +130,7 @@ if __name__ == "__main__":
         {"name": "АК", "floors": 5},
         {"name": "ХС", "floors": 2},
     ]
-    # DBOperations.add_data("building",data)
     MyDb=DBOperations()
     print(MyDb.get_data("building", "ХС"))
     print(MyDb.get_data("users", "admin"))
-    # add_data("users",{"login":"admin","password":"admin","can_rent":True,"group":9})
-    # add_data("rooms",{"name":"ЦШ-403","capacity":10,"is_free":True})
-    # add_data("requests",[
-    #     {"room_name":"ХС-301","renter":"user1",
-    #       "busy_from":"12","busy_to":"13","day":"2022-01-01"},
-    #     {"room_name":"ХС-301","renter":"user2",
-    #       "busy_from":"13","busy_to":"14","day":"2022-01-01"},]
-    #     )
+    print(MyDb.get_data("building", "5", "floors"))
