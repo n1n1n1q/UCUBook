@@ -30,12 +30,12 @@
   <section>
    <div class="signin"> 
     <div class="content"> 
-     <div class="form"> 
+    <form class="form" action="/login" method="post"> 
       <div class="inputBox"> 
-       <input type="text" required> <i>Користувач</i> 
+       <input type="text" name="name" required> <i>Користувач</i> 
       </div> 
       <div class="inputBox"> 
-       <input type="password" required> <i>Пароль</i> 
+       <input type="password" name="password" required> <i>Пароль</i> 
       </div> 
       <div class="links"> <a href="#">Забули пароль?</a> <a href="#">Вперше на сайті?</a> 
       </div>
@@ -47,7 +47,7 @@
         <button>Google login</button>
       </div>
      </div>
-    </div>
+    </form>
     </div> 
    </div>
    </section>
