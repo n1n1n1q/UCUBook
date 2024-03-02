@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="../static/styles/styles.css">
 </head>
 <body>
-<div class="ucubook">
-  <div class="header-group">
+<div class="ucubook" id="requests">
+  <div class="header-group" id="requestsHeader">
     <div class="header-background">
     </div>
     <img id="loginIcon" class="login-icon" src="../static/assets/user.png" alt="Login/User icon">
@@ -28,9 +28,21 @@
     </div>
   </div>
   <div id="requestsHistory">
-    <h1>Історія бронювань</h1>
-    <div id="requestsContainer"></div>
+    <div id="requestText">Історія бронювань</div>
+    <div id="requestsContainer">
+      {% for i in range(5) %}
+      <hr>
+      <div class="request">
+        <div class="request-info">
+          <p class="request-main">Аудиторія №х; Дата і проміжок часу</p>
+          <p class="request-description">Опис...</p>
+        </div>
+        <div class="{{ get_random() }}">Статус</div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 <script src="../static/scripts/popup.js"></script>
+<!-- <script src="../static/scripts/user_requests.js"></script> -->
 </body>
 </html>

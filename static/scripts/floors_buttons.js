@@ -15,7 +15,6 @@ function generateButtons(data) {
         buildingButton.innerText = buildingData.building;
         buildingButton.addEventListener('click', () => {
             showFloors(buildingData.building);
-
         });
         buildingsContainer.appendChild(buildingButton);
 
