@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="../static/styles/styles.css">
 </head>
 <body>
-<div class="ucubook">
-  <div class="header-group">
+<div class="ucubook" id="requests">
+  <div class="header-group" id="requestsHeader">
     <div class="header-background">
     </div>
     <img id="loginIcon" class="login-icon" src="../static/assets/user.png" alt="Login/User icon">
@@ -27,9 +27,41 @@
       </ul>
     </div>
   </div>
-  <div id="requestsHistory">
-    <h1></h1>
-    <div id="requestsContainer"></div>
+  <div class="admin-requests"> 
+    <div id="pendingRequestsContainer"> 
+        <div id="adminText">Запити, які очікують підтвердження</div>
+        {% for i in range(4) %}
+        <hr>
+        <div class="pending-requests">
+          
+          <div class="pending-info">
+            <p class="pending-main">[Аудиторія], xx.yy.zz XX.00 - YY.00</p>
+            <p class="pending-name">Подія</p>
+            <p class="pending-description">Опис</p>
+            <p class="pending-renter">ПІ</p>
+            <p class="pending-num">Моб. тел.</p>
+          </div>
+          <div class="pending-buttons">
+            <button class="accept">Підтвердити</button>
+            <button class="decline">Відмовити</button>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="prevRequestsContainer">
+      <div id="prevText">Історія бронювань</div>
+      {% for i in range(8) %}
+      <hr>
+      <div class="prev-requests">
+        <div class="prev-info">
+          <p class="prev-main">[Аудиторія], xx.yy.zz XX.00 - YY.00</p>
+          <p class="prev-description">Опис</p>
+        </div>
+        <div class="prev-status">Статус</div>
+      </div>
+      {% endfor %}
+      </div>
+    </div>
   </div>
 <script src="../static/scripts/popup.js"></script>
 </body>
