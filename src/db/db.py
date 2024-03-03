@@ -3,12 +3,11 @@ DB module
 """
 import os
 from google.cloud import bigquery
-
 class DBOperations:
     """
     Db operations class
     """
-    def __init__(self):
+    def set_up(self):
         """
         Set up the database
         """
@@ -23,6 +22,9 @@ class DBOperations:
     def get_data(self, datatype, name, attr=None):
         """
         Get data from the database
+        datatype - <users, building, rooms, requests>
+        name - column's name, 'all' - to get all data
+        attr - search for specific column name
         """
         if not isinstance(name, str):
             raise ValueError("Invalid input data")
@@ -51,7 +53,7 @@ class DBOperations:
         SELECT *
         FROM `{self.proj_id}.{self.data_id}.{table_id}`
         WHERE {_name} = '{name}'
-    """
+    """ if name != 'all' else f"SELECT * FROM `{self.proj_id}.{self.data_id}.{table_id}`"
         query_job = self.client.query(sql_query)
         row_data = [dict(row.items()) for row in query_job]
         if len(row_data) == 0 and datatype != "requests":
@@ -123,7 +125,6 @@ class DBOperations:
         else:
             print(f"Encountered errors while inserting rows: {errors}")
 
-
 if __name__ == "__main__":
     data = [
         {"name": "ЦШ", "floors": 6},
@@ -134,3 +135,5 @@ if __name__ == "__main__":
     print(MyDb.get_data("building", "ХС"))
     print(MyDb.get_data("users", "admin"))
     print(MyDb.get_data("building", "5", "floors"))
+    print(MyDb.get_data("building","all"))
+    MyDb.add_data('rooms',[{'name':'ЦШ-202', 'capacity': 20},{'name':'ЦШ-303', 'capacity': 20},{'name':'ЦШ-404', 'capacity': 20}])
