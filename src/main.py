@@ -6,6 +6,9 @@ from routers import search_bar
 import db.db as db
 
 def get_random():
+    """
+    Placeholder func //DELETE
+    """
     from random import choice
     return choice(["status confirmed", "status declined"])
 
@@ -22,6 +25,9 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def read_index(request: Request, id=None):
+    """
+    Renders index page
+    """
     return templates.TemplateResponse(
         "index.html",
         {"request": request, "id": id}
@@ -29,6 +35,9 @@ async def read_index(request: Request, id=None):
 
 @app.get("/admin", response_class=HTMLResponse)
 async def read_admin(request: Request):
+    """
+    Renders admin page
+    """
     return templates.TemplateResponse(
         "admin_requests.html",
         {"request": request, "id": id}
@@ -36,6 +45,9 @@ async def read_admin(request: Request):
 
 @app.get("/login", response_class=HTMLResponse)
 async def read_login(request: Request):
+    """
+    Renders login page
+    """
     return templates.TemplateResponse(
         "login.html",
         {"request": request, "id": id}
@@ -43,14 +55,17 @@ async def read_login(request: Request):
 
 @app.get("/requests", response_class=HTMLResponse)
 async def read_requests(request: Request):
+    """
+    Renders requests page
+    """
     template=templates.TemplateResponse(
         "user_requests.html",
         {"request": request, "id": id, "get_random": get_random}
     )
     return template
-    
+
 
 app.include_router(search_bar.router)
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8002,reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8004)

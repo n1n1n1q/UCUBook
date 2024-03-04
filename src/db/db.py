@@ -103,7 +103,7 @@ class DBOperations:
                 table_id = "requests"
                 if not DBOperations.check_input(
                     data, ["room_name", "renter", "busy_from", "busy_to", "day",
-                            "event_name", "description"]
+                            "event_name", "description","status"]
                 ):
                     raise ValueError("Invalid input data")
             case _:
@@ -115,7 +115,9 @@ class DBOperations:
                 except ValueError:
                     pass
                 else:
-                    raise FileExistsError(f"{datatype} {i[_name]} already exists")
+                    raise ValueError(f"{datatype} {i[_name]} already exists")
+        elif self.is_valid_request(data):
+            raise ValueError()
         table_id = self.data_id + "." + table_id
         errors = self.client.insert_rows_json(
             table_id, data if isinstance(data, list) else [data]
@@ -124,7 +126,19 @@ class DBOperations:
             print("New rows have been added.")
         else:
             print(f"Encountered errors while inserting rows: {errors}")
-
+    def is_valid_request(self,data):
+        """
+        Checks whether the request is valid
+        """
+        query=f"""SELECT *
+FROM `{self.proj_id}.{self.data_id}.building`
+WHERE room_name = '{data["room_name"]}' 
+  AND day = '{data["day"]}'
+  AND renter = '{data["renter"]}' 
+  AND busy_from <= '{data["busy_from"]}'
+  AND busy_to >= '{data["busy_to"]}';
+"""
+        return not bool(self.client.query(query))
 if __name__ == "__main__":
     data = [
         {"name": "ЦШ", "floors": 6},
@@ -132,8 +146,14 @@ if __name__ == "__main__":
         {"name": "ХС", "floors": 2},
     ]
     MyDb=DBOperations()
+    MyDb.set_up()
     print(MyDb.get_data("building", "ХС"))
     print(MyDb.get_data("users", "admin"))
     print(MyDb.get_data("building", "5", "floors"))
     print(MyDb.get_data("building","all"))
-    MyDb.add_data('rooms',[{'name':'ЦШ-202', 'capacity': 20},{'name':'ЦШ-303', 'capacity': 20},{'name':'ЦШ-404', 'capacity': 20}])
+    # MyDb.add_data('rooms',[{'name':'ЦШ-202', 'capacity': 20},
+    #               {'name':'ЦШ-303', 'capacity': 20},{'name':'ЦШ-404', 'capacity': 20}])
+    print(MyDb.is_valid_request({'room_name':'ХС-013',
+                                 'busy_from':'12','busy_to':'13',
+                                 'day':'2022-01-01','renter':'user1'})
+                                 )
