@@ -3,22 +3,26 @@ DB module
 """
 import os
 from google.cloud import bigquery
+
+
 class DBOperations:
     """
     Db operations class
     """
+
     def set_up(self):
         """
         Set up the database
         """
         os.environ[
-        "GOOGLE_APPLICATION_CREDENTIALS"
+            "GOOGLE_APPLICATION_CREDENTIALS"
         ] = "src/db/magnetic-nimbus-414610-2bcd9c115d01.json"
         self.client = bigquery.Client()
         self.proj_id = self.client.project
         self.data_id = "ucubook"
         self.dataset = bigquery.Dataset(f"{self.client.project}.{self.data_id}")
         self.dataset.location = "EU"
+
     def get_data(self, datatype, name, attr=None):
         """
         Get data from the database
@@ -45,20 +49,25 @@ class DBOperations:
             case _:
                 raise ValueError(f"Invalid data type {datatype}")
         if attr:
-            table=self.client.get_table(self.dataset.table(table_id))
-            if not any(i.name==attr for i in table.schema):
+            table = self.client.get_table(self.dataset.table(table_id))
+            if not any(i.name == attr for i in table.schema):
                 raise ValueError(f"No {attr} in {datatype}")
-            _name=attr
-        sql_query = f"""
+            _name = attr
+        sql_query = (
+            f"""
         SELECT *
         FROM `{self.proj_id}.{self.data_id}.{table_id}`
         WHERE {_name} = '{name}'
-    """ if name != 'all' else f"SELECT * FROM `{self.proj_id}.{self.data_id}.{table_id}`"
+    """
+            if name != "all"
+            else f"SELECT * FROM `{self.proj_id}.{self.data_id}.{table_id}`"
+        )
         query_job = self.client.query(sql_query)
         row_data = [dict(row.items()) for row in query_job]
         if len(row_data) == 0 and datatype != "requests":
             raise ValueError(f"{datatype} {name} not found")
         return row_data[0] if len(row_data) == 1 else row_data
+
     @staticmethod
     def check_input(input_data, expected_keys):
         """
@@ -102,8 +111,17 @@ class DBOperations:
                 _name = "room_name"
                 table_id = "requests"
                 if not DBOperations.check_input(
-                    data, ["room_name", "renter", "busy_from", "busy_to", "day",
-                            "event_name", "description","status"]
+                    data,
+                    [
+                        "room_name",
+                        "renter",
+                        "busy_from",
+                        "busy_to",
+                        "day",
+                        "event_name",
+                        "description",
+                        "status",
+                    ],
                 ):
                     raise ValueError("Invalid input data")
             case _:
@@ -126,34 +144,102 @@ class DBOperations:
             print("New rows have been added.")
         else:
             print(f"Encountered errors while inserting rows: {errors}")
-    def is_valid_request(self,data):
+
+    def is_valid_request(self, data):
         """
         Checks whether the request is valid
         """
-        query=f"""SELECT *
-FROM `{self.proj_id}.{self.data_id}.building`
+        query = f"""SELECT *
+FROM `{self.proj_id}.{self.data_id}.requests`
 WHERE room_name = '{data["room_name"]}' 
   AND day = '{data["day"]}'
   AND renter = '{data["renter"]}' 
-  AND busy_from <= '{data["busy_from"]}'
-  AND busy_to >= '{data["busy_to"]}';
+  AND busy_from <= {data["busy_from"]}
+  AND busy_to >= {data["busy_to"]};
 """
-        return not bool(self.client.query(query))
+        return not [dict(row.items()) for row in self.client.query(query)]
+
+    def update_request_status(self, request, new_status):
+        """
+        Update request's status
+        """
+        if not DBOperations.check_input(
+            request,
+            [
+                "room_name",
+                "renter",
+                "busy_from",
+                "busy_to",
+                "day",
+                "event_name",
+                "description",
+                "status",
+            ],
+        ):
+            raise ValueError("Invalid input data")
+        request_list = self.get_data("requests", "all")
+        if request not in request_list:
+            raise ValueError("Invalid input data")
+        query = f"""UPDATE `{self.proj_id}.{self.data_id}.requests`
+SET status = {new_status}
+WHERE room_name = '{request["room_name"]}' 
+  AND day = '{request["day"]}'
+  AND renter = '{request["renter"]}' 
+  AND busy_from = {request["busy_from"]}
+  AND busy_to = {request["busy_to"]};
+"""
+        query_job = self.client.query(query)
+        query_job.result()
+
+
 if __name__ == "__main__":
     data = [
         {"name": "ЦШ", "floors": 6},
         {"name": "АК", "floors": 5},
         {"name": "ХС", "floors": 2},
     ]
-    MyDb=DBOperations()
+    MyDb = DBOperations()
     MyDb.set_up()
     print(MyDb.get_data("building", "ХС"))
     print(MyDb.get_data("users", "admin"))
     print(MyDb.get_data("building", "5", "floors"))
-    print(MyDb.get_data("building","all"))
+    print(MyDb.get_data("building", "all"))
     # MyDb.add_data('rooms',[{'name':'ЦШ-202', 'capacity': 20},
     #               {'name':'ЦШ-303', 'capacity': 20},{'name':'ЦШ-404', 'capacity': 20}])
-    print(MyDb.is_valid_request({'room_name':'ХС-013',
-                                 'busy_from':'12','busy_to':'13',
-                                 'day':'2022-01-01','renter':'user1'})
-                                 )
+    print(
+        MyDb.is_valid_request(
+            {
+                "room_name": "ХС-301",
+                "busy_from": "12",
+                "busy_to": "13",
+                "day": "2022-01-01",
+                "renter": "user1",
+            }
+        )
+    )
+    print(
+        MyDb.is_valid_request(
+            {
+                "room_name": "ХС-301",
+                "busy_from": "15",
+                "busy_to": "16",
+                "day": "2022-01-01",
+                "renter": "user1",
+            }
+        )
+    )
+    print(
+        MyDb.update_request_status(
+            {
+                "room_name": "ХС-301",
+                "busy_from": 12,
+                "busy_to": 13,
+                "day": "2022-01-01",
+                "renter": "user1",
+                "event_name": None,
+                "description": None,
+                "status": 1,
+            },
+            2,
+        )
+    )
