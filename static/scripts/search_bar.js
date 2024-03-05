@@ -42,9 +42,9 @@ async function searchRooms() {
             roomDiv.classList.add("found-room");
             roomDiv.id = room;
             roomDiv.textContent = room;
-            roomDiv.addEventListener("click", () => {
-                requestMenu(roomDiv.id);
-            });
+            // roomDiv.addEventListener("click", () => {
+                // requestMenu(roomDiv.id);
+            // });
             foundRoomsList.appendChild(roomDiv);
         });
         foundRoomsDiv.appendChild(foundRoomsList);
@@ -57,11 +57,19 @@ async function searchRooms() {
     }
 }
 
-function requestMenu(roomId) {
-    const menu = document.getElementById("requestMenu");
-    
-    
-}
+// function createRequestMenu(roomId) {
+//     const page = document.getElementsByClassName("ucubook");
 
+//     const requestMenu = document.createElement("div");
+//     requestMenu.classList.add("request-menu");
+//     requestMenu.id = roomId;
+//     const roomName = document.createElement("p");
+//     roomName.classList.add("room-name");
+//     roomName.textContent = "Бронювання" + roomId;
+    
+
+
+
+// }
 
 initializeSearchBar()
