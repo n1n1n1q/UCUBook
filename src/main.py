@@ -1,20 +1,18 @@
-from fastapi import FastAPI, Request, status, Form
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from models import *
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from datetime import datetime, timedelta
-from jose import JWTError, jwt
-import db.db as db
-database = db.DBOperations()
-database.set_up()
-app = FastAPI()
 from routers import search_bar
+import db.db as db
 
 def get_random():
     from random import choice
     return choice(["status confirmed", "status declined"])
+
+
+database = db.DBOperations()
+database.set_up()
+app = FastAPI()
 
 search_bar.set_db(database)
 
@@ -48,7 +46,15 @@ async def read_requests(request: Request):
         "user_requests.html",
         {"request": request, "id": id, "get_random": get_random}
     )
+    return template
 
+@app.post("/book-room", response_class=HTMLResponse)
+async def send_request(request: Request):
+    database.add_data(request)
+    return 'REQUEST DENIED'
+
+
+app.include_router(search_bar.router)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8002,reload=True)
