@@ -177,14 +177,23 @@ body {
 }
 
 .floor-title, .building-title{
+  width:17rem;
   max-width: 19.2rem;
-  font-size: 20px;
+  font-size: 27px;
   font-weight: 400;
   line-height: 1.2125;
   color: #000000;
   font-family: 'Inter', 'Source Sans Pro';
   flex-shrink: 0;
-  align-items: center;
+  text-align: center;
+}
+.floor-title
+{
+  margin-right: 14px;
+}
+.building-title
+{
+  margin-left: 14px;
 }
 
 #floorsContainer, #buildingsContainer{
@@ -512,3 +521,40 @@ section .loginButtons button {
   height: 44px;
   margin: 10px 10px 0 0;
 }
+
+/* errors page */
+#errorContainer
+{
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+#errorText
+{
+  font-size: 24px;
+}
+#readressButton
+{
+  background-color: #7f1716;
+  color:#FFF;
+  border: None;
+  width: 23.5rem;
+  height: 6.3rem;
+  margin: 0 10px 10px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+}
+#readressButton:active
+{
+  background-color: #903a39;
+  animation: all 0.5s; 
+
+}
+#readressText
+{
+  margin-top: 8px;
+}
+

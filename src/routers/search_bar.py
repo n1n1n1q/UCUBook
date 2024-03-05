@@ -10,7 +10,7 @@ class SearchInput(BaseModel):
     Search input
     """
     input_data: str
-router = APIRouter()
+search_bar_router = APIRouter()
 
 def set_db(db: DBOperations):
     """
@@ -18,9 +18,9 @@ def set_db(db: DBOperations):
     """
     global database
     database=db
-    print(database.get_data("building","all"))
+    print("WTF")
 
-@router.post("/search")
+@search_bar_router.post("/search")
 async def search(search_input: SearchInput):
     """
     Search through db function
