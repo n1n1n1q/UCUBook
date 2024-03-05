@@ -1,16 +1,21 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends, Form, HTTPException, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
+
 from routers import search_bar
+from dependencies import auth
+
 import db.db as db
+
 
 def get_random():
     """
     Placeholder func //DELETE
     """
     from random import choice
+
     return choice(["status confirmed", "status declined"])
 
 
@@ -18,8 +23,9 @@ database = db.DBOperations()
 database.set_up()
 app = FastAPI()
 
-
+# Setting up dbs
 search_bar.set_db(database)
+auth.set_db(database)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -28,52 +34,69 @@ templates = Jinja2Templates(directory="templates")
 
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request: Request, exc: StarletteHTTPException):
+    """
+    404 exception handler
+    """
     if exc.status_code == 404:
         return RedirectResponse(url="/not_found")
+    if exc.status_code == 307:
+        return RedirectResponse(url="/login")
     return await request.app.handle_exception(request, exc)
 
 # Rendering HTMLs
 
+
 @app.get("/", response_class=HTMLResponse)
-async def read_index(request: Request, id=None):
+async def read_index(request: Request, id=None, user=Depends(auth.Authentication.get_current_user)):
     """
-    Renders index page
+    Index.html render
     """
     return templates.TemplateResponse(
-        "index.html",
-        {"request": request, "id": id}
+        "index.html", {"request": request, "id": id, "user": user}
     )
 
+
 @app.get("/admin", response_class=HTMLResponse)
-async def read_admin(request: Request):
+async def read_admin(request: Request, user=Depends(auth.Authentication.get_current_user)):
     """
-    Renders admin page
+    Admin page render
     """
+    user_info=database.get_data("users",user)
+    # print(user_info)
+    if user_info['group']<=3:
+        return RedirectResponse(url="/not_found")
     return templates.TemplateResponse(
-        "admin_requests.html",
-        {"request": request, "id": id}
+        "admin_requests.html", {"request": request, "id": id, "user": user}
     )
+
 
 @app.get("/login", response_class=HTMLResponse)
 async def read_login(request: Request):
     """
-    Renders login page
+    Login page render
     """
-    return templates.TemplateResponse(
-        "login.html",
-        {"request": request, "id": id}
-    )
+    return templates.TemplateResponse("login.html", {"request": request, "id": id})
+
+
+@app.get("/logout")
+async def logout(request: Request):
+    """
+    Logout readress
+    """
+    response = RedirectResponse("/login")
+    response.delete_cookie(key="access_token")
+    return response
+
 
 @app.get("/requests", response_class=HTMLResponse)
-async def read_requests(request: Request):
+async def read_requests(request: Request, user=Depends(auth.Authentication.get_current_user)):
     """
-    Renders requests page
+    Requests render
     """
-    template=templates.TemplateResponse(
-        "user_requests.html",
-        {"request": request, "id": id, "get_random": get_random}
+    return templates.TemplateResponse(
+        "user_requests.html", {"request": request, "id": id, "get_random": get_random}
     )
-    return template
+
 
 @app.get("/not_found", response_class=HTMLResponse)
 async def not_found(request: Request):
@@ -81,10 +104,29 @@ async def not_found(request: Request):
     Renders the not found page
     """
     template = templates.TemplateResponse(
-        "error_page.html",
-        {"request": request, "id": id}
+        "error_page.html", {"request": request, "id": id}
     )
     return template
+
+
+@app.post("/login")
+def add(name: str = Form(...), password: str = Form(...)):
+    """
+    Login button logic
+    """
+    current_user = auth.Authentication.authenticate_user(name, password)
+
+    if current_user:
+        url = app.url_path_for("read_index")
+        token = auth.Authentication.create_access_token(data={"user": current_user})
+        response = RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
+        response.set_cookie(key="access_token", value=token, httponly=True)
+
+        return response
+
+    url = app.url_path_for("read_login")
+    return RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
+
 
 # Routers
 
@@ -92,4 +134,4 @@ app.include_router(search_bar.search_bar_router)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8004)
+    uvicorn.run("main:app", host="0.0.0.0", port=8001)
