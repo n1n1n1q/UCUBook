@@ -16,26 +16,17 @@
   <div class="header-group">
     <div class="header-background">
     </div>
-    <img id="loginIcon" class="login-icon" src="../static/assets/user.png" alt="Login/User icon">
     <a href="/"><img class="logo-image" src="../static/assets/image-1.png"/></a>
-    <!-- pop-up menu -->
-    <div class="popup-menu" id="popupMenu">
-      <ul>
-        <li><a href="requests">Історія бронювань</a></li>
-        <li><a href="admin">Керування</a></li>
-        <li><a id="logout" href="#">Вийти</a></li>
-      </ul>
-    </div>
   </div>
   <section>
    <div class="signin"> 
     <div class="content"> 
-     <div class="form"> 
+    <form class="form" action="/login" method="post"> 
       <div class="inputBox"> 
-       <input type="text" required> <i>Користувач</i> 
+       <input type="text" name="name" required> <i>Користувач</i> 
       </div> 
       <div class="inputBox"> 
-       <input type="password" required> <i>Пароль</i> 
+       <input type="password" name="password" required> <i>Пароль</i> 
       </div> 
       <div class="links"> <a href="#">Забули пароль?</a> <a href="#">Вперше на сайті?</a> 
       </div>
@@ -47,7 +38,7 @@
         <button>Google login</button>
       </div>
      </div>
-    </div>
+    </form>
     </div> 
    </div>
    </section>

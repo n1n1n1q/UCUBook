@@ -18,7 +18,7 @@ def set_db(db: DBOperations):
     """
     global database
     database=db
-    print("WTF")
+    print("search bar db set up: success!")
 
 @search_bar_router.post("/search")
 async def search(search_input: SearchInput):
