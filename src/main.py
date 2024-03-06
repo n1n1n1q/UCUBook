@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from routers import search_bar
+from routers import search_bar, user
 from dependencies import auth
 
 import db.db as db
@@ -26,11 +26,13 @@ app = FastAPI()
 # Setting up dbs
 search_bar.set_db(database)
 auth.set_db(database)
+user.set_db(database)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # 404 EXCEPTIONS HANDLING
+
 
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request: Request, exc: StarletteHTTPException):
@@ -43,11 +45,14 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
         return RedirectResponse(url="/login")
     return await request.app.handle_exception(request, exc)
 
+
 # Rendering HTMLs
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_index(request: Request, id=None, user=Depends(auth.Authentication.get_current_user)):
+async def read_index(
+    request: Request, id=None, user=Depends(auth.Authentication.get_current_user)
+):
     """
     Index.html render
     """
@@ -57,13 +62,15 @@ async def read_index(request: Request, id=None, user=Depends(auth.Authentication
 
 
 @app.get("/admin", response_class=HTMLResponse)
-async def read_admin(request: Request, user=Depends(auth.Authentication.get_current_user)):
+async def read_admin(
+    request: Request, user=Depends(auth.Authentication.get_current_user)
+):
     """
     Admin page render
     """
-    user_info=database.get_data("users",user)
+    user_info = database.get_data("users", user)
     # print(user_info)
-    if user_info['group']<=3:
+    if user_info["group"] <= 3:
         return RedirectResponse(url="/not_found")
     return templates.TemplateResponse(
         "admin_requests.html", {"request": request, "id": id, "user": user}
@@ -89,7 +96,9 @@ async def logout(request: Request):
 
 
 @app.get("/requests", response_class=HTMLResponse)
-async def read_requests(request: Request, user=Depends(auth.Authentication.get_current_user)):
+async def read_requests(
+    request: Request, user=Depends(auth.Authentication.get_current_user)
+):
     """
     Requests render
     """
@@ -134,4 +143,6 @@ app.include_router(search_bar.search_bar_router)
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("main:app", host="0.0.0.0", port=8001)
+
