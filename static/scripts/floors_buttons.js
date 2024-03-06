@@ -34,6 +34,10 @@ function generateButtons(data) {
             floorsListDiv.appendChild(floorButton);
         }
     });
+    const buildingNames = buildingsData.map(data => data.building);
+    const defaultBuilding = document.getElementById(buildingNames[0]+'-button');
+    showFloors(buildingNames[0]);
+    activeFloor(buildingNames[0]+'-floor-0');
 }
 
 function showFloors(buildingName) {
@@ -48,7 +52,8 @@ function showFloors(buildingName) {
         } else {building.classList.add('current');}
     });
     const floorsList = document.getElementById(buildingName);
-    if (floorsList) {floorsList.classList.add('active');}
+    if (floorsList) {floorsList.classList.add('active');
+    }
 }
 
 function activeFloor(floorId) {
@@ -62,4 +67,7 @@ function activeFloor(floorId) {
     });
 }
 
-generateButtons(buildingsData);
+function generateMap (floor) {
+    // !!!
+}
+generateButtons(buildingsData)

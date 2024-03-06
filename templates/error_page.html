@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/static/assets/ucu.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>UCUBook</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Serif+Pro%3A400"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter%3A400"/>
+  <link rel="stylesheet" href="../static/styles/styles.css">
+</head>
+<body>
+<div class="ucubook">
+  <div class="header-group">
+    <div class="header-background">
+    </div>
+    <img id="loginIcon" class="login-icon" src="../static/assets/user.png" alt="Login/User icon">
+    <a href="/"><img class="logo-image" src="../static/assets/image-1.png"/></a>
+    <!-- pop-up menu -->
+    <div class="popup-menu" id="popupMenu">
+      <ul>
+        <li><a href="requests">Історія бронювань</a></li>
+        <li><a href="admin">Керування</a></li>
+        <li><a id="logout" href="#">Вийти</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="errorContainer">
+    <div id="errorText">Такої сторінки не існує, <br>
+      або у Вас немає доступу до неї</div>
+    </div>
+  <a id="readressButton" href="/">
+    <p id="readressText">На головну</p></a>
+</div>
+</body>
+</html>
