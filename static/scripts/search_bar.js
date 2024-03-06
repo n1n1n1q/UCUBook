@@ -1,7 +1,21 @@
+document.addEventListener("keyup", function closeMenuOnEscape(event) {
+    if (event.key === "Escape") {
+        closeMenu();
+    }
+});
+
 function initializeSearchBar() {
     const searchRoomsButton = document.getElementById("searchButton");
     searchRoomsButton.addEventListener("click", searchRooms);
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function searchEnter(event) {
+        if (event.key === "Enter") {
+            event.preventDefault;
+            searchRooms();
+        }
+    });
 }
+
 async function searchRooms() {
     console.log("Taadadsad")
     const searchInput = document.getElementById("searchInput").value.trim();
@@ -42,9 +56,9 @@ async function searchRooms() {
             roomDiv.classList.add("found-room");
             roomDiv.id = room;
             roomDiv.textContent = room;
-            // roomDiv.addEventListener("click", () => {
-                // requestMenu(roomDiv.id);
-            // });
+            roomDiv.addEventListener("click", () => {
+                createRequestMenu(roomDiv.id);
+            });
             foundRoomsList.appendChild(roomDiv);
         });
         foundRoomsDiv.appendChild(foundRoomsList);
@@ -57,19 +71,51 @@ async function searchRooms() {
     }
 }
 
-// function createRequestMenu(roomId) {
-//     const page = document.getElementsByClassName("ucubook");
+function showAvailableTimeSlots(date) {
+    console.log("idi nahui" + date)
+}
 
-//     const requestMenu = document.createElement("div");
-//     requestMenu.classList.add("request-menu");
-//     requestMenu.id = roomId;
-//     const roomName = document.createElement("p");
-//     roomName.classList.add("room-name");
-//     roomName.textContent = "Бронювання" + roomId;
+function createRequestMenu(roomId) {
+    const screenBlur = document.getElementById("menuOverlay");
+
+    const requestMenu = document.getElementById("requestMenu");
+    requestMenu.innerHTML = "";
+    const roomName = document.createElement("p");
+    const inputDiv = document.createElement("div");
+    const dateInputText = document.createElement("p");
+    const dateInput = document.createElement("input");
+    const inputSubmitButton = document.createElement("button");
     
+    roomName.textContent = roomId;
+    dateInputText.textContent = "idinahui";
+    dateInput.type = "date";
+    dateInput.addEventListener("input", showAvailableTimeSlots(inputSubmitButton.value));
+
+    inputDiv.appendChild(dateInputText);
+    inputDiv.appendChild(dateInput);
+    inputDiv.appendChild(inputSubmitButton);
+
+    requestMenu.appendChild(roomName);
+    requestMenu.appendChild(inputDiv);
 
 
+    
+    const page = document.getElementById("ucubook");
+    page.style.filter = "blur(10px)";
+    requestMenu.style.display = "block";
+    requestMenu.style.filter = "none";
+    screenBlur.style.display = "block";
+    screenBlur.style.filter= "none";
 
-// }
+}
 
-initializeSearchBar()
+function closeMenu() {
+    const requestMenu = document.getElementById("requestMenu");
+    const blurOverlay = document.getElementById("menuOverlay");
+    requestMenu.style.display = "none";
+    blurOverlay.style.display = "none";
+
+}
+
+closeMenu();
+initializeSearchBar();
