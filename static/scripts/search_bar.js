@@ -72,7 +72,7 @@ async function searchRooms() {
 }
 
 function showAvailableTimeSlots(date) {
-    console.log("idi nahui" + date)
+    console.log("!!!" + date)
 }
 
 function createRequestMenu(roomId) {
@@ -87,7 +87,7 @@ function createRequestMenu(roomId) {
     const inputSubmitButton = document.createElement("button");
     
     roomName.textContent = roomId;
-    dateInputText.textContent = "idinahui";
+    dateInputText.textContent = "Дата";
     dateInput.type = "date";
     dateInput.addEventListener("input", showAvailableTimeSlots(inputSubmitButton.value));
 
