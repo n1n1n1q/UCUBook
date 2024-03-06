@@ -35,7 +35,6 @@ function generateButtons(data) {
         }
     });
     const buildingNames = buildingsData.map(data => data.building);
-    const defaultBuilding = document.getElementById(buildingNames[0]+'-button');
     showFloors(buildingNames[0]);
     activeFloor(buildingNames[0]+'-floor-0');
 }
@@ -54,6 +53,7 @@ function showFloors(buildingName) {
     const floorsList = document.getElementById(buildingName);
     if (floorsList) {floorsList.classList.add('active');
     }
+    activeFloor(buildingName+"-floor-0");
 }
 
 function activeFloor(floorId) {

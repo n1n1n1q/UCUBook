@@ -1,5 +1,6 @@
 html {
   font-size: 50%;
+  filter: none;
 }
 * {
   margin: 0;
@@ -17,7 +18,7 @@ body {
   font-size: 16px;
 }
 
-.ucubook {
+#ucubook {
   min-width: 50%;
   padding-bottom: 10rem;
   width: 100%;
@@ -30,7 +31,7 @@ body {
   justify-content: center;
 }
 
-  .ucubook .header-group {
+  #ucubook .header-group {
     margin-bottom: 6.4rem;
     width: 100%;
     max-width: 150%;
@@ -40,13 +41,13 @@ body {
     justify-content: center;
     align-items: center;
   }
-    .ucubook .header-group .header-background {
+    #ucubook .header-group .header-background {
       width: 100%;
       height: 100%;
       background-color: #7f1716;
     }
 
-    .ucubook .header-group .logo-image {
+    #ucubook .header-group .logo-image {
       position: absolute;
       left: 2rem;
       top: 50%;
@@ -558,3 +559,26 @@ section .loginButtons button {
   margin-top: 8px;
 }
 
+#requestMenu {
+  height: 30vw;
+  width: 50vw;
+  background-color: #585858;
+  border-radius: 0.5vw;
+  position: fixed;
+  z-index: 10;
+  display: none;
+}
+
+#menuOverlay {
+  position: fixed;
+  background-color: #000000;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+  
+}
