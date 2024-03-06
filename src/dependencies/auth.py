@@ -6,22 +6,25 @@ from db.db import DBOperations
 
 database: dict()
 
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = "GyattSigmaTylerDurdenSkibidi"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
 
 def set_db(db: DBOperations):
     """
     Set db
     """
     global database
-    database=db
+    database = db
     print("login db setup: success!")
+
 
 class Authentication:
     """
     Auth class
     """
+
     @staticmethod
     def create_access_token(data: dict):
         """
@@ -33,6 +36,7 @@ class Authentication:
         to_encode.update({"exp": expire})
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         return encoded_jwt
+
     @staticmethod
     def authenticate_user(name, password):
         """
@@ -46,6 +50,7 @@ class Authentication:
                 return None
         except ValueError:
             return None
+
     @staticmethod
     def get_current_user(request: Request):
         """

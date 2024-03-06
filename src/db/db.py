@@ -193,19 +193,17 @@ WHERE room_name = '{request["room_name"]}'
 
 
 if __name__ == "__main__":
-    data = [
-        {"name": "ЦШ", "floors": 6},
-        {"name": "АК", "floors": 5},
-        {"name": "ХС", "floors": 2},
-    ]
+    # data = [
+    #     {"name": "ЦШ", "floors": 6},
+    #     {"name": "АК", "floors": 5},
+    #     {"name": "ХС", "floors": 2},
+    # ]
     MyDb = DBOperations()
     MyDb.set_up()
     print(MyDb.get_data("building", "ХС"))
     print(MyDb.get_data("users", "admin"))
     print(MyDb.get_data("building", "5", "floors"))
     print(MyDb.get_data("building", "all"))
-    # MyDb.add_data('rooms',[{'name':'ЦШ-202', 'capacity': 20},
-    #               {'name':'ЦШ-303', 'capacity': 20},{'name':'ЦШ-404', 'capacity': 20}])
     print(
         MyDb.is_valid_request(
             {
@@ -228,18 +226,29 @@ if __name__ == "__main__":
             }
         )
     )
-    print(
-        MyDb.update_request_status(
-            {
-                "room_name": "ХС-301",
-                "busy_from": 12,
-                "busy_to": 13,
-                "day": "2022-01-01",
-                "renter": "user1",
-                "event_name": None,
-                "description": None,
-                "status": 1,
-            },
-            2,
-        )
+    # print(
+    #     MyDb.update_request_status(
+    #         {
+    #             "room_name": "ХС-301",
+    #             "busy_from": 12,
+    #             "busy_to": 13,
+    #             "day": "2022-01-01",
+    #             "renter": "user1",
+    #             "event_name": None,
+    #             "description": None,
+    #             "status": 1,
+    #         },
+    #         2,
+    #     )
+    # )
+    MyDb.add_data(
+        "users",
+        {
+            "login": "basystyi.pn",
+            "password": "superSecretPass",
+            "can_rent": True,
+            "group": 1,
+            "display_name": "Басистий Олег",
+        },
     )
+    # ["login", "password", "can_rent", "group", "display_name"]
