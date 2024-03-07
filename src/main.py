@@ -1,8 +1,10 @@
-from fastapi import FastAPI, Request, Depends, Form, HTTPException, status
+from fastapi import FastAPI, Request, Depends, Form, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
+import requests
+import json
 
 from routers import search_bar, user
 from dependencies import auth
@@ -123,7 +125,8 @@ def add(name: str = Form(...), password: str = Form(...)):
     """
     Login button logic
     """
-    current_user = auth.Authentication.authenticate_user(name, password)
+    data = {"login": name, "password": password}
+    current_user = auth.Authentication.authenticate_user(data)
 
     if current_user:
         url = app.url_path_for("read_index")
@@ -136,6 +139,46 @@ def add(name: str = Form(...), password: str = Form(...)):
     url = app.url_path_for("read_login")
     return RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
 
+@app.get("/login/google")
+async def login_google():
+    """
+    Redirects to google auth
+    """
+    url = auth.GOOGLE_LOGIN_URI
+    return RedirectResponse(url)
+
+@app.get("/auth/google")
+async def auth_google(code: str):
+    """
+    Accepts response from google auth
+    """
+    token_url = auth.GOOGLE_TOKEN_URI
+    data = {
+        "code": code,
+        "client_id": auth.GOOGLE_CLIENT_ID,
+        "client_secret": auth.GOOGLE_CLIENT_SECRET,
+        "redirect_uri": auth.GOOGLE_REDIRECT_URI,
+        "grant_type": "authorization_code",
+    }
+    response = requests.post(token_url, data=data)
+    access_token = response.json().get("access_token")
+    response_data = requests.get(auth.GOOGLE_USER_INFO_URI, headers={"Authorization": f"Bearer {access_token}"})
+
+    raw_data = response_data.json()
+    user_data = {"login": raw_data['email'], "password": None, "name": raw_data['name']}
+    
+    current_user = auth.Authentication.authenticate_user(user_data)
+
+    if current_user:
+        url = app.url_path_for("read_index")
+        token = auth.Authentication.create_access_token(data={"user": current_user})
+        response = RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
+        response.set_cookie(key="access_token", value=token, httponly=True)
+
+        return response
+
+    url = app.url_path_for("read_login")
+    return RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
 
 # Routers
 
