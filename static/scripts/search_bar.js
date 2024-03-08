@@ -1,3 +1,6 @@
+const searchBar = document.getElementById("searchInput");
+searchBar.value = "";
+
 document.addEventListener("keyup", function closeMenuOnEscape(event) {
     if (event.key === "Escape") {
         closeMenu();
@@ -72,12 +75,11 @@ async function searchRooms() {
 }
 
 function showAvailableTimeSlots(date) {
-    console.log("!!!" + date)
+    console.log(date);
 }
 
 function createRequestMenu(roomId) {
     const screenBlur = document.getElementById("menuOverlay");
-
     const requestMenu = document.getElementById("requestMenu");
     requestMenu.innerHTML = "";
     const roomName = document.createElement("p");
@@ -89,7 +91,8 @@ function createRequestMenu(roomId) {
     roomName.textContent = roomId;
     dateInputText.textContent = "Дата";
     dateInput.type = "date";
-    dateInput.addEventListener("input", showAvailableTimeSlots(inputSubmitButton.value));
+    inputSubmitButton.addEventListener("click", showAvailableTimeSlots(inputSubmitButton.value));
+    inputSubmitButton.textContent = "Шукати";
 
     inputDiv.appendChild(dateInputText);
     inputDiv.appendChild(dateInput);
@@ -99,13 +102,8 @@ function createRequestMenu(roomId) {
     requestMenu.appendChild(inputDiv);
 
 
-    
-    const page = document.getElementById("ucubook");
-    page.style.filter = "blur(10px)";
-    requestMenu.style.display = "block";
-    requestMenu.style.filter = "none";
     screenBlur.style.display = "block";
-    screenBlur.style.filter= "none";
+    requestMenu.style.display = "block";
 
 }
 
@@ -114,7 +112,6 @@ function closeMenu() {
     const blurOverlay = document.getElementById("menuOverlay");
     requestMenu.style.display = "none";
     blurOverlay.style.display = "none";
-
 }
 
 closeMenu();
