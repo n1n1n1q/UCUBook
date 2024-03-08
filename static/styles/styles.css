@@ -350,6 +350,11 @@ section .loginButtons button {
       background-color: #585858;
     }
 
+section .loginButtons a {
+  color: white;
+  text-decoration: none;
+}
+
 
 @media (max-width: 900px)
 {
