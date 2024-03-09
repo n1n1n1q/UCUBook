@@ -246,7 +246,7 @@ body {
 
 section .signin
 {
-  width: 29vw;
+  width: 56rem;
   background: #f6f6f6;  
   display: flex;
   justify-content: center;
@@ -340,8 +340,8 @@ section .loginButtons button {
   color: #ffffff;
   border-radius: 3px;
   border: none;
-  width: 13vw;
-  height: 3vw;
+  width: 24rem;
+  height: 5.6rem;
   cursor: pointer;
   transition: all 0.5s;
 }
@@ -356,22 +356,6 @@ section .loginButtons a {
 }
 
 
-@media (max-width: 900px)
-{
-  section span 
-  {
-    width: calc(10vw - 2px);
-    height: calc(10vw - 2px);
-  }
-}
-@media (max-width: 600px)
-{
-  section span 
-  {
-    width: calc(20vw - 2px);
-    height: calc(20vw - 2px);
-  }
-}
 
 /* Requests page */
 .ucubook#requests{
@@ -418,7 +402,7 @@ section .loginButtons a {
   border-top: 3px solid #7f1716;
 }
 
-.request-main{
+#requestText{
   font-size: 26px;
   color:#7f1716;
   font-weight: 500;
@@ -563,3 +547,219 @@ section .loginButtons a {
   margin-top: 8px;
 }
 
+/* General Styles */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+  .ucubook {
+    min-width: 100%;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Header Group */
+@media (max-width: 768px) {
+  .ucubook .header-group {
+    margin-bottom: 1rem;
+    height: 25vw;
+  }
+
+  .ucubook .header-group .logo-image {
+    left: 1rem;
+    width: 40vw;
+    height: auto;
+  }
+
+  .login-icon {
+    right: 1rem;
+    width: 10vw;
+    height: auto;
+  }
+}
+.mobile-text{
+  display: none;
+}
+/* Search Bar */
+@media (max-width: 768px) {
+  .mobile-text
+  {
+    display: flex;
+    font-size: 7vw;
+    color:#7f1716;
+    font-weight: 500;
+    margin: 0px 0 12px 6px;
+  }
+  .search-bar {
+    flex-direction: column;
+    margin-top: 1rem;
+    
+  }
+
+  #searchInput {
+    width: 100%;
+    margin: 0.5rem;
+    height: 10vw;
+    margin-bottom: 1.5rem;
+  }
+
+  #searchButton {
+    width: 80%;
+    height: 12vw;
+    margin: 0.5rem;
+  }
+}
+
+/* Floors and Buildings */
+@media (max-width: 768px) {
+  .sidebars{
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  section .signin {
+    width: 80vw;
+    padding: 1rem;
+    margin: 0 auto; /* Center the container horizontally */
+  }
+
+  section .signin .content {
+    gap: 0.5rem;
+  }
+
+  section .signin .content .form {
+    gap: 0.5rem;
+  }
+
+  section .signin .content .form .inputBox input {
+    padding: 0.8rem 0.5rem;
+  }
+
+  section .signin .content .form .inputBox i {
+    padding: 0.8rem;
+  }
+
+  section .signin .content .form .links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  section .signin .content .form .links a {
+    margin-top: 0.5rem;
+  }
+
+  section .loginButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  section .loginButtons button {
+    width: 33vw;
+    height: 3rem;
+    margin-bottom: 0.5rem;
+  }
+}
+/* Requests Page */
+@media (max-width: 768px) {
+  .ucubook#requests {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #requestText {
+    margin: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  #requestsContainer {
+    margin: 1rem;
+    width: 90%;
+  }
+
+  .request {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+
+  .request-main {
+    font-size: 1.2rem;
+  }
+
+  .status {
+    width: 100%;
+    height: 3rem;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Admin Requests */
+@media (max-width: 768px) {
+  .admin-requests {
+    flex-direction: column;
+  }
+
+  #pendingRequestsContainer,
+  #prevRequestsContainer {
+    width: 90%;
+    margin: 1rem;
+  }
+
+  #prevText, #adminText {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .pending-requests,
+  .prev-requests {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+
+  .pending-buttons {
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .accept, .decline {
+    width: 40%;
+    height: 2.5rem;
+    margin: 0 0.5rem;
+  }
+
+  .pending-main,
+  .prev-main {
+    font-size: 1.2rem;
+  }
+
+  .pending-name,
+  .pending-description,
+  .pending-renter,
+  .pending-num,
+  .prev-description {
+    margin: 0.2rem 0;
+  }
+
+  .prev-status {
+    width: 100%;
+    height: 3rem;
+    margin: 0.5rem 0;
+  }
+}
+
+/* Errors Page */
+@media (max-width: 768px) {
+  #errorText {
+    font-size: 1.2rem;
+  }
+
+  #readressButton {
+    width: 80%;
+    height: 3rem;
+    font-size: 1rem;
+  }
+}
