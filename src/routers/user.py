@@ -43,10 +43,10 @@ def get_possible_requests(date: str):
     """
     Get all possible requests
     """
-    weekday=datetime.strptime(date, "%d.%m.%y").weekday()
+    weekday = datetime.strptime(date, "%d.%m.%y").weekday()
     request_list = database.get_data("requests", date, "day")
     free_slots = []
-    start = 10 if weekday>=5 else 18
+    start = 10 if weekday >= 5 else 18
     end = 24
     request_list.sort(key=lambda x: x["busy_from"])
     for request in request_list:
@@ -63,5 +63,4 @@ def get_user_requests(login):
     """
     Get user's requests
     """
-    pass
-    # code to get all requests sent by the user
+    return database.get_data("requests", "renter", login)

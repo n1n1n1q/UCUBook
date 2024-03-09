@@ -66,7 +66,7 @@ class DBOperations:
         row_data = [dict(row.items()) for row in query_job]
         if len(row_data) == 0 and datatype != "requests":
             raise ValueError(f"{datatype} {name} not found")
-        return row_data[0] if len(row_data) == 1 else row_data
+        return row_data
 
     @staticmethod
     def check_input(input_data, expected_keys):

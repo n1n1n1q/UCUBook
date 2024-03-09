@@ -4,9 +4,8 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 import requests
-import json
 
-from routers import search_bar, user
+from routers import search_bar, user, admin
 from dependencies import auth
 
 import db.db as db
@@ -29,6 +28,7 @@ app = FastAPI()
 search_bar.set_db(database)
 auth.set_db(database)
 user.set_db(database)
+admin.set_db(database)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -188,6 +188,8 @@ async def auth_google(code: str):
 # Routers
 
 app.include_router(search_bar.search_bar_router)
+app.include_router(admin.admin_router)
+app.include_router(user.user_router)
 
 if __name__ == "__main__":
     import uvicorn
