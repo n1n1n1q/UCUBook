@@ -4,10 +4,13 @@ Request model
 import re
 from datetime import datetime
 from pydantic import BaseModel
+
+
 class Request(BaseModel):
     """
     Request model
     """
+
     room_name: str
     busy_from: int
     busy_to: int
@@ -15,6 +18,7 @@ class Request(BaseModel):
     renter: str
     event_name: str
     description: str
+
     # status: bool | None = 0
     def check_data(self):
         if self.busy_from not in range(0, 24) or self.busy_to not in range(0, 24):

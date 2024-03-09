@@ -15,7 +15,9 @@ input {
 body {
   width: 100%;
   font-size: 16px;
+  font-family: 'Fira Sans', sans-serif;
 }
+
 
 .ucubook {
   min-width: 50%;
@@ -67,7 +69,7 @@ body {
 
 /* pop-up menu styles */
 .popup-menu {
-  font-family: 'Inter', 'Source Sans Pro';
+  font-family: 'Fira Sans', sans-serif;
   margin-right: 10px;
   display: none;
   position: absolute;
@@ -123,14 +125,14 @@ body {
   background: #f6f6f6;
   /* border: 2px solid #B9B9B9; */
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 36rem;
-  margin-bottom: 2px;
-  height: 5.6rem;
+  width: 40rem;
+  /* margin-bottom: 2px; */
+  height: 4.3rem;
   opacity: 0.5;
+  margin-right:10rem;
 }
   .found-room:hover
   {
@@ -143,7 +145,8 @@ body {
   border: 2px solid #B9B9B9;
   background-color: #f6f6f6;
   padding: 1rem;
-  margin: 1rem;
+  /* margin: 1rem; */
+  margin: 0 1rem 0 1rem;
   width: 40rem;
   height: 5.7rem;
   font-size: 20px;
@@ -179,11 +182,11 @@ body {
 .floor-title, .building-title{
   width:17rem;
   max-width: 19.2rem;
-  font-size: 27px;
+  font-size: 32px;
   font-weight: 400;
   line-height: 1.2125;
   color: #000000;
-  font-family: 'Inter', 'Source Sans Pro';
+  font-family: 'Fira Sans', sans-serif;
   flex-shrink: 0;
   text-align: center;
 }
@@ -228,13 +231,16 @@ body {
 .current {background-color: #DB7941;}
 /* map styles */
 .map-container {
+  
   width: 95rem;
   height: 55rem;
-  background-color: #7f1716;
+  border: 2px solid #B9B9B9;
+  background-color: #f6f6f6;
+  border-radius: 16px;
   flex-shrink: 0;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 926px) {
   .map-container{
     width: 60%;
     height: 60%;
@@ -377,10 +383,14 @@ section .loginButtons a {
 #requestText
 {
   margin: 15px 0px 0px 40px; 
-  font-size: 37px;
-  font-weight: 500; 
   text-align: left;
 }
+#requestText p{
+  font-size: 37px;
+  font-weight: 500; 
+}
+
+
 
 #requestsContainer {
   margin: 20px 0px 0px 30px;
@@ -478,6 +488,7 @@ section .loginButtons a {
   margin: 0 10px 10px 0;
   cursor: pointer;
   border-radius: 3px;
+  font-weight: 600;
 }
 .accept:active, .decline:active
 {
@@ -548,7 +559,7 @@ section .loginButtons a {
 }
 
 /* General Styles */
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   html {
     font-size: 16px;
   }
@@ -560,7 +571,7 @@ section .loginButtons a {
 }
 
 /* Header Group */
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   .ucubook .header-group {
     margin-bottom: 1rem;
     height: 25vw;
@@ -582,7 +593,7 @@ section .loginButtons a {
   display: none;
 }
 /* Search Bar */
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   .mobile-text
   {
     display: flex;
@@ -609,16 +620,20 @@ section .loginButtons a {
     height: 12vw;
     margin: 0.5rem;
   }
+  .found-room
+  {
+    margin: 0 0 0 0;
+  }
 }
 
 /* Floors and Buildings */
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   .sidebars{
     display: none;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   section .signin {
     width: 80vw;
     padding: 1rem;
@@ -662,7 +677,7 @@ section .loginButtons a {
   }
 }
 /* Requests Page */
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   .ucubook#requests {
     flex-direction: column;
     align-items: center;
@@ -697,7 +712,7 @@ section .loginButtons a {
 }
 
 /* Admin Requests */
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   .admin-requests {
     flex-direction: column;
   }
@@ -752,7 +767,7 @@ section .loginButtons a {
 }
 
 /* Errors Page */
-@media (max-width: 768px) {
+@media (max-width: 926px) {
   #errorText {
     font-size: 1.2rem;
   }
@@ -761,5 +776,106 @@ section .loginButtons a {
     width: 80%;
     height: 3rem;
     font-size: 1rem;
+  }
+}
+
+
+/* Mobile Landscape Styles */
+@media (max-width: 926px) and (orientation: landscape) {
+  .ucubook{
+    width:100vw;
+  }
+  /* Header Group */
+  .ucubook .header-group {
+    height: 15vw;
+  }
+
+  .ucubook .header-group .logo-image {
+    width: 25vw;
+  }
+
+  .login-icon {
+    width: 6vw;
+  }
+
+  /* Search Bar */
+  .search-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #searchInput {
+    width: 60%;
+    height: 6vw;
+    margin-bottom: 0;
+  }
+
+  #searchButton {
+    width: 25%;
+    height: 6vw;
+  }
+
+  /* Login Section */
+  section .signin {
+    width: 60vw;
+    padding: 1.5rem;
+  }
+
+  section .signin .content .form .inputBox input {
+    padding: 1rem;
+  }
+
+  section .signin .content .form .inputBox i {
+    padding: 1rem;
+  }
+
+  section .loginButtons button {
+    width: 40%;
+    height: 4rem;
+  }
+
+  /* Requests Page */
+  .request {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .status {
+    width: 20%;
+    height: auto;
+    margin-top: 0;
+  }
+
+  /* Admin Requests */
+  .admin-requests {
+    flex-direction: row;
+  }
+
+  #pendingRequestsContainer,
+  #prevRequestsContainer {
+    width: 45%;
+  }
+
+  .pending-requests,
+  .prev-requests {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .pending-buttons {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  .accept, .decline {
+    width: 40%;
+    height: 3rem;
+  }
+
+  .prev-status {
+    width: 30%;
+    height: auto;
+    margin: 0;
   }
 }
