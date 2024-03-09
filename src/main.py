@@ -33,7 +33,7 @@ user.set_db(database)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# 404 EXCEPTIONS HANDLING
+# EXCEPTIONS HANDLING
 
 
 @app.exception_handler(StarletteHTTPException)
@@ -43,7 +43,7 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
     """
     if exc.status_code == 404:
         return RedirectResponse(url="/not_found")
-    if exc.status_code == 307:
+    if exc.status_code in (307, 401):
         return RedirectResponse(url="/login")
     return await request.app.handle_exception(request, exc)
 
@@ -139,6 +139,7 @@ def add(name: str = Form(...), password: str = Form(...)):
     url = app.url_path_for("read_login")
     return RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
 
+
 @app.get("/login/google")
 async def login_google():
     """
@@ -146,6 +147,7 @@ async def login_google():
     """
     url = auth.GOOGLE_LOGIN_URI
     return RedirectResponse(url)
+
 
 @app.get("/auth/google")
 async def auth_google(code: str):
@@ -162,11 +164,13 @@ async def auth_google(code: str):
     }
     response = requests.post(token_url, data=data)
     access_token = response.json().get("access_token")
-    response_data = requests.get(auth.GOOGLE_USER_INFO_URI, headers={"Authorization": f"Bearer {access_token}"})
+    response_data = requests.get(
+        auth.GOOGLE_USER_INFO_URI, headers={"Authorization": f"Bearer {access_token}"}
+    )
 
     raw_data = response_data.json()
-    user_data = {"login": raw_data['email'], "password": None, "name": raw_data['name']}
-    
+    user_data = {"login": raw_data["email"], "password": None, "name": raw_data["name"]}
+
     current_user = auth.Authentication.authenticate_user(user_data)
 
     if current_user:
@@ -180,6 +184,7 @@ async def auth_google(code: str):
     url = app.url_path_for("read_login")
     return RedirectResponse(url, status_code=status.HTTP_303_SEE_OTHER)
 
+
 # Routers
 
 app.include_router(search_bar.search_bar_router)
@@ -188,4 +193,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run("main:app", host="0.0.0.0", port=8001)
-
