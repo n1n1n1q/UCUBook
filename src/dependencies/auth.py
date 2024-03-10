@@ -61,7 +61,7 @@ class Authentication:
         User authentication
         """
         try:
-            user_data = database.get_data("users", data["login"])
+            user_data = database.get_data("users", data["login"])[0]
             if user_data["password"] == data["password"] and data["password"].strip():
                 return user_data["login"]
             elif "@" in data["login"]:

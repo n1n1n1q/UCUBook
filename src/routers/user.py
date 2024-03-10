@@ -2,8 +2,9 @@
 Admin router
 """
 from datetime import datetime
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from db.db import DBOperations
+from dependencies.auth import Authentication
 from models.request import Request
 
 user_router = APIRouter()
@@ -64,3 +65,8 @@ def get_user_requests(login):
     Get user's requests
     """
     return database.get_data("requests", "renter", login)
+
+@user_router.get("/user_status")
+def get_user_status(current_user: dict = Depends(Authentication.get_current_user)):
+    user_data=database.get_data("users", current_user)
+    return user_data[0]["group"]

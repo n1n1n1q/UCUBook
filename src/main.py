@@ -70,7 +70,7 @@ async def read_admin(
     """
     Admin page render
     """
-    user_info = database.get_data("users", user)
+    user_info = database.get_data("users", user)[0]
     # print(user_info)
     if user_info["group"] <= 3:
         return RedirectResponse(url="/not_found")
@@ -193,9 +193,5 @@ app.include_router(user.user_router)
 
 if __name__ == "__main__":
     import uvicorn
-<<<<<<< HEAD
-    uvicorn.run("main:app", host="0.0.0.0", port=8002)
-=======
-
     uvicorn.run("main:app", host="0.0.0.0", port=8001)
->>>>>>> origin
+
