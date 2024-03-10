@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../static/styles/styles.css">
 </head>
 <body>
-<div id="ucubook" id="requests">
+<div class="ucubook" id="requests">
   <div class="header-group" id="requestsHeader">
     <div class="header-background">
     </div>
@@ -22,7 +22,7 @@
     <div class="popup-menu" id="popupMenu">
       <ul>
         <li><a href="requests">Історія бронювань</a></li>
-        <li><a href="admin">Керування</a></li>
+        <li><a href="admin" id="adminTab">Керування</a></li>
         <li><a id="logout" href="logout">Вийти</a></li>
       </ul>
     </div>
@@ -30,7 +30,8 @@
   <div id="requestsHistory">
     <div id="requestText"><p>Історія бронювань</p></div>
     <div id="requestsContainer">
-      {% for i in range(5) %}
+      <p id="loadingText">Завантаження даних...</p>
+      <!-- {% for i in range(5) %}
       <hr>
       <div class="request">
         <div class="request-info">
@@ -39,10 +40,11 @@
         </div>
         <div class="{{ get_random() }}">Статус</div>
       </div>
-      {% endfor %}
+      {% endfor %} -->
     </div>
   </div>
 <script src="../static/scripts/popup.js"></script>
+<script src="../static/scripts/user_requests.js"></script>
 <!-- <script src="../static/scripts/user_requests.js"></script> -->
 </body>
 </html>

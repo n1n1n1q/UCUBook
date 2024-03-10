@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends
 from db.db import DBOperations
 from dependencies.auth import Authentication
 from models.request import Request
+from models.search_input import SearchInput
 
 user_router = APIRouter()
 
@@ -38,13 +39,14 @@ def create_request(request: Request):
     except ValueError as err:
         return f"{err}"
 
-
-@user_router.get("/requests/get_data")
-def get_possible_requests(date: str):
+@user_router.post("/get_by_data")
+def get_possible_requests(search_input: SearchInput):
     """
     Get all possible requests
     """
-    weekday = datetime.strptime(date, "%d.%m.%y").weekday()
+    date=search_input.input_data
+    print("deeee")
+    weekday = datetime.strptime(date, "%Y-%m-%d").weekday()
     request_list = database.get_data("requests", date, "day")
     free_slots = []
     start = 10 if weekday >= 5 else 18
@@ -60,13 +62,13 @@ def get_possible_requests(date: str):
 
 
 @user_router.get("/requests/{login}")
-def get_user_requests(login):
+def get_user_requests(login: str = Depends(Authentication.get_current_user)):
     """
     Get user's requests
     """
-    return database.get_data("requests", "renter", login)
+    return database.get_data("requests", login, "renter")
 
 @user_router.get("/user_status")
-def get_user_status(current_user: dict = Depends(Authentication.get_current_user)):
+def get_user_status(current_user: str = Depends(Authentication.get_current_user)):
     user_data=database.get_data("users", current_user)
     return user_data[0]["group"]
