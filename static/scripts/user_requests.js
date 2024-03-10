@@ -31,7 +31,7 @@ fetch('/requests/current_user')
         statusDiv.classList.add("status-confirm")
         statusDiv.textContent = "Підтверджено";
       }
-      if(request.status=== 2){
+      if(request.status === 2){
         statusDiv.classList.add("status-decline")
         statusDiv.textContent = "Відмовлено";
       }

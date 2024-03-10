@@ -31,3 +31,6 @@ class Request(BaseModel):
             )
         except ValueError as exc:
             raise ValueError("Invalid date") from exc
+
+class UpdateRequest(Request):
+    new_status: int

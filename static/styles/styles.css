@@ -110,7 +110,7 @@ body {
   align-items: center;
 }
 
-.search-bar {
+search-bar{
   /*margin-right: 4.4rem;*/
   width: auto;
   justify-content: center;
@@ -118,7 +118,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
 .found-room
@@ -146,7 +146,7 @@ body {
   border: 2px solid #B9B9B9;
   background-color: #f6f6f6;
   padding: 1rem;
-  /* margin: 1rem; */
+  margin: 1rem;
   margin: 0 1rem 0 1rem;
   width: 40rem;
   height: 5.7rem;
@@ -239,16 +239,8 @@ body {
   background-color: #f6f6f6;
   border-radius: 16px;
   flex-shrink: 0;
+  margin-bottom: 2rem;
 }
-
-@media only screen and (max-width: 926px) {
-  .map-container{
-    width: 60%;
-    height: 60%;
-  }
-}
-
-
 /* login */
 
 section .signin
@@ -613,26 +605,28 @@ section .loginButtons a {
     margin: 0px 0 12px 6px;
   }
   .search-bar {
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 1rem;
-    
+    justify-items: space-between;
   }
 
   #searchInput {
-    width: 100%;
-    margin: 0.5rem;
+    width: 60vw;
+    margin: 0;
     height: 10vw;
     margin-bottom: 1.5rem;
   }
 
   #searchButton {
-    width: 80%;
-    height: 12vw;
-    margin: 0.5rem;
+    width: 30vw;
+    height: 10vw;
+    margin-left: 1.5vw;
   }
   .found-room
   {
     margin: 0 0 0 0;
+    height: 10vw;
+    width: 80vw;
   }
 }
 
@@ -681,8 +675,8 @@ section .loginButtons a {
   }
 
   section .loginButtons button {
-    width: 33vw;
-    height: 3rem;
+    width: 32vw;
+    height: 10vw;
     margin-bottom: 0.5rem;
   }
 }
@@ -814,6 +808,11 @@ section .loginButtons a {
     align-items: center;
   }
 
+  #searchButton{
+    height: 6vw;
+    margin-bottom: 1rem;
+  }
+
   #searchInput {
     width: 60%;
     height: 6vw;
@@ -888,4 +887,135 @@ section .loginButtons a {
     height: auto;
     margin: 0;
   }
+}
+
+#menuOverlay {
+  display: none;
+  opacity: 0.8;
+  background-color: #000000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+#requestMenu {
+  display: none;
+  z-index: 100;
+  position: fixed;
+  align-self: center;
+  background-color: #171717;
+  width: 95rem;
+  height: 55rem;
+  color: #ffffff;
+  border-radius: 0.5vw;
+}
+
+#roomNameRequest {
+  text-align: center;
+  margin-top: 0.5vw;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+#exitMenu {
+  position: absolute;
+  right: 0px;
+  margin-right: 0.4vw;
+  margin-top: 0.4vw;
+  top: 0px;
+  font-size: 20px;
+  cursor: active;
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer;
+}
+
+
+.text-field{
+  margin: 1px 4px 3px 10px;
+  font-size: 24px;
+}
+#dateInput{
+  margin: 0px 00px 3px 10px;
+}
+
+.menu-input
+{
+  margin: 5px 10px 3px 10px;
+  padding: 5px;
+  background-color: #FDFDFD;
+  border-radius: 4px;
+  color: #828282;
+  border: 1px solid #B9B9B9;
+}
+
+.submit-button
+{
+  background-color: #707070;
+  color: #ffffff;
+  border-radius: 3px;
+  border: none;
+  margin: 3px 0 0 10px;
+  /* width: 24rem; */
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.submit-button:hover
+{
+  background-color: #585858;
+}
+#timeDiv {
+  display:flex;
+  flex-direction: row;
+}
+
+#startDiv, #endDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+#nameDiv {
+
+}
+
+@media (max-width: 926px){
+  #requestMenu{
+    width: 90vw;
+    height: 85vw;
+  }
+  #image1,#image2{
+    display: none;
+  }
+}
+
+#imagesDiv {
+  z-index: 100000;
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 30px;
+  margin-right: 10px;
+}
+
+#startInput {
+
+}
+
+#endInput {
+  
+}
+#image1,#image2{
+
+  background-color: #ccc;
+  width:100px;
+  height: 100px;
+  margin: 10px;
+}
+
+.time-gap {
+  width: 40%;
 }
