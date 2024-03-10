@@ -10,3 +10,11 @@ class SearchInput(BaseModel):
     """
 
     input_data: str
+
+class TimeSlotSearchInput(BaseModel):
+    """
+    Time slot search input
+    """
+
+    input_date: str
+    input_room: str
