@@ -85,7 +85,7 @@ function showAvailableTimeSlots(date) {
     const timeSlots = getAvailableTimeSlots(date);
 }
 
-function getAvailableTimeSlots(date) {
+async function getAvailableTimeSlots(date) {
   const availableTimeSlots = await fetch("/")
 
 }
