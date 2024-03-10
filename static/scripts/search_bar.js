@@ -82,11 +82,10 @@ function showAvailableTimeSlots(date) {
     console.log(date)
     const availableSlotsDiv = document.createElement("div");
     availableSlotsDiv.classList.add("available-list");
-    getAvailableTimeSlots(date).then(value =>
+    getAvailableTimeSlots(date).then(timeSlots =>
       {
-        timeSlots=value;
+        
       })
-    console.log(typeof(timeSlots))
 }
 
 async function getAvailableTimeSlots(date) {
@@ -104,7 +103,6 @@ async function getAvailableTimeSlots(date) {
     }
 
     const data = await response.json();
-    console.log(data);
     return data
   } catch (error) {
     console.error('Error fetching available time slots:', error);
