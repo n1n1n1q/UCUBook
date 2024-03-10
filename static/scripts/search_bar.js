@@ -82,12 +82,33 @@ function showAvailableTimeSlots(date) {
     console.log(date)
     const availableSlotsDiv = document.createElement("div");
     availableSlotsDiv.classList.add("available-list");
-    const timeSlots = getAvailableTimeSlots(date);
+    getAvailableTimeSlots(date).then(value =>
+      {
+        timeSlots=value;
+      })
+    console.log(typeof(timeSlots))
 }
 
 async function getAvailableTimeSlots(date) {
-  const availableTimeSlots = await fetch("/")
+  try {
+    const response = await fetch("/get_by_data", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ input_data: date }),
+    });
 
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data
+  } catch (error) {
+    console.error('Error fetching available time slots:', error);
+  }
 }
 
 function createRequestMenu(roomId) {

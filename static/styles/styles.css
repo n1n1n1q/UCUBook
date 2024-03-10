@@ -33,7 +33,7 @@ body {
   justify-content: center;
 }
 
-  #ucubook .header-group {
+  .ucubook .header-group {
     margin-bottom: 6.4rem;
     width: 100%;
     max-width: 150%;
@@ -43,13 +43,13 @@ body {
     justify-content: center;
     align-items: center;
   }
-    #ucubook .header-group .header-background {
+    .ucubook .header-group .header-background {
       width: 100%;
       height: 100%;
       background-color: #7f1716;
     }
 
-    #ucubook .header-group .logo-image {
+    .ucubook .header-group .logo-image {
       position: absolute;
       left: 2rem;
       top: 50%;
@@ -80,7 +80,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
-  z-index: 1;
+  z-index: 10;
   font-size: 16px;
   text-align: left;
 }
@@ -365,7 +365,13 @@ section .loginButtons a {
 
 
 /* Requests page */
-.ucubook#requests{
+#loadingText
+{
+  margin-left: 40vw;
+  font-size: 24px;
+}
+
+#requests{
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -424,13 +430,16 @@ section .loginButtons a {
   background-color: #e6e6e6;
   border-radius: 6px;
   width: 130px;
-  height: 70px; 
+  padding: 20px 0;
+  /* height: 70px;  */
 }
-.status.confirm{
+.status-confirm{
   background-color: rgba(46, 171, 33, 200);
+  color: #ffffff;
 }
-.status.decline{
+.status-decline{
   background-color: rgba(213, 33, 47, 200);
+  color: #ffffff;
 }
 
 /* admin menu */

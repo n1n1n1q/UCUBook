@@ -14,3 +14,4 @@ class User(BaseModel):
     can_rent: bool
     group: int
     display_name: str
+

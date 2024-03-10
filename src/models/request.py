@@ -23,8 +23,8 @@ class Request(BaseModel):
     def check_data(self):
         if self.busy_from not in range(0, 24) or self.busy_to not in range(0, 24):
             raise ValueError("Time should be between 0 and 23!")
-        if not re.match(r"^\d{4}.\d{2}.\d{2}$", self.day):
-            raise ValueError("Date should have the format yyyy.mm.dd")
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", self.day):
+            raise ValueError("Date should have the format yyyy-mm-dd")
         try:
             datetime.datetime(
                 year=int(self.day[:4]), month=int(self.day[5:7]), day=int(self.day[8:])

@@ -134,7 +134,7 @@ class DBOperations:
                     pass
                 else:
                     raise ValueError(f"{datatype} {i[_name]} already exists")
-        elif self.is_valid_request(data):
+        elif not self.is_valid_request(data):
             raise ValueError()
         table_id = self.data_id + "." + table_id
         errors = self.client.insert_rows_json(
@@ -208,8 +208,8 @@ if __name__ == "__main__":
         MyDb.is_valid_request(
             {
                 "room_name": "ХС-301",
-                "busy_from": "12",
-                "busy_to": "13",
+                "busy_from": "15",
+                "busy_to": "17",
                 "day": "2022-01-01",
                 "renter": "user1",
             }
@@ -226,29 +226,47 @@ if __name__ == "__main__":
             }
         )
     )
-    # print(
-    #     MyDb.update_request_status(
-    #         {
-    #             "room_name": "ХС-301",
-    #             "busy_from": 12,
-    #             "busy_to": 13,
-    #             "day": "2022-01-01",
-    #             "renter": "user1",
-    #             "event_name": None,
-    #             "description": None,
-    #             "status": 1,
-    #         },
-    #         2,
-    #     )
-    # )
-    MyDb.add_data(
-        "users",
-        {
-            "login": "basystyi.pn",
-            "password": "superSecretPass",
-            "can_rent": True,
-            "group": 1,
-            "display_name": "Басистий Олег",
-        },
+    MyDb.add_data('requests',{
+                "room_name": "ЦШ-202",
+                "busy_from": 12,
+                "busy_to": 13,
+                "day": "2024-03-11",
+                "renter": "admin",
+                "event_name": "Лекця ОП",
+                "description": "Лекція по Docker",
+                "status": 0,
+            },
     )
+    MyDb.add_data('requests',{
+                "room_name": "ЦШ-404",
+                "busy_from": 12,
+                "busy_to": 13,
+                "day": "2024-03-11",
+                "renter": "admin",
+                "event_name": "Оп",
+                "description": "Мідтерм",
+                "status": 1,
+            },
+    )
+    MyDb.add_data('requests',{
+                "room_name": "ЦШ-303",
+                "busy_from": 12,
+                "busy_to": 13,
+                "day": "2022-03-13",
+                "renter": "admin",
+                "event_name": "Робо клуб",
+                "description": "It-клуб для першокурсників",
+                "status": 2,
+            },
+    )
+    # MyDb.add_data(
+    #     "users",
+    #     {
+    #         "login": "basystyi.pn",
+    #         "password": "superSecretPass",
+    #         "can_rent": True,
+    #         "group": 1,
+    #         "display_name": "Басистий Олег",
+    #     },
+    # )
     # ["login", "password", "can_rent", "group", "display_name"]
