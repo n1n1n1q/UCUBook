@@ -16,9 +16,11 @@ input {
 body {
   width: 100%;
   font-size: 16px;
+  font-family: 'Fira Sans', sans-serif;
 }
 
-#ucubook {
+
+.ucubook {
   min-width: 50%;
   padding-bottom: 10rem;
   width: 100%;
@@ -68,7 +70,7 @@ body {
 
 /* pop-up menu styles */
 .popup-menu {
-  font-family: 'Inter', 'Source Sans Pro';
+  font-family: 'Fira Sans', sans-serif;
   margin-right: 10px;
   display: none;
   position: absolute;
@@ -124,14 +126,14 @@ body {
   background: #f6f6f6;
   /* border: 2px solid #B9B9B9; */
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 36rem;
-  margin-bottom: 2px;
-  height: 5.6rem;
+  width: 40rem;
+  /* margin-bottom: 2px; */
+  height: 4.3rem;
   opacity: 0.5;
+  margin-right:10rem;
 }
   .found-room:hover
   {
@@ -144,7 +146,8 @@ body {
   border: 2px solid #B9B9B9;
   background-color: #f6f6f6;
   padding: 1rem;
-  margin: 1rem;
+  /* margin: 1rem; */
+  margin: 0 1rem 0 1rem;
   width: 40rem;
   height: 5.7rem;
   font-size: 20px;
@@ -180,11 +183,11 @@ body {
 .floor-title, .building-title{
   width:17rem;
   max-width: 19.2rem;
-  font-size: 27px;
+  font-size: 32px;
   font-weight: 400;
   line-height: 1.2125;
   color: #000000;
-  font-family: 'Inter', 'Source Sans Pro';
+  font-family: 'Fira Sans', sans-serif;
   flex-shrink: 0;
   text-align: center;
 }
@@ -229,13 +232,16 @@ body {
 .current {background-color: #DB7941;}
 /* map styles */
 .map-container {
+  
   width: 95rem;
   height: 55rem;
-  background-color: #7f1716;
+  border: 2px solid #B9B9B9;
+  background-color: #f6f6f6;
+  border-radius: 16px;
   flex-shrink: 0;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 926px) {
   .map-container{
     width: 60%;
     height: 60%;
@@ -247,7 +253,7 @@ body {
 
 section .signin
 {
-  width: 29vw;
+  width: 56rem;
   background: #f6f6f6;  
   display: flex;
   justify-content: center;
@@ -341,8 +347,8 @@ section .loginButtons button {
   color: #ffffff;
   border-radius: 3px;
   border: none;
-  width: 13vw;
-  height: 3vw;
+  width: 24rem;
+  height: 5.6rem;
   cursor: pointer;
   transition: all 0.5s;
 }
@@ -351,23 +357,12 @@ section .loginButtons button {
       background-color: #585858;
     }
 
+section .loginButtons a {
+  color: white;
+  text-decoration: none;
+}
 
-@media (max-width: 900px)
-{
-  section span 
-  {
-    width: calc(10vw - 2px);
-    height: calc(10vw - 2px);
-  }
-}
-@media (max-width: 600px)
-{
-  section span 
-  {
-    width: calc(20vw - 2px);
-    height: calc(20vw - 2px);
-  }
-}
+
 
 /* Requests page */
 .ucubook#requests{
@@ -389,10 +384,14 @@ section .loginButtons button {
 #requestText
 {
   margin: 15px 0px 0px 40px; 
-  font-size: 37px;
-  font-weight: 500; 
   text-align: left;
 }
+#requestText p{
+  font-size: 37px;
+  font-weight: 500; 
+}
+
+
 
 #requestsContainer {
   margin: 20px 0px 0px 30px;
@@ -414,7 +413,7 @@ section .loginButtons button {
   border-top: 3px solid #7f1716;
 }
 
-.request-main{
+#requestText{
   font-size: 26px;
   color:#7f1716;
   font-weight: 500;
@@ -490,6 +489,7 @@ section .loginButtons button {
   margin: 0 10px 10px 0;
   cursor: pointer;
   border-radius: 3px;
+  font-weight: 600;
 }
 .accept:active, .decline:active
 {
@@ -559,26 +559,324 @@ section .loginButtons button {
   margin-top: 8px;
 }
 
-#requestMenu {
-  height: 30vw;
-  width: 50vw;
-  background-color: #585858;
-  border-radius: 0.5vw;
-  position: fixed;
-  z-index: 10;
-  display: none;
+/* General Styles */
+@media (max-width: 926px) {
+  html {
+    font-size: 16px;
+  }
+
+  .ucubook {
+    min-width: 100%;
+    padding-bottom: 2rem;
+  }
 }
 
-#menuOverlay {
-  position: fixed;
-  background-color: #000000;
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
+/* Header Group */
+@media (max-width: 926px) {
+  .ucubook .header-group {
+    margin-bottom: 1rem;
+    height: 25vw;
+  }
+
+  .ucubook .header-group .logo-image {
+    left: 1rem;
+    width: 40vw;
+    height: auto;
+  }
+
+  .login-icon {
+    right: 1rem;
+    width: 10vw;
+    height: auto;
+  }
+}
+.mobile-text{
   display: none;
-  
+}
+/* Search Bar */
+@media (max-width: 926px) {
+  .mobile-text
+  {
+    display: flex;
+    font-size: 7vw;
+    color:#7f1716;
+    font-weight: 500;
+    margin: 0px 0 12px 6px;
+  }
+  .search-bar {
+    flex-direction: column;
+    margin-top: 1rem;
+    
+  }
+
+  #searchInput {
+    width: 100%;
+    margin: 0.5rem;
+    height: 10vw;
+    margin-bottom: 1.5rem;
+  }
+
+  #searchButton {
+    width: 80%;
+    height: 12vw;
+    margin: 0.5rem;
+  }
+  .found-room
+  {
+    margin: 0 0 0 0;
+  }
+}
+
+/* Floors and Buildings */
+@media (max-width: 926px) {
+  .sidebars{
+    display: none;
+  }
+}
+
+@media (max-width: 926px) {
+  section .signin {
+    width: 80vw;
+    padding: 1rem;
+    margin: 0 auto; /* Center the container horizontally */
+  }
+
+  section .signin .content {
+    gap: 0.5rem;
+  }
+
+  section .signin .content .form {
+    gap: 0.5rem;
+  }
+
+  section .signin .content .form .inputBox input {
+    padding: 0.8rem 0.5rem;
+  }
+
+  section .signin .content .form .inputBox i {
+    padding: 0.8rem;
+  }
+
+  section .signin .content .form .links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  section .signin .content .form .links a {
+    margin-top: 0.5rem;
+  }
+
+  section .loginButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  section .loginButtons button {
+    width: 33vw;
+    height: 3rem;
+    margin-bottom: 0.5rem;
+  }
+}
+/* Requests Page */
+@media (max-width: 926px) {
+  .ucubook#requests {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #requestText {
+    margin: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  #requestsContainer {
+    margin: 1rem;
+    width: 90%;
+  }
+
+  .request {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+
+  .request-main {
+    font-size: 1.2rem;
+  }
+
+  .status {
+    width: 100%;
+    height: 3rem;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Admin Requests */
+@media (max-width: 926px) {
+  .admin-requests {
+    flex-direction: column;
+  }
+
+  #pendingRequestsContainer,
+  #prevRequestsContainer {
+    width: 90%;
+    margin: 1rem;
+  }
+
+  #prevText, #adminText {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .pending-requests,
+  .prev-requests {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+
+  .pending-buttons {
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .accept, .decline {
+    width: 40%;
+    height: 2.5rem;
+    margin: 0 0.5rem;
+  }
+
+  .pending-main,
+  .prev-main {
+    font-size: 1.2rem;
+  }
+
+  .pending-name,
+  .pending-description,
+  .pending-renter,
+  .pending-num,
+  .prev-description {
+    margin: 0.2rem 0;
+  }
+
+  .prev-status {
+    width: 100%;
+    height: 3rem;
+    margin: 0.5rem 0;
+  }
+}
+
+/* Errors Page */
+@media (max-width: 926px) {
+  #errorText {
+    font-size: 1.2rem;
+  }
+
+  #readressButton {
+    width: 80%;
+    height: 3rem;
+    font-size: 1rem;
+  }
+}
+
+
+/* Mobile Landscape Styles */
+@media (max-width: 926px) and (orientation: landscape) {
+  .ucubook{
+    width:100vw;
+  }
+  /* Header Group */
+  .ucubook .header-group {
+    height: 15vw;
+  }
+
+  .ucubook .header-group .logo-image {
+    width: 25vw;
+  }
+
+  .login-icon {
+    width: 6vw;
+  }
+
+  /* Search Bar */
+  .search-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #searchInput {
+    width: 60%;
+    height: 6vw;
+    margin-bottom: 0;
+  }
+
+  #searchButton {
+    width: 25%;
+    height: 6vw;
+  }
+
+  /* Login Section */
+  section .signin {
+    width: 60vw;
+    padding: 1.5rem;
+  }
+
+  section .signin .content .form .inputBox input {
+    padding: 1rem;
+  }
+
+  section .signin .content .form .inputBox i {
+    padding: 1rem;
+  }
+
+  section .loginButtons button {
+    width: 40%;
+    height: 4rem;
+  }
+
+  /* Requests Page */
+  .request {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .status {
+    width: 20%;
+    height: auto;
+    margin-top: 0;
+  }
+
+  /* Admin Requests */
+  .admin-requests {
+    flex-direction: row;
+  }
+
+  #pendingRequestsContainer,
+  #prevRequestsContainer {
+    width: 45%;
+  }
+
+  .pending-requests,
+  .prev-requests {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .pending-buttons {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  .accept, .decline {
+    width: 40%;
+    height: 3rem;
+  }
+
+  .prev-status {
+    width: 30%;
+    height: auto;
+    margin: 0;
+  }
 }
