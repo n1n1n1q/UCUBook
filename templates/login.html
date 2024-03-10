@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>UCUBook</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Serif+Pro%3A400"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter%3A400"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/styles/styles.css">
 </head>
 <body>
@@ -16,26 +16,17 @@
   <div class="header-group">
     <div class="header-background">
     </div>
-    <img id="loginIcon" class="login-icon" src="../static/assets/user.png" alt="Login/User icon">
     <a href="/"><img class="logo-image" src="../static/assets/image-1.png"/></a>
-    <!-- pop-up menu -->
-    <div class="popup-menu" id="popupMenu">
-      <ul>
-        <li><a href="requests">Історія бронювань</a></li>
-        <li><a href="admin">Керування</a></li>
-        <li><a id="logout" href="#">Вийти</a></li>
-      </ul>
-    </div>
   </div>
   <section>
    <div class="signin"> 
     <div class="content"> 
-     <div class="form"> 
+    <form class="form" action="/login" method="post"> 
       <div class="inputBox"> 
-       <input type="text" required> <i>Користувач</i> 
+       <input type="text" name="name" required> <i>Користувач</i> 
       </div> 
       <div class="inputBox"> 
-       <input type="password" required> <i>Пароль</i> 
+       <input type="password" name="password" required> <i>Пароль</i> 
       </div> 
       <div class="links"> <a href="#">Забули пароль?</a> <a href="#">Вперше на сайті?</a> 
       </div>
@@ -44,10 +35,10 @@
         <button type="submit">Увійти</button>
       </div>
       <div class="googleLoginBox">
-        <button>Google login</button>
+        <button onclick="window.location.href='/login/google'">Google login</button>
       </div>
      </div>
-    </div>
+    </form>
     </div> 
    </div>
    </section>
