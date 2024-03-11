@@ -57,7 +57,7 @@ class DBOperations:
             f"""
         SELECT *
         FROM `{self.proj_id}.{self.data_id}.{table_id}`
-        WHERE {_name} = '{name}'
+        WHERE {_name} = {"'"+name+"'" if not name.isnumeric() else name}
     """
             if name != "all"
             else f"SELECT * FROM `{self.proj_id}.{self.data_id}.{table_id}`"
@@ -193,80 +193,13 @@ WHERE room_name = '{request["room_name"]}'
 
 
 if __name__ == "__main__":
-    # data = [
-    #     {"name": "ЦШ", "floors": 6},
-    #     {"name": "АК", "floors": 5},
-    #     {"name": "ХС", "floors": 2},
-    # ]
-    MyDb = DBOperations()
-    MyDb.set_up()
-    print(MyDb.get_data("building", "ХС"))
-    print(MyDb.get_data("users", "admin"))
-    print(MyDb.get_data("building", "5", "floors"))
-    print(MyDb.get_data("building", "all"))
-    print(
-        MyDb.is_valid_request(
-            {
-                "room_name": "ХС-301",
-                "busy_from": "15",
-                "busy_to": "17",
-                "day": "2022-01-01",
-                "renter": "user1",
-            }
-        )
-    )
-    print(
-        MyDb.is_valid_request(
-            {
-                "room_name": "ХС-301",
-                "busy_from": "15",
-                "busy_to": "16",
-                "day": "2022-01-01",
-                "renter": "user1",
-            }
-        )
-    )
-    MyDb.add_data('requests',{
-                "room_name": "ЦШ-202",
-                "busy_from": 12,
-                "busy_to": 13,
-                "day": "2024-03-11",
-                "renter": "admin",
-                "event_name": "Лекця ОП",
-                "description": "Лекція по Docker",
-                "status": 0,
-            },
-    )
-    MyDb.add_data('requests',{
-                "room_name": "ЦШ-404",
-                "busy_from": 12,
-                "busy_to": 13,
-                "day": "2024-03-11",
-                "renter": "admin",
-                "event_name": "Оп",
-                "description": "Мідтерм",
-                "status": 1,
-            },
-    )
-    MyDb.add_data('requests',{
-                "room_name": "ЦШ-303",
-                "busy_from": 12,
-                "busy_to": 13,
-                "day": "2022-03-13",
-                "renter": "admin",
-                "event_name": "Робо клуб",
-                "description": "It-клуб для першокурсників",
-                "status": 2,
-            },
-    )
-    # MyDb.add_data(
-    #     "users",
-    #     {
-    #         "login": "basystyi.pn",
-    #         "password": "superSecretPass",
-    #         "can_rent": True,
-    #         "group": 1,
-    #         "display_name": "Басистий Олег",
-    #     },
-    # )
-    # ["login", "password", "can_rent", "group", "display_name"]
+    def delete_data(MyDB,table):
+        query=f"""DELETE FROM `{MyDB.proj_id}.{MyDB.data_id}.{table}` WHERE 1=1"""
+        query_job=curr_client.query(query)
+        query_job.result()
+    MyDB=DBOperations()
+    MyDB.set_up()
+    curr_client = bigquery.Client()
+    delete_data(MyDB,"users")
+    print("Finished!")
+    MyDB.add_data("users")

@@ -11,6 +11,7 @@ class SearchInput(BaseModel):
 
     input_data: str
 
+
 class TimeSlotSearchInput(BaseModel):
     """
     Time slot search input

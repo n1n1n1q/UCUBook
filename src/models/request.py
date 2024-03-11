@@ -18,8 +18,8 @@ class Request(BaseModel):
     renter: str
     event_name: str
     description: str
+    status: int
 
-    # status: bool | None = 0
     def check_data(self):
         if self.busy_from not in range(0, 24) or self.busy_to not in range(0, 24):
             raise ValueError("Time should be between 0 and 23!")
@@ -31,6 +31,7 @@ class Request(BaseModel):
             )
         except ValueError as exc:
             raise ValueError("Invalid date") from exc
+
 
 class UpdateRequest(Request):
     new_status: int

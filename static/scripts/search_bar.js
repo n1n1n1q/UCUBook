@@ -29,7 +29,7 @@ async function searchRooms() {
   foundRoomsDiv.innerHTML = "";
 
   if (searchInput === "") {
-    renderResultMessage("No search input!");
+    renderResultMessage("Введіть номер авдиторії!");
     return;
   }
 
@@ -44,14 +44,14 @@ async function searchRooms() {
     const data = await response.json();
 
     if (data.length === 0) {
-      renderResultMessage("No matches found");
+      renderResultMessage("Авдиторію не знайдено");
       return;
     }
 
     renderFoundRooms(data);
   } catch (error) {
     console.log(error);
-    renderResultMessage("Error!");
+    renderResultMessage("Помилка!");
   }
 }
 
@@ -79,27 +79,12 @@ function renderFoundRooms(rooms) {
 }
 
 function showAvailableTimeSlots(date,room) {
-    console.log(date)
-    let availableSlotsDiv = document.getElementById("availableSlots");
-    if (availableSlotsDiv) {
-      availableSlotsDiv.remove();
-    }
-    let availableSlotsP = document.getElementById("availableSlotsHeading");
-    if (availableSlotsP) {
-      availableSlotsP.remove();
-    }
-    let requestFormButton = document.getElementById("requestFormButton");
-    if (requestFormButton) {
-      requestFormButton.remove();
-    }
-    let requestForm = document.getElementById("requestForm");
-    if (requestForm) {
-      requestForm.remove();
-    }
-    availableSlotsDiv = document.createElement("div");
+    console.log(date);
+    clearTimeSlotsDiv();
+    let availableSlotsDiv = document.createElement("div");
     availableSlotsDiv.id = "availableSlots";
     availableSlotsDiv.classList.add("available-list");
-    availableSlotsP = document.createElement("p");
+    let availableSlotsP = document.createElement("p");
     availableSlotsP.id = "availableSlotsHeading";
     availableSlotsP.textContent = "Доступний час для бронювання";
     availableSlotsP.classList.add("text-field");
@@ -114,19 +99,18 @@ function showAvailableTimeSlots(date,room) {
           timeSlotP.classList.add("text-field");
           timeSlotP.textContent =  `${timeSlot[0]}-${timeSlot[1]}`;
           availableSlotsDiv.appendChild(timeSlotP);
-        })
+        });
       });
-      requestFormButton = document.createElement("button");
+      let requestFormButton = document.createElement("button");
       requestFormButton.id = "requestFormButton";
       requestFormButton.textContent = "Забронювати";
       requestFormButton.addEventListener("click", () => requestFormMenu(room,date));
       requestMenu.appendChild(requestFormButton);
-      requestFormButton.classList.add("submit-button")
+      requestFormButton.classList.add("submit-button");
 }
 
 function requestFormMenu(room,date) {
   console.log(room);
-  // const renter = !!!
   let requestForm = document.getElementById("requestForm");
   if (requestForm) {
     requestForm.remove();
@@ -181,9 +165,9 @@ function requestFormMenu(room,date) {
   const sendButton = document.createElement("button");
   sendButton.textContent = "Надіслати запит";
   sendButton.classList.add("submit-button");
-  // sendButton.addEventListener("click", () => sendRequest(
-  //   room, startInput.value.trim(), endInput.value.trim(), date, renter, eventNameInput.value.trim(), descriptionInput.value.trim()
-  //   ));
+  sendButton.addEventListener("click", () => sendRequest(
+    room, startInput.value.trim(), endInput.value.trim(), date, eventNameInput.value.trim(), descriptionInput.value.trim()
+    ));
   requestForm.appendChild(timeDiv);
   requestForm.appendChild(nameDiv);
   requestForm.appendChild(descriptionDiv);
@@ -191,7 +175,10 @@ function requestFormMenu(room,date) {
   requestMenu.appendChild(requestForm);
 }
 
-async function sendRequest(room,start,end,date,renter,name,description) {
+async function sendRequest(room,start,end,date,name,description) {
+  if (!validateRequestInput(start,end,name,description)) {
+    return;
+  }
   try {
   const response = await fetch("/requests/", {
     method: "POST",
@@ -260,13 +247,13 @@ function createRequestMenu(roomId) {
   dateInput.type = "date";
   dateInputText.id = "dateInputText";
   dateInput.classList.add("menu-input");
-  dateInput.max = "9999-12-31";
+  dateInput.max = "2100-12-31";
   dateInput.id = "dateInput";
   dateInputText.classList.add("text-field");
   const inputSubmitButton = document.createElement("button");
   inputSubmitButton.textContent = "Шукати";
   inputSubmitButton.id = "dateSubmit";
-  inputSubmitButton.addEventListener("click", () => showAvailableTimeSlots(dateInput.value,roomId));
+  inputSubmitButton.addEventListener("click", () => handleDateInput(roomId));
   inputSubmitButton.classList.add("submit-button");
   inputDiv.appendChild(dateInputText);
   inputDiv.appendChild(dateInput);
@@ -287,9 +274,124 @@ function createRequestMenu(roomId) {
   requestMenu.appendChild(imagesDiv);
 }
 
+function handleDateInput(room) {
+  let dateInputValue = dateInput.value;
+  let inputList = dateInputValue.split("-");
+  console.log(inputList);
+  let dateInp = new Date(inputList[0],inputList[1]-1,inputList[2]);
+  console.log(dateInp);
+  let currentDate = new Date();
+  console.log(currentDate);
+  let maxDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 6, currentDate.getDate());
+  console.log(maxDate);
+  if (isNaN(dateInp.getDay())) {
+    renderResultDate("Введіть дату!");
+    console.log("0");
+    return;
+  }
+  if (dateInp<currentDate) {
+    renderResultDate("Бронювання на цей день неможливе");
+    console.log("1");
+    return;
+  }
+  if (dateInp>maxDate) {
+    renderResultDate("Бронювання можливе лише на наступні 6 місяців");
+    console.log("2");
+    return;
+  }
+  showAvailableTimeSlots(dateInputValue,room);
+
+}
+
+function renderResultDate(message) {
+  clearTimeSlotsDiv();
+  let availableSlotsMessage = document.createElement("p");
+  availableSlotsMessage.id = "availableSlots"
+  availableSlotsMessage.classList.add('text-field');
+  availableSlotsMessage.textContent = message;
+  requestMenu.appendChild(availableSlotsMessage);
+}
+
 function closeMenu() {
   requestMenu.style.display = "none";
   screenBlur.style.display = "none";
+}
+
+function clearTimeSlotsDiv() {
+  let availableSlotsDiv = document.getElementById("availableSlots");
+    if (availableSlotsDiv) {
+      availableSlotsDiv.remove();
+    }
+    let availableSlotsP = document.getElementById("availableSlotsHeading");
+    if (availableSlotsP) {
+      availableSlotsP.remove();
+    }
+    let requestFormButton = document.getElementById("requestFormButton");
+    if (requestFormButton) {
+      requestFormButton.remove();
+    }
+    let requestForm = document.getElementById("requestForm");
+    if (requestForm) {
+      requestForm.remove();
+    }
+}
+
+function validateRequestInput(start,end,name,description) {
+  startTime = parseInt(start);
+  endTime = parseInt(end);
+  console.log(name);
+  if (isNaN(startTime)) {
+    inputError("Введіть час початку події");
+    return false;
+  }
+  if (startTime<8||startTime>20) {
+    inputError("Час початку поза межами робочого часу");
+    return false;
+  }
+  if (isNaN(endTime)) {
+    inputError("Введіть час завершення події");
+    return false;
+  }
+  
+  if (endTime<9||endTime>21) {
+    inputError("Час завершення поза межами робочого часу");
+    return false;
+  }
+  if (endTime<startTime) {
+    inputError("Неправильний час");
+    return false;
+  }
+  if (endTime-startTime>3) {
+    inputError("Тривалість події перевищує 3 години")
+  }
+  if (isNaN(name)) {
+    inputError("Введіть назву події");
+    return false;
+  }
+  if (name.length<5) {
+    inputError("Надто коротка назва події");
+    return false;
+  }
+  if (description.length>256) {
+    inputError("Опис не повинен перевищувати 256 символів");
+    return false;
+  }
+}
+
+function inputError(message) {
+  inputErrorRemove();
+  let requestInputError = document.createElement("p");
+  requestInputError.id = "requestInputError";
+  requestInputError.classList.add("text-field");
+  requestInputError.textContent = message;
+  requestForm.appendChild(requestInputError);
+}
+
+function inputErrorRemove() {
+  let requestInputError = document.getElementById("requestInputError");
+  if (requestInputError) {
+    requestInputError.remove();
+  }
 }
 
 // Initial Setup

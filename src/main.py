@@ -45,7 +45,7 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
         return RedirectResponse(url="/not_found")
     if exc.status_code in (307, 401):
         return RedirectResponse(url="/login")
-    return await request.app.handle_exception(request, exc)
+    raise exc
 
 
 # Rendering HTMLs
@@ -191,9 +191,11 @@ app.include_router(search_bar.search_bar_router)
 app.include_router(admin.admin_router)
 app.include_router(user.user_router)
 
-print(database.get_data("requests","admin","renter"))
+print(database.get_data("requests", "admin", "renter"))
 # print(user.get_possible_requests("2022-01-01"))
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8001, reload=True)
-    print(database.get_data("requests","admin","renter"))
+
+    uvicorn.run("main:app", host="0.0.0.0", port=8002, reload=True)
+    print(database.get_data("requests", "admin", "renter"))
+

@@ -16,7 +16,7 @@ def set_db(db: DBOperations):
     print("admin db set up: success!")
 
 
-@admin_router.post("/update_request")
+@admin_router.post("/update_request_status")
 def change_status(request: UpdateRequest):
     """
     Change request's status
@@ -27,7 +27,11 @@ def change_status(request: UpdateRequest):
         "busy_to": request.busy_to,
         "day": request.day,
         "renter": request.renter,
+        "event_name": request.event_name,
+        "description": request.description,
+        "status": request.status,
     }
+    print(input_data)
     database.update_request_status(input_data, request.new_status)
 
 
@@ -37,12 +41,19 @@ def get_all_requests():
     ...
     """
     data = database.get_data("requests", "all")
-    filtered_data = list(filter(lambda x: x["status"] != 0, data))
+    filtered_data = sorted(
+        list(filter(lambda x: x["status"] != 0, data)),
+        key=lambda x: (datetime.strptime(x["day"], "%Y-%m-%d"), x["busy_from"]),
+    )
+
     return list(reversed(filtered_data))
+
 
 @admin_router.get("/get_pending_requests")
 def get_pending():
-    """
-    
-    """
-    return list(reversed(database.get_data("requests","0","status")))
+    """ """
+    data = sorted(
+        database.get_data("requests", "0", "status"),
+        key=lambda x: (datetime.strptime(x["day"], "%Y-%m-%d"), x["busy_from"]),
+    )
+    return data
