@@ -3,44 +3,51 @@ fetch('/requests/current_user')
   .then(data => {
     const requestsContainer = document.getElementById('requestsContainer');
 
-    requestsContainer.innerHTML = '';
+    // requestsContainer.innerHTML = '';
+    if(data.length == 0){
+      const text=document.getElementById("loadingText");
+      text.textContent="На жаль, у Вас немає жодних запитів."
+      console.log("HI")
+    }
+    else {
+      data.forEach(request => {
+        requestsContainer.appendChild(document.createElement('hr'));
+        const requestDiv = document.createElement('div');
+        requestDiv.classList.add('request');
 
-    data.forEach(request => {
-      requestsContainer.appendChild(document.createElement('hr'));
-      const requestDiv = document.createElement('div');
-      requestDiv.classList.add('request');
+        const requestInfoDiv = document.createElement('div');
+        requestInfoDiv.classList.add('request-info');
 
-      const requestInfoDiv = document.createElement('div');
-      requestInfoDiv.classList.add('request-info');
+        const mainInfoP = document.createElement('p');
+        mainInfoP.classList.add('request-main');
+        mainInfoP.textContent = `Аудиторія: ${request.room_name}; ${request.day}, ${request.busy_from}:00 - ${request.busy_to}:00`;
 
-      const mainInfoP = document.createElement('p');
-      mainInfoP.classList.add('request-main');
-      mainInfoP.textContent = `Аудиторія: ${request.room_name}; ${request.day}, ${request.busy_from}:00 - ${request.busy_to}:00`;
+        const descriptionP = document.createElement('p');
+        descriptionP.classList.add('request-description');
+        descriptionP.textContent = `${request.event_name}: ${request.description}`;
 
-      const descriptionP = document.createElement('p');
-      descriptionP.classList.add('request-description');
-      descriptionP.textContent = `${request.event_name}: ${request.description}`;
+        requestInfoDiv.appendChild(mainInfoP);
+        requestInfoDiv.appendChild(descriptionP);
 
-      requestInfoDiv.appendChild(mainInfoP);
-      requestInfoDiv.appendChild(descriptionP);
+        const statusDiv = document.createElement('div');
+        statusDiv.classList.add("status")
+        statusDiv.textContent = "В очікуванні...";
+        if(request.status === 1){
+          statusDiv.classList.add("status-confirm")
+          statusDiv.textContent = "Підтверджено";
+        }
+        if(request.status === 2){
+          statusDiv.classList.add("status-decline")
+          statusDiv.textContent = "Відмовлено";
+        }
+        
 
-      const statusDiv = document.createElement('div');
-      statusDiv.classList.add("status")
-      statusDiv.textContent = "В очікуванні...";
-      if(request.status === 1){
-        statusDiv.classList.add("status-confirm")
-        statusDiv.textContent = "Підтверджено";
-      }
-      if(request.status === 2){
-        statusDiv.classList.add("status-decline")
-        statusDiv.textContent = "Відмовлено";
-      }
-      
+        requestDiv.appendChild(requestInfoDiv);
+        requestDiv.appendChild(statusDiv);
 
-      requestDiv.appendChild(requestInfoDiv);
-      requestDiv.appendChild(statusDiv);
-
-      requestsContainer.appendChild(requestDiv);
-    });
+        requestsContainer.appendChild(requestDiv);
+      });
+    }
   })
   .catch(error => console.error('Error:', error));
+console.log("ХУЙ");

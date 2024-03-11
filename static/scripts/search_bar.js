@@ -337,6 +337,7 @@ function clearTimeSlotsDiv() {
 }
 
 function validateRequestInput(start,end,name,description) {
+  inputErrorRemove();
   startTime = parseInt(start);
   endTime = parseInt(end);
   console.log(name);
@@ -352,7 +353,6 @@ function validateRequestInput(start,end,name,description) {
     inputError("Введіть час завершення події");
     return false;
   }
-  
   if (endTime<9||endTime>21) {
     inputError("Час завершення поза межами робочого часу");
     return false;
@@ -364,10 +364,11 @@ function validateRequestInput(start,end,name,description) {
   if (endTime-startTime>3) {
     inputError("Тривалість події перевищує 3 години")
   }
-  if (isNaN(name)) {
+  if (name.length===0) {
     inputError("Введіть назву події");
     return false;
   }
+  console.log(name.length);
   if (name.length<5) {
     inputError("Надто коротка назва події");
     return false;
