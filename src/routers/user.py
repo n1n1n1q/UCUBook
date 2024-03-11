@@ -32,7 +32,7 @@ def create_request(request: Request):
         "day": request.day,
         "renter": request.renter,
         "event_name": request.event_name,
-        "description": request.description
+        "description": request.description,
     }
     try:
         request.check_data()
@@ -41,16 +41,17 @@ def create_request(request: Request):
     except ValueError as err:
         return f"{err}"
 
+
 @user_router.post("/get_by_data")
-def get_possible_requests(input_data:TimeSlotSearchInput):
+def get_possible_requests(input_data: TimeSlotSearchInput):
     """
     Get all possible requests
     """
-    date=input_data.input_date
-    room=input_data.input_room
+    date = input_data.input_date
+    room = input_data.input_room
     weekday = datetime.strptime(date, "%Y-%m-%d").weekday()
     request_list = database.get_data("requests", date, "day")
-    request_list = [i for i in request_list if i['room_name']==room]
+    request_list = [i for i in request_list if i["room_name"] == room]
     free_slots = []
     start = 10 if weekday >= 5 else 18
     end = 21
@@ -71,10 +72,11 @@ def get_user_requests(login: str = Depends(Authentication.get_current_user)):
     """
     return database.get_data("requests", login, "renter")
 
+
 @user_router.get("/user_status")
 def get_user_status(current_user: str = Depends(Authentication.get_current_user)):
     """
     Get user's status
     """
-    user_data=database.get_data("users", current_user)
+    user_data = database.get_data("users", current_user)
     return user_data[0]["group"]
