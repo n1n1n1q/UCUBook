@@ -173,31 +173,38 @@ function requestFormMenu(room,date) {
   requestForm.appendChild(descriptionDiv);
   requestForm.appendChild(sendButton);
   requestMenu.appendChild(requestForm);
+  
 }
 
 async function sendRequest(room,start,end,date,name,description) {
   if (!validateRequestInput(start,end,name,description)) {
+    console.log("ZRADA");
     return;
   }
+  console.log("Peremoga bude?");
   try {
   const response = await fetch("/requests/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ room_name: room, busy_from: start, busy_to:end, dat: date, renter: renter, event_name: name, description: description})
+    body: JSON.stringify({ room_name: room, busy_from: start, busy_to: end, day: date, event_name: name, description: description, renter: '', status:0})
   });
+  console.log("Zrada?");
   console.log(response);
+  console.log("???")
   if (!response.ok) {
     throw new Error("Couldn't create request");
   }
   const data = await response.json();
+  console.log("Peremoga");
+  requestResult(true);
   return data;
   } catch (error) {
     console.error("Error sending request ", error);
+    requestResult(false);
     return "";
   }
-
 }
 
 async function getAvailableTimeSlots(date, room) {
@@ -377,6 +384,7 @@ function validateRequestInput(start,end,name,description) {
     inputError("Опис не повинен перевищувати 256 символів");
     return false;
   }
+  return true;
 }
 
 function inputError(message) {
@@ -392,6 +400,23 @@ function inputErrorRemove() {
   let requestInputError = document.getElementById("requestInputError");
   if (requestInputError) {
     requestInputError.remove();
+  }
+}
+
+function requestResult(ind) {
+  requestMenu.innerHTML = "";
+  const exit = document.createElement("p");
+  exit.textContent = "x";
+  exit.id = "exitMenu";
+  exit.addEventListener("click", () => closeMenu());
+  requestMenu.appendChild(exit);
+  const requestRes = document.createElement("p");
+  requestRes.classList.add("text-field");
+  requestMenu.appendChild(requestRes);
+  if (ind) {
+    requestRes.textContent = "Запит успішно надіслано. Очікуйте лист про підтвердження.";
+  } else {
+    requestRes.textContent = "При надсиланні запиту виникла помилка.";
   }
 }
 

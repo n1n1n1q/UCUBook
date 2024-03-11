@@ -23,19 +23,20 @@ def set_db(db: DBOperations):
 
 
 @user_router.post("/requests/")
-def create_request(request: Request):
+def create_request(request: Request, user=Depends(Authentication.get_current_user)):
     """Push request to database"""
     input_data = {
         "room_name": request.room_name,
         "busy_from": request.busy_from,
         "busy_to": request.busy_to,
         "day": request.day,
-        "renter": request.renter,
+        "renter": user,
         "event_name": request.event_name,
         "description": request.description,
+        "status": 0
     }
     try:
-        request.check_data()
+
         database.add_data("requests", input_data)
         return "Request sent successfully"
     except ValueError as err:
