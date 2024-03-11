@@ -70,4 +70,5 @@ function activeFloor(floorId) {
 function generateMap (floor) {
     // !!!
 }
+
 generateButtons(buildingsData)

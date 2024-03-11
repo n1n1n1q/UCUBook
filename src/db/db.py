@@ -200,6 +200,7 @@ if __name__ == "__main__":
     MyDB=DBOperations()
     MyDB.set_up()
     curr_client = bigquery.Client()
-    delete_data(MyDB,"users")
+    delete_data(MyDB,"requests")
     print("Finished!")
-    MyDB.add_data("users")
+    MyDB.add_data("users",{"login": "admin", "password":"icanttakeitanymore00",
+                           "can_rent":True,"group":9, "display_name": "Ucubook Admin"})

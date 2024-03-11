@@ -3,6 +3,7 @@ const loadingText = document.createElement('p');
 loadingText.textContent = 'Завантаження даних...';
 loadingText.style.fontSize="24px";
 loadingText.style.marginLeft="10px";
+loadingText.style.marginBottom="40vw";
 container.appendChild(loadingText);
 fetch('/get_pending_requests')
 .then(response => response.json())
