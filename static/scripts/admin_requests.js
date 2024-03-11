@@ -16,7 +16,7 @@ fetch('/get_pending_requests')
         loadingText.remove();
 
         pendingRequests.forEach((request, index) => {
-            if (index >= 10) return; // Show only the first 10 requests
+            // if (index >= 10) return; // Show only the first 10 requests
 
             const requestDiv = document.createElement('div');
             requestDiv.classList.add('pending-requests');
@@ -73,12 +73,12 @@ fetch('/get_pending_requests')
             container.appendChild(document.createElement('hr'));
         });
 
-        if (pendingRequests.length > 10) {
-            const pagesDiv = document.createElement('div');
-            pagesDiv.classList.add('pages');
-            container.appendChild(pagesDiv);
-            // Add pagination logic here
-        }
+        // if (pendingRequests.length > 10) {
+        //     const pagesDiv = document.createElement('div');
+        //     pagesDiv.classList.add('pages');
+        //     container.appendChild(pagesDiv);
+        //     // Add pagination logic here
+        // }
     }
 })
 .catch(error => console.error('Error fetching pending requests:', error));
@@ -144,7 +144,8 @@ function updateRequestStatus(request, newStatus, requestDiv) {
         event_name: request.event_name,
         description: request.description,
         status: request.status,
-        new_status: newStatus
+        new_status: newStatus,
+        available: []
     };
 
     fetch('/update_request_status', {

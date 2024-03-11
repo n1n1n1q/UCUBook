@@ -165,18 +165,19 @@ function requestFormMenu(room,date) {
   const sendButton = document.createElement("button");
   sendButton.textContent = "Надіслати запит";
   sendButton.classList.add("submit-button");
+  getAvailableTimeSlots(date,room).then(timeSlots=>{
   sendButton.addEventListener("click", () => sendRequest(
-    room, startInput.value.trim(), endInput.value.trim(), date, eventNameInput.value.trim(), descriptionInput.value.trim()
+    room, startInput.value.trim(), endInput.value.trim(), date, eventNameInput.value.trim(), descriptionInput.value.trim(),timeSlots
     ));
   requestForm.appendChild(timeDiv);
   requestForm.appendChild(nameDiv);
   requestForm.appendChild(descriptionDiv);
   requestForm.appendChild(sendButton);
   requestMenu.appendChild(requestForm);
-  
+  })
 }
 
-async function sendRequest(room,start,end,date,name,description) {
+async function sendRequest(room,start,end,date,name,description,available) {
   if (!validateRequestInput(start,end,name,description)) {
     console.log("ZRADA");
     return;
@@ -188,16 +189,14 @@ async function sendRequest(room,start,end,date,name,description) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ room_name: room, busy_from: start, busy_to: end, day: date, event_name: name, description: description, renter: '', status:0})
+    body: JSON.stringify({ room_name: room, busy_from: start, busy_to: end, day: date, event_name: name, description: description, renter: '', status:0, available:available})
   });
-  console.log("Zrada?");
-  console.log(response);
-  console.log("???")
   if (!response.ok) {
     throw new Error("Couldn't create request");
   }
   const data = await response.json();
   console.log("Peremoga");
+  console.log(data);
   requestResult(true);
   return data;
   } catch (error) {

@@ -135,7 +135,7 @@ class DBOperations:
                 else:
                     raise ValueError(f"{datatype} {i[_name]} already exists")
         elif not self.is_valid_request(data):
-            raise ValueError()
+            raise ValueError("Request is not valid")
         table_id = self.data_id + "." + table_id
         errors = self.client.insert_rows_json(
             table_id, data if isinstance(data, list) else [data]
@@ -193,14 +193,24 @@ WHERE room_name = '{request["room_name"]}'
 
 
 if __name__ == "__main__":
-    def delete_data(MyDB,table):
-        query=f"""DELETE FROM `{MyDB.proj_id}.{MyDB.data_id}.{table}` WHERE 1=1"""
-        query_job=curr_client.query(query)
+
+    def delete_data(MyDB, table):
+        query = f"""DELETE FROM `{MyDB.proj_id}.{MyDB.data_id}.{table}` WHERE 1=1"""
+        query_job = curr_client.query(query)
         query_job.result()
-    MyDB=DBOperations()
+
+    MyDB = DBOperations()
     MyDB.set_up()
     curr_client = bigquery.Client()
-    delete_data(MyDB,"requests")
+    delete_data(MyDB, "requests")
     print("Finished!")
-    MyDB.add_data("users",{"login": "admin", "password":"icanttakeitanymore00",
-                           "can_rent":True,"group":9, "display_name": "Ucubook Admin"})
+    MyDB.add_data(
+        "users",
+        {
+            "login": "admin",
+            "password": "icanttakeitanymore00",
+            "can_rent": True,
+            "group": 9,
+            "display_name": "Ucubook Admin",
+        },
+    )

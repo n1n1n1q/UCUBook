@@ -19,6 +19,7 @@ class Request(BaseModel):
     event_name: str
     description: str
     status: int
+    available: list
 
     def check_data(self):
         if self.busy_from not in range(0, 24) or self.busy_to not in range(0, 24):

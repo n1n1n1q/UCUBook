@@ -33,14 +33,23 @@ def create_request(request: Request, user=Depends(Authentication.get_current_use
         "renter": user,
         "event_name": request.event_name,
         "description": request.description,
-        "status": 0
+        "status": 0,
     }
-    try:
-
+    print(
+        any(
+            (request.busy_from >= int(a[0]) and request.busy_to <= int(a[1]))
+            for a in request.available
+        )
+    )
+    if any(
+        [
+            (request.busy_from >= int(a[0]) and request.busy_to <= int(a[1]))
+            for a in request.available
+        ]
+    ) and input_data["busy_to"] - input_data["busy_from"] in [1, 2, 3]:
         database.add_data("requests", input_data)
         return "Request sent successfully"
-    except ValueError as err:
-        return f"{err}"
+    raise ValueError("Invalid time")
 
 
 @user_router.post("/get_by_data")
@@ -57,12 +66,16 @@ def get_possible_requests(input_data: TimeSlotSearchInput):
     start = 10 if weekday >= 5 else 18
     end = 21
     request_list.sort(key=lambda x: x["busy_from"])
+    last_end = start
+
     for request in request_list:
-        if request["busy_from"] > start:
-            free_slots.append((start, request["busy_from"]))
-            start = request["busy_to"]
-    if start < end:
-        free_slots.append((start, end))
+        busy_from = request["busy_from"]
+        busy_to = request["busy_to"]
+        if busy_from > last_end:
+            free_slots.append((last_end, busy_from))
+        last_end = busy_to
+    if last_end < end:
+        free_slots.append((last_end, end))
     return free_slots
 
 
