@@ -84,36 +84,44 @@ fetch('/get_pending_requests')
 .catch(error => console.error('Error fetching pending requests:', error));
 
 
-
-
 const prevContainer = document.getElementById('prevRequestsContainer');
 const prevLoadingText = document.createElement('p');
-const roomFilterSelection = document.getElementById('roomFilter')
+const roomFilterSelection = document.getElementById('roomFilter');
+const dateFilterSelection = document.getElementById('dateFilter');
+const filterButton = document.getElementById('filterButton');
+
 prevLoadingText.textContent = 'Завантаження даних...';
 prevLoadingText.style.fontSize="24px";
 prevLoadingText.style.marginLeft="10px";
 prevContainer.appendChild(prevLoadingText);
 
 function filter_by_room(roomName, requests) {
+    if (roomName === 'ALL') {
+        return requests;
+    }
     return requests.filter(request => request.room_name === roomName);
 }
 
-roomFilterSelection.addEventListener('change', function() {
+function filter_by_date(selectedDate, requests) {
+    if (!selectedDate) {
+        return requests;
+    }
+    return requests.filter(request => request.day === selectedDate);
+}
+
+filterButton.addEventListener('click', function() {
     prevLoadingText.textContent = 'Завантаження даних...';
-    const selectedRoom = this.value;
+    const selectedRoom = roomFilterSelection.value;
+    const selectedDate = dateFilterSelection.value;
     fetch('/get_past_requests')
     .then(response => response.json())
     .then(pastRequests => {
         let filteredRequests;
-        if (selectedRoom === 'ALL') {
-            filteredRequests = pastRequests;
-        } else {
-            filteredRequests = filter_by_room(selectedRoom, pastRequests);
-        }
-        const prevRequests = prevContainer.querySelectorAll('.prev-requests'); // Select all request elements
+        filteredRequests = filter_by_date(selectedDate, filter_by_room(selectedRoom, pastRequests))
+        const prevRequests = prevContainer.querySelectorAll('.prev-requests, hr'); // Select all request elements
         prevRequests.forEach(request => request.remove()); // Remove all request elements
         if (filteredRequests.length === 0) {
-            prevLoadingText.textContent = 'Немає минулих запитів.';
+            prevLoadingText.textContent = 'Минулих запитів не знайдено.';
         } else {
             filteredRequests.forEach(request => {
                 prevLoadingText.textContent = '';
@@ -125,7 +133,7 @@ roomFilterSelection.addEventListener('change', function() {
 
                 const mainP = document.createElement('p');
                 mainP.classList.add('prev-main');
-                mainP.textContent = `[${request.room_name}], ${request.day} ${request.busy_from} - ${request.busy_to}`;
+                mainP.textContent = `[${request.room_name}], ${request.day} ${request.busy_from}:00 - ${request.busy_to}:00`;
 
                 const descriptionP = document.createElement('p');
                 descriptionP.classList.add('prev-description');
@@ -155,8 +163,9 @@ roomFilterSelection.addEventListener('change', function() {
     .catch(error => console.error('Error fetching past requests:', error));
 });
 
-const event = new Event('change');
-roomFilterSelection.dispatchEvent(event);
+
+const event = new Event('click');
+filterButton.dispatchEvent(event);
 
 
 
