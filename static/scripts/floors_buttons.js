@@ -31,7 +31,6 @@ function generateButtons(data) {
         buildingButton.classList.add('building-button');
         buildingButton.innerText = buildingData.building;
         buildingButton.addEventListener('click', () => {
-            console.log("zradomoga?")
             showFloors(buildingData.building);
         });
         buildingsContainer.appendChild(buildingButton);
@@ -58,7 +57,6 @@ function generateButtons(data) {
 }
 
 function showFloors(buildingName) {
-    console.log("showing floors");
     const allFloorsLists = document.querySelectorAll('.floors-section');
     const allBuildings = document.querySelectorAll('.building-button');
     allFloorsLists.forEach(floorsList => {
@@ -79,16 +77,12 @@ function showFloors(buildingName) {
 }
 
 function activeFloor(floorId) {
-    console.log("Zrada")
     const allFloors = document.querySelectorAll('.floor-button');
     allFloors.forEach(floor => {
-        console.log(floorId);
-
         if (floor.id !== floorId) {
             floor.classList.remove('current');
         } else {
             floor.classList.add('current');
-            console.log("piska");
             showMap(floor.id);
         }
     });
@@ -106,6 +100,7 @@ function showMap(floorId) {
         floorFolder = floorId.slice(0,2);
         fileName = `${floorId[2]}pov.jpg`;
         mapImage.src = `static/assets/${floorFolder}/${fileName}`;
+        console.log(`static/assets/${floorFolder}/${fileName}`);
         mapImage.style.width = "relative";
         mapImage.style.padding = "4px";
         mapImage.style.marginTop = "15px";
