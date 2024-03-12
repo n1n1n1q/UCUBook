@@ -14,7 +14,7 @@ GOOGLE_CLIENT_ID = (
     "356012260444-2kprdauh0obsooujst2828biso6u5f9i.apps.googleusercontent.com"
 )
 GOOGLE_CLIENT_SECRET = "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"
-GOOGLE_REDIRECT_URI = "http://localhost:8001/auth/google"
+GOOGLE_REDIRECT_URI = "http://0.0.0.0:8080/auth/google"
 GOOGLE_LOGIN_URI = f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={GOOGLE_CLIENT_ID}&redirect_uri={GOOGLE_REDIRECT_URI}&scope=openid%20profile%20email&access_type=offline"
 GOOGLE_TOKEN_URI = "https://accounts.google.com/o/oauth2/token"
 GOOGLE_USER_INFO_URI = "https://www.googleapis.com/oauth2/v1/userinfo"
