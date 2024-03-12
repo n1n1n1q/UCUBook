@@ -2,6 +2,7 @@ from datetime import datetime
 from fastapi import APIRouter
 from models.request import Request, UpdateRequest
 from db.db import DBOperations
+from dependencies.auth import Message
 
 admin_router = APIRouter()
 database: DBOperations
@@ -31,8 +32,16 @@ def change_status(request: UpdateRequest):
         "description": request.description,
         "status": request.status,
     }
-    print(input_data)
-    database.update_request_status(input_data, request.new_status)
+    # database.update_request_status(input_data, request.new_status)
+    if request.renter.endswith("@ucu.edu.ua"):
+        Message.send_invitation(
+            request.renter,
+            f"Бронювання {request.room_name}",
+            "Підтвердження бронювання авдиторії",
+            request.day,
+            f"{request.busy_from}:00",
+            f"{request.busy_to}:00",
+        )
 
 
 @admin_router.get("/get_past_requests")

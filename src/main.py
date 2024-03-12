@@ -11,15 +11,6 @@ from dependencies import auth
 import db.db as db
 
 
-def get_random():
-    """
-    Placeholder func //DELETE
-    """
-    from random import choice
-
-    return choice(["status confirmed", "status declined"])
-
-
 database = db.DBOperations()
 database.set_up()
 app = FastAPI()

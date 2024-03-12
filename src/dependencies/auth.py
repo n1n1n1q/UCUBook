@@ -6,10 +6,13 @@ import random
 import hashlib
 from datetime import datetime, timedelta
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 from fastapi import Request, status, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from jose import jwt, ExpiredSignatureError
+
 from db.db import DBOperations
 from dependencies.credentials import *
 
@@ -59,6 +62,55 @@ class Message:
         server.send_message(msg)
         server.quit()
         print(f"message sent to {login}")
+
+    @staticmethod
+    def send_invitation(email, event_title, event_details, date, time_from, time_to):
+        """
+        Send an email with an attached .ics file to add an event to a calendar.
+        """
+        gmail_user = GMAIL_LOGIN
+        gmail_password = GMAIL_PASSWORD
+
+        event_start = datetime.strptime(
+            f"{date} {time_from}", "%Y-%m-%d %H:%M"
+        ).strftime("%Y%m%dT%H%M%SZ")
+        event_end = datetime.strptime(f"{date} {time_to}", "%Y-%m-%d %H:%M").strftime(
+            "%Y%m%dT%H%M%SZ"
+        )
+
+        ics_content = f"""BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:UCUBook
+BEGIN:VEVENT
+UID:{datetime.utcnow().strftime('%Y%m%dT%H%M%S')}@yourdomain.com
+DTSTAMP:{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}
+DTSTART:{event_start}
+DTEND:{event_end}
+SUMMARY:{event_title}
+DESCRIPTION:{event_details}
+END:VEVENT
+END:VCALENDAR
+"""
+        msg = MIMEMultipart()
+        msg["Subject"] = f"Підтвердження: {event_title}"
+        msg["From"] = gmail_user
+        msg["To"] = email
+
+        email_body = MIMEText(
+            f"Вам підтвердили {event_title}. Ви можете додати собі дату в календар, щоб не забути.\n\nЗ любов'ю,\nUCUBook"
+        )
+        msg.attach(email_body)
+
+        ics_part = MIMEApplication(ics_content, Name="invite.ics")
+        ics_part["Content-Disposition"] = 'attachment; filename="invite.ics"'
+        msg.attach(ics_part)
+
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(gmail_user, gmail_password)
+        server.sendmail(gmail_user, email, msg.as_string())
+        server.quit()
+        print(f"надіслано успішно: {email}")
 
 
 class Authentication:
@@ -110,7 +162,9 @@ class Authentication:
             user_data = database.get_data("users", data["login"])[0]
             if via_google:
                 return user_data["login"]
-            elif Authentication.hash_password(data["password"]) == user_data["password"]:
+            elif (
+                Authentication.hash_password(data["password"]) == user_data["password"]
+            ):
                 return user_data["login"]
             else:
                 return None
