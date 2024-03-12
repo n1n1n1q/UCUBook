@@ -454,7 +454,7 @@ section .loginButtons a {
   font-size: 31px;
   color:#7f1716;
   font-weight: 600;
-  margin: 0px 0 12px 6px;
+  margin: 10px 0 12px 20px;
 }
 #prevRequestsContainer
 {
