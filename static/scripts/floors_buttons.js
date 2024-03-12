@@ -102,7 +102,7 @@ function showMap(floorId) {
         floorFolder = floorId.slice(0,2);
         fileName = `${floorId[2]}pov.jpg`;
         mapImage.src = `static/assets/${floorFolder}/${fileName}`;
-        console.log(`static/assets/${floorFolder}/${fileName}`);
+        // console.log(`static/assets/${floorFolder}/${fileName}`);
         mapImage.style.width = "relative";
         mapImage.style.zIndex = "5";
         mapImage.style.padding = "4px";
