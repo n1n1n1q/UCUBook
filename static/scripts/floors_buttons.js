@@ -53,10 +53,11 @@ function generateButtons(data) {
     });
     const buildingNames = buildingsData.map(data => data.building);
     showFloors(buildingNames[0]);
-    activeFloor(getFloorId(buildingNames[0],4));
+    activeFloor(getFloorId(buildingNames[0],0));
 }
 
 function showFloors(buildingName) {
+    hideRoomNames();
     const allFloorsLists = document.querySelectorAll('.floors-section');
     const allBuildings = document.querySelectorAll('.building-button');
     allFloorsLists.forEach(floorsList => {
@@ -89,6 +90,7 @@ function activeFloor(floorId) {
 }
 
 function showMap(floorId) {
+    hideRoomNames();
     mapContainer.innerHTML = "";
     if (mapImages.indexOf(floorId)===-1) {
         const noImage = document.createElement("p");
@@ -102,6 +104,7 @@ function showMap(floorId) {
         mapImage.src = `static/assets/${floorFolder}/${fileName}`;
         console.log(`static/assets/${floorFolder}/${fileName}`);
         mapImage.style.width = "relative";
+        mapImage.style.zIndex = "5";
         mapImage.style.padding = "4px";
         mapImage.style.marginTop = "15px";
         mapImage.style.marginLeft = "20px";
@@ -111,7 +114,9 @@ function showMap(floorId) {
         showRooms(floorId);
     }
 }
+
 function showRooms(floorId) {
+    hideRoomNames();
     const floorObj = floorRooms.find(item => item.floor === floorId);
     const roomsList = floorObj.rooms;
     roomsList.forEach(room => {
@@ -119,107 +124,147 @@ function showRooms(floorId) {
         roomElement.id = getRoomId(room,floorId.slice(0,2));
         roomElement.style.cursor = "pointer";
         roomElement.style.zIndex = "10";
-        roomElement.style.backgroundColor = "#000";
+        roomElement.style.backgroundColor = "rgba(255,255,255,0) ";
         roomElement.style.position = "absolute";
-        roomElement.style.opacity = "0";
+        roomElement.classList.add("room");
+        roomElement.style.textAlign = "center";
+        roomElement.style.verticalAlign = "middle";
+        roomElement.style.fontWeight = "500";
+        roomElement.style.color = "rgb(185, 185, 185)";
+        roomElement.style.transition = "all 0.3s";
         if (room==="002") {
+            roomElement.style.fontSize = "18px";
             roomElement.style.height = "80px";
+            roomElement.style.lineHeight = "80px"
             roomElement.style.width = "170px";
             roomElement.style.marginTop = "166px";
             roomElement.style.marginLeft = "298px";
             roomElement.id = getRoomId("002","ЦШ");
         } else if (room==="016") {
+            roomElement.style.fontSize = "12px";
             roomElement.style.height = "70px";
+            roomElement.style.lineHeight = "70px";
             roomElement.style.width = "47px";
             roomElement.style.marginTop = "271px";
             roomElement.style.marginLeft = "520px";
             roomElement.id = getRoomId("016","ЦШ");
         } else if (room==="127") {
+            roomElement.style.fontSize = "18px";
             roomElement.style.height = "125px";
             roomElement.style.width = "103px";
+            roomElement.style.lineHeight = "125px";
             roomElement.style.marginTop = "264px";
             roomElement.style.marginLeft = "125px";
             roomElement.id = getRoomId("127","ЦШ");
         } else if (room==="202") {
+            roomElement.style.fontSize = "16px";
             roomElement.style.height = "81px";
+            roomElement.style.lineHeight = "81px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "123px";
             roomElement.style.marginLeft = "507px";
             roomElement.id = getRoomId("202","ЦШ");
         } else if (room==="203") {
+            roomElement.style.fontSize = "16px";
             roomElement.style.height = "72px";
+            roomElement.style.lineHeight = "72px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "40px";
             roomElement.style.marginLeft = "507px";
             roomElement.id = getRoomId("203","ЦШ");
         } else if (room==="204") {
+            roomElement.style.fontSize = "14px";
             roomElement.style.height = "43px";
+            roomElement.style.lineHeight = "43px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "40px";
             roomElement.style.marginLeft = "612px";
             roomElement.id = getRoomId("204","ЦШ");
         } else if (room==="216") {
+            roomElement.style.fontSize = "12px";
             roomElement.style.height = "62px";
+            roomElement.style.lineHeight = "62px"
             roomElement.style.width = "53px";
             roomElement.style.marginTop = "301px";
             roomElement.style.marginLeft = "324px";
             roomElement.id = getRoomId("216","ЦШ");
         } else if (room==="302") {
+            roomElement.style.fontSize = "16px";
             roomElement.style.height = "81px";
+            roomElement.style.lineHeight = "81px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "123px";
             roomElement.style.marginLeft = "507px";
             roomElement.id = getRoomId("302","ЦШ");
         } else if (room==="303") {
+            roomElement.style.fontSize = "16px";
             roomElement.style.height = "72px";
+            roomElement.style.lineHeight = "72px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "40px";
             roomElement.style.marginLeft = "507px";
             roomElement.id = getRoomId("303","ЦШ");
         } else if (room==="304") {
+            roomElement.style.fontSize = "14px";
             roomElement.style.height = "43px";
+            roomElement.style.lineHeight = "43px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "40px";
             roomElement.style.marginLeft = "612px";
             roomElement.id = getRoomId("304","ЦШ");
         } else if (room==="316") {
+            roomElement.style.fontSize = "10px";
             roomElement.style.height = "62px";
+            roomElement.style.lineHeight = "62px";
             roomElement.style.width = "37px";
             roomElement.style.marginTop = "301px";
             roomElement.style.marginLeft = "321px";
             roomElement.id = getRoomId("316","ЦШ");
         } else if (room==="402") {
+            roomElement.style.fontSize = "16px";
             roomElement.style.height = "81px";
+            roomElement.style.lineHeight = "81px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "123px";
             roomElement.style.marginLeft = "507px";
             roomElement.id = getRoomId("402","ЦШ");
         } else if (room==="403") {
+            roomElement.style.fontSize = "16px";
             roomElement.style.height = "72px";
+            roomElement.style.lineHeight = "72px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "40px";
             roomElement.style.marginLeft = "507px";
             roomElement.id = getRoomId("403","ЦШ");
         } else if (room==="404") {
+            roomElement.style.fontSize = "14px";
             roomElement.style.height = "43px";
+            roomElement.style.lineHeight = "43px";
             roomElement.style.width = "71px";
             roomElement.style.marginTop = "40px";
             roomElement.style.marginLeft = "612px";
             roomElement.id = getRoomId("404","ЦШ");
         } else if (room==="415") {
+            roomElement.style.fontSize = "14px";
             roomElement.style.height = "62px";
+            roomElement.style.lineHeight = "62px";
             roomElement.style.width = "70px";
             roomElement.style.marginTop = "285px";
             roomElement.style.marginLeft = "508px";
             roomElement.id = getRoomId("415","ЦШ");
         } else if (room==="416") {
+            roomElement.style.fontSize = "10px";
             roomElement.style.height = "62px";
+            roomElement.style.lineHeight = "62px";
             roomElement.style.width = "36px";
             roomElement.style.marginTop = "301px";
             roomElement.style.marginLeft = "322px";
             roomElement.id = getRoomId("416","ЦШ");
-        } 
+        }
+        roomElement.textContent = roomElement.id;
         roomElement.addEventListener("click", () => createRequestMenu(roomElement.id));
+        roomElement.addEventListener("mouseover", () => showRoomName(roomElement.id)); 
+        roomElement.addEventListener("mouseout", () => hideRoomNames(roomElement.id)); 
         mapContainer.appendChild(roomElement);
     });
 
@@ -228,4 +273,20 @@ function showRooms(floorId) {
 function getRoomId(roomNum,building) {
     return building+"-"+roomNum;
 }
+
+function hideRoomNames() {
+    const roomNames = document.querySelectorAll(".room");
+    roomNames.forEach(roomName => {
+        roomName.style.color = "rgb(185, 185, 185)";
+    });
+}
+
+function showRoomName(id) {
+    hideRoomNames();
+    const roomName = document.getElementById(id);
+    roomName.style.color = "rgb(246, 246, 246)";
+
+}
+
 generateButtons(buildingsData);
+hideRoomNames();

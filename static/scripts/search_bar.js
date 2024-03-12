@@ -315,7 +315,7 @@ function renderResultDate(message) {
   clearTimeSlotsDiv();
   let availableSlotsMessage = document.createElement("p");
   availableSlotsMessage.id = "availableSlots"
-  availableSlotsMessage.classList.add('text-field');
+  availableSlotsMessage.classList.add('text-field-msg');
   availableSlotsMessage.textContent = message;
   requestMenu.appendChild(availableSlotsMessage);
 }
@@ -412,7 +412,7 @@ function requestResult(ind) {
   exit.addEventListener("click", () => closeMenu());
   requestMenu.appendChild(exit);
   const requestRes = document.createElement("p");
-  requestRes.classList.add("text-field");
+  requestRes.classList.add("text-field-msg");
   requestMenu.appendChild(requestRes);
   if (ind) {
     requestRes.textContent = "Запит успішно надіслано. Очікуйте лист про підтвердження.";

@@ -939,10 +939,17 @@ section .loginButtons a {
 }
 
 
-.text-field{
+.text-field {
   margin: 1px 4px 3px 10px;
   font-size: 24px;
+  z-index: 200;
 }
+
+.text-field-msg {
+  margin: 1px 4px 3px 10px;
+  font-size: 18px;
+}
+
 #dateInput{
   margin: 0px 00px 3px 10px;
 }
@@ -1017,11 +1024,13 @@ section .loginButtons a {
 }
 #image {
 
-  width:100px;
-  height: 100px;
+  width: 300px;
+  height: relative;
   margin: 10px;
 }
 
 .time-gap {
   width: 40%;
 }
+
+.
