@@ -171,7 +171,7 @@ async def auth_google(code: str):
     raw_data = response_data.json()
     user_data = {"login": raw_data["email"], "password": None, "name": raw_data["name"]}
 
-    current_user = auth.Authentication.authenticate_user(user_data)
+    current_user = auth.Authentication.authenticate_user(user_data, via_google=True)
 
     if current_user:
         url = app.url_path_for("read_index")
