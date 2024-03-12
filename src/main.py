@@ -192,9 +192,7 @@ app.include_router(admin.admin_router)
 app.include_router(user.user_router)
 
 print(database.get_data("requests", "admin", "renter"))
-# print(user.get_possible_requests("2022-01-01"))
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run("main:app", host="0.0.0.0", port=8002, reload=True)
     print(database.get_data("requests", "admin", "renter"))

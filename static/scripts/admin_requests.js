@@ -148,27 +148,61 @@ fetch('/get_pending_requests')
 
 const prevContainer = document.getElementById('prevRequestsContainer');
 const prevLoadingText = document.createElement('p');
-prevLoadingText.textContent = 'Завантаження даних...';
-prevLoadingText.style.fontSize = "24px";
-prevLoadingText.style.marginLeft = "10px";
-prevContainer.appendChild(prevLoadingText);
 
-fetch('/get_past_requests')
-  .then(response => response.json())
-  .then(pastRequests => {
-    if (pastRequests.length === 0) {
-      prevLoadingText.textContent = 'Наразі немає активних запитів';
-    } else {
-      prevLoadingText.remove();
 
-      const itemsPerPage = 10; 
-      const numPages = Math.ceil(pastRequests.length / itemsPerPage);
+const roomFilterSelection = document.getElementById('roomFilter');
+const dateFilterSelection = document.getElementById('dateFilter');
+const filterButton = document.getElementById('filterButton');
 
-      createPaginationArrows(numPages, 1, prevContainer, pastRequests, 'prev');
-      showPage(1, pastRequests, prevContainer, 'prev');
+
+function filter_by_room(roomName, requests) {
+    if (roomName === 'ALL') {
+        return requests;
     }
-  })
-  .catch(error => console.error('Error fetching past requests:', error));
+    return requests.filter(request => request.room_name === roomName);
+}
+
+function filter_by_date(selectedDate, requests) {
+    if (!selectedDate) {
+        return requests;
+    }
+    return requests.filter(request => request.day === selectedDate);
+}
+
+
+filterButton.addEventListener('click', function() {
+    selectedDate = dateFilterSelection.value;
+    selectedRoom = roomFilterSelection.value;
+    const prevRequests = prevContainer.querySelectorAll('.prev-requests, hr, span'); // Select all request elements
+    prevRequests.forEach(request => request.remove()); // Remove all request elements
+    prevLoadingText.textContent = 'Завантаження даних...';
+    prevLoadingText.style.fontSize = "24px";
+    prevLoadingText.style.marginLeft = "10px";
+    prevContainer.appendChild(prevLoadingText);
+
+    fetch('/get_past_requests')
+    .then(response => response.json())
+    .then(pastRequests => {
+
+        let filteredRequests;
+        filteredRequests = filter_by_date(selectedDate, filter_by_room(selectedRoom, pastRequests))
+    
+        if (filteredRequests.length === 0) {
+            prevLoadingText.textContent = 'Минулих запитів не знайдено';
+            // prevContainer.appendChild(prevLoadingText)
+        } else {
+            prevLoadingText.textContent = '';
+            const itemsPerPage = 10; 
+            const numPages = Math.ceil(filteredRequests.length / itemsPerPage);
+
+            createPaginationArrows(numPages, 1, prevContainer, filteredRequests, 'prev');
+            showPage(1, filteredRequests, prevContainer, 'prev');
+        }
+    })
+    .catch(error => console.error('Error fetching past requests:', error));
+
+
+});
 
 function updateRequestStatus(request, newStatus, requestDiv) {
   const requestData = {
@@ -201,3 +235,7 @@ function updateRequestStatus(request, newStatus, requestDiv) {
     })
     .catch(error => console.error('Error updating request status:', error));
 }
+
+const event = new Event('click');
+filterButton.dispatchEvent(event);
+
