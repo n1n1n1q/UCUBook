@@ -19,7 +19,6 @@ body {
   font-family: 'Fira Sans', sans-serif;
 }
 
-
 .ucubook {
   min-width: 50%;
   padding-bottom: 10rem;
@@ -119,7 +118,7 @@ body {
   align-items: center;
 }
 
-search-bar{
+.search-bar{
   /*margin-right: 4.4rem;*/
   width: auto;
   justify-content: center;
@@ -249,7 +248,9 @@ search-bar{
   border-radius: 16px;
   flex-shrink: 0;
   margin-bottom: 2rem;
+  position: relative;
 }
+
 /* login */
 
 section .signin
@@ -938,10 +939,17 @@ section .loginButtons a {
 }
 
 
-.text-field{
+.text-field {
   margin: 1px 4px 3px 10px;
   font-size: 24px;
+  z-index: 200;
 }
+
+.text-field-msg {
+  margin: 1px 4px 3px 10px;
+  font-size: 18px;
+}
+
 #dateInput{
   margin: 0px 00px 3px 10px;
 }
@@ -991,7 +999,8 @@ section .loginButtons a {
     width: 90vw;
     height: 85vw;
   }
-  #image1,#image2{
+  #image
+  {
     display: none;
   }
 }
@@ -1013,14 +1022,15 @@ section .loginButtons a {
 #endInput {
   
 }
-#image1,#image2{
+#image {
 
-  background-color: #ccc;
-  width:100px;
-  height: 100px;
+  width: 300px;
+  height: relative;
   margin: 10px;
 }
 
 .time-gap {
   width: 40%;
 }
+
+.

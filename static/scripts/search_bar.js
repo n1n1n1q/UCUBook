@@ -267,17 +267,18 @@ function createRequestMenu(roomId) {
 
   requestMenu.appendChild(roomName);
   requestMenu.appendChild(inputDiv);
-  const imagesDiv = document.createElement("div");
-  imagesDiv.id = "imagesDiv";
-  const image1 = document.createElement("div");
-  const image2 = document.createElement("div");
-  image1.classList.add("room-image");
-  image2.classList.add("room-image");
-  image1.id="image1";
-  image2.id="image2";
-  imagesDiv.appendChild(image1);
-  imagesDiv.appendChild(image2);
-  requestMenu.appendChild(imagesDiv);
+  const imageDiv = document.createElement("div");
+  imageDiv.id = "imagesDiv";
+  const image = document.createElement("img");
+  image.classList.add("room-image");
+  image.id="image";
+  const imageFolder = roomId.slice(0,2).toLowerCase();
+  const imageFile = roomId.slice(3);
+  console.log(imageFolder);
+  image.src = `static/assets/photos/${imageFolder}/${imageFile}.jpeg`;
+  console.log(image.src);
+  imageDiv.appendChild(image);
+  requestMenu.appendChild(imageDiv);
 }
 
 function handleDateInput(room) {
@@ -313,7 +314,7 @@ function renderResultDate(message) {
   clearTimeSlotsDiv();
   let availableSlotsMessage = document.createElement("p");
   availableSlotsMessage.id = "availableSlots"
-  availableSlotsMessage.classList.add('text-field');
+  availableSlotsMessage.classList.add('text-field-msg');
   availableSlotsMessage.textContent = message;
   requestMenu.appendChild(availableSlotsMessage);
 }
@@ -410,7 +411,7 @@ function requestResult(ind) {
   exit.addEventListener("click", () => closeMenu());
   requestMenu.appendChild(exit);
   const requestRes = document.createElement("p");
-  requestRes.classList.add("text-field");
+  requestRes.classList.add("text-field-msg");
   requestMenu.appendChild(requestRes);
   if (ind) {
     requestRes.textContent = "Запит успішно надіслано. Очікуйте лист про підтвердження.";
