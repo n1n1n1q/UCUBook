@@ -53,7 +53,7 @@ function generateButtons(data) {
     });
     const buildingNames = buildingsData.map(data => data.building);
     showFloors(buildingNames[0]);
-    activeFloor(getFloorId(buildingNames[0],2));
+    activeFloor(getFloorId(buildingNames[0],3));
 }
 
 function showFloors(buildingName) {
@@ -145,6 +145,72 @@ function showRooms(floorId) {
             roomElement.style.marginTop = "123px";
             roomElement.style.marginLeft = "507px";
             console.log("202");
+        } else if (room==="203") {
+            roomElement.style.height = "72px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "40px";
+            roomElement.style.marginLeft = "507px";
+            console.log("203");
+        } else if (room==="204") {
+            roomElement.style.height = "43px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "40px";
+            roomElement.style.marginLeft = "612px";
+            console.log("204");
+        } else if (room==="216") {
+            roomElement.style.height = "62px";
+            roomElement.style.width = "53px";
+            roomElement.style.marginTop = "301px";
+            roomElement.style.marginLeft = "324px";
+            console.log("216");
+        } else if (room==="302") {
+            roomElement.style.height = "81px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "123px";
+            roomElement.style.marginLeft = "507px";
+            console.log("302");
+        } else if (room==="303") {
+            roomElement.style.height = "72px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "40px";
+            roomElement.style.marginLeft = "507px";
+            console.log("303");
+        } else if (room==="304") {
+            roomElement.style.height = "43px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "40px";
+            roomElement.style.marginLeft = "612px";
+            console.log("304");
+        } else if (room==="316") {
+            roomElement.style.height = "62px";
+            roomElement.style.width = "37px";
+            roomElement.style.marginTop = "301px";
+            roomElement.style.marginLeft = "321px";
+            console.log("316");
+        } else if (room==="402") {
+            roomElement.style.height = "81px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "123px";
+            roomElement.style.marginLeft = "507px";
+            console.log("402");
+        } else if (room==="403") {
+            roomElement.style.height = "72px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "40px";
+            roomElement.style.marginLeft = "507px";
+            console.log("403");
+        } else if (room==="404") {
+            roomElement.style.height = "43px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "40px";
+            roomElement.style.marginLeft = "612px";
+            console.log("404");
+        } else if (room==="416") {
+            roomElement.style.height = "62px";
+            roomElement.style.width = "36px";
+            roomElement.style.marginTop = "301px";
+            roomElement.style.marginLeft = "322px";
+            console.log("416");
         }
                 
     mapContainer.appendChild(roomElement);
