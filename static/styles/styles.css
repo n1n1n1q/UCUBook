@@ -249,6 +249,7 @@ body {
   border-radius: 16px;
   flex-shrink: 0;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 /* login */

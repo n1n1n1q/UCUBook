@@ -1,3 +1,5 @@
+const mapContainer = document.getElementsByClassName("map-container")[0];
+
 const buildingsData = [
     {"building": "Центр Шептицького", "floors": 5},
     {"building": "Академічний корпус", "floors": 5},
@@ -5,6 +7,14 @@ const buildingsData = [
 ];
 
 const mapImages = ["ЦШ0", "ЦШ1", "ЦШ2", "ЦШ3", "ЦШ4"];
+
+const floorRooms = [
+    {"floor": "ЦШ0", "rooms": ["002", "016"]},
+    {"floor": "ЦШ1", "rooms": ["127"]},
+    {"floor": "ЦШ2", "rooms": ["202", "203", "204", "216"]},
+    {"floor": "ЦШ3", "rooms": ["302", "303", "304", "316"]},
+    {"floor": "ЦШ4", "rooms": ["402", "403", "404", "416"]}
+];
 
 function getFloorId(buildingName,floorNum) {
     const tmp = buildingName.split(" ");
@@ -43,7 +53,7 @@ function generateButtons(data) {
     });
     const buildingNames = buildingsData.map(data => data.building);
     showFloors(buildingNames[0]);
-    activeFloor(getFloorId(buildingNames[0],0));
+    activeFloor(getFloorId(buildingNames[0],2));
 }
 
 function showFloors(buildingName) {
@@ -78,7 +88,6 @@ function activeFloor(floorId) {
 }
 
 function showMap(floorId) {
-    const mapContainer = document.getElementsByClassName("map-container")[0];
     mapContainer.innerHTML = "";
     if (mapImages.indexOf(floorId)===-1) {
         const noImage = document.createElement("p");
@@ -95,9 +104,56 @@ function showMap(floorId) {
         mapImage.style.marginTop = "15px";
         mapImage.style.marginLeft = "20px";
         mapImage.style.height = "50rem";
+        mapImage.style.position = "absolute";
         mapContainer.appendChild(mapImage);
+        showRooms(floorId);
     }
 }
+function showRooms(floorId) {
+    const floorObj = floorRooms.find(item => item.floor === floorId);
+    const roomsList = floorObj.rooms;
+    console.log(roomsList);
+    roomsList.forEach(room => {
+        console.log(room);
+        const roomElement = document.createElement("div");
+        roomElement.id = getRoomId(room,floorId.slice(0,2));
+        roomElement.style.cursor = "pointer";
+        roomElement.style.zIndex = "10";
+        roomElement.style.backgroundColor = "#000";
+        roomElement.style.position = "absolute";
+        if (room==="002") {
+            roomElement.style.height = "80px";
+            roomElement.style.width = "170px";
+            roomElement.style.marginTop = "166px";
+            roomElement.style.marginLeft = "298px";
+            console.log("002");
+        } else if (room==="016") {
+            roomElement.style.height = "70px";
+            roomElement.style.width = "47px";
+            roomElement.style.marginTop = "271px";
+            roomElement.style.marginLeft = "520px";
+            console.log("016");
+        } else if (room==="127") {
+            roomElement.style.height = "125px";
+            roomElement.style.width = "103px";
+            roomElement.style.marginTop = "264px";
+            roomElement.style.marginLeft = "125px";
+            console.log("127");
+        } else if (room==="202") {
+            roomElement.style.height = "81px";
+            roomElement.style.width = "71px";
+            roomElement.style.marginTop = "123px";
+            roomElement.style.marginLeft = "507px";
+            console.log("202");
+        }
+                
+    mapContainer.appendChild(roomElement);
+    });
 
+}
+
+function getRoomId(roomNum,building) {
+    return building+"-"+roomNum;
+}
 // showMap("ЦШ0");
 generateButtons(buildingsData);
