@@ -119,7 +119,7 @@ body {
   align-items: center;
 }
 
-search-bar{
+.search-bar{
   /*margin-right: 4.4rem;*/
   width: auto;
   justify-content: center;
@@ -250,6 +250,7 @@ search-bar{
   flex-shrink: 0;
   margin-bottom: 2rem;
 }
+
 /* login */
 
 section .signin
