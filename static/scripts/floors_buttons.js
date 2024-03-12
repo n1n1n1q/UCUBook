@@ -13,7 +13,7 @@ const floorRooms = [
     {"floor": "ЦШ1", "rooms": ["127"]},
     {"floor": "ЦШ2", "rooms": ["202", "203", "204", "216"]},
     {"floor": "ЦШ3", "rooms": ["302", "303", "304", "316"]},
-    {"floor": "ЦШ4", "rooms": ["402", "403", "404", "416"]}
+    {"floor": "ЦШ4", "rooms": ["402", "403", "404", "415", "416"]}
 ];
 
 function getFloorId(buildingName,floorNum) {
@@ -31,6 +31,7 @@ function generateButtons(data) {
         buildingButton.classList.add('building-button');
         buildingButton.innerText = buildingData.building;
         buildingButton.addEventListener('click', () => {
+            console.log("zradomoga?")
             showFloors(buildingData.building);
         });
         buildingsContainer.appendChild(buildingButton);
@@ -53,10 +54,11 @@ function generateButtons(data) {
     });
     const buildingNames = buildingsData.map(data => data.building);
     showFloors(buildingNames[0]);
-    activeFloor(getFloorId(buildingNames[0],0));
+    activeFloor(getFloorId(buildingNames[0],4));
 }
 
 function showFloors(buildingName) {
+    console.log("showing floors");
     const allFloorsLists = document.querySelectorAll('.floors-section');
     const allBuildings = document.querySelectorAll('.building-button');
     allFloorsLists.forEach(floorsList => {
@@ -70,19 +72,24 @@ function showFloors(buildingName) {
         }
     });
     const floorsList = document.getElementById(buildingName);
-    if (floorsList) {floorsList.classList.add('active');
+    if (floorsList) {
+        floorsList.classList.add('active');
     }
-    activeFloor(buildingName,0);
+    activeFloor(getFloorId(buildingName,0));
 }
 
 function activeFloor(floorId) {
+    console.log("Zrada")
     const allFloors = document.querySelectorAll('.floor-button');
     allFloors.forEach(floor => {
+        console.log(floorId);
+
         if (floor.id !== floorId) {
             floor.classList.remove('current');
         } else {
             floor.classList.add('current');
-            showMap(floorId);
+            console.log("piska");
+            showMap(floor.id);
         }
     });
 }
@@ -204,13 +211,19 @@ function showRooms(floorId) {
             roomElement.style.marginTop = "40px";
             roomElement.style.marginLeft = "612px";
             roomElement.id = getRoomId("404","ЦШ");
+        } else if (room==="415") {
+            roomElement.style.height = "62px";
+            roomElement.style.width = "70px";
+            roomElement.style.marginTop = "285px";
+            roomElement.style.marginLeft = "508px";
+            roomElement.id = getRoomId("415","ЦШ");
         } else if (room==="416") {
             roomElement.style.height = "62px";
             roomElement.style.width = "36px";
             roomElement.style.marginTop = "301px";
             roomElement.style.marginLeft = "322px";
             roomElement.id = getRoomId("416","ЦШ");
-        }
+        } 
         roomElement.addEventListener("click", () => createRequestMenu(roomElement.id));
         mapContainer.appendChild(roomElement);
     });
