@@ -204,11 +204,20 @@ if __name__ == "__main__":
     curr_client = bigquery.Client()
     delete_data(MyDB, "requests")
     print("Finished!")
+
+    import hashlib
+
+    def hash_password(password):
+        password_bytes = password.encode("utf-8")
+        hashed_bytes = hashlib.sha256(password_bytes).digest()
+        hashed_password = hashlib.sha256(password_bytes).hexdigest()
+        return hashed_password
+
     MyDB.add_data(
         "users",
         {
-            "login": "admin",
-            "password": "icanttakeitanymore00",
+            "login": "admin1",
+            "password": f"{hash_password('admin')}",
             "can_rent": True,
             "group": 9,
             "display_name": "Ucubook Admin",

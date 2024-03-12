@@ -159,3 +159,4 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 src/db/magnetic-nimbus-414610-2bcd9c115d01.json
+src/dependencies/credentials.py
