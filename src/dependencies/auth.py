@@ -12,7 +12,7 @@ from fastapi import Request, status, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from jose import jwt, ExpiredSignatureError
-
+from json import loads
 from db.db import DBOperations
 from dependencies.credentials import *
 
@@ -86,8 +86,8 @@ UID:{datetime.utcnow().strftime('%Y%m%dT%H%M%S')}@yourdomain.com
 DTSTAMP:{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}
 DTSTART:{event_start}
 DTEND:{event_end}
-SUMMARY:{event_title}
-DESCRIPTION:{event_details}
+SUMMARY:Booking
+DESCRIPTION:Room's booking confirmation
 END:VEVENT
 END:VCALENDAR
 """
