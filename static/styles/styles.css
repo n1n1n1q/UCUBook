@@ -992,7 +992,8 @@ section .loginButtons a {
     width: 90vw;
     height: 85vw;
   }
-  #image1,#image2{
+  #image
+  {
     display: none;
   }
 }
@@ -1014,9 +1015,8 @@ section .loginButtons a {
 #endInput {
   
 }
-#image1,#image2{
+#image {
 
-  background-color: #ccc;
   width:100px;
   height: 100px;
   margin: 10px;

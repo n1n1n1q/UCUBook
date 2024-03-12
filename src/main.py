@@ -196,6 +196,6 @@ print(database.get_data("requests", "admin", "renter"))
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="0.0.0.0", port=8002, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8003, reload=True)
     print(database.get_data("requests", "admin", "renter"))
 
