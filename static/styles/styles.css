@@ -364,7 +364,31 @@ section .loginButtons a {
   text-decoration: none;
 }
 
+#firstTimeContainer
+{
+  margin-top: 20px;
+  width:500px;
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  border: 2px solid #B9B9B9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+#firstTimeHeader
+{
+  display: flex;
+  font-size: 27px;
+}
+#firstTimeInput
+{
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
 
+}
 
 /* Requests page */
 #loadingText
@@ -568,6 +592,9 @@ section .loginButtons a {
 
 /* General Styles */
 @media (max-width: 926px) {
+  #firstTimeContainer{
+    width:90vw;
+  }
   html {
     font-size: 16px;
   }
@@ -686,6 +713,7 @@ section .loginButtons a {
     margin-bottom: 0.5rem;
   }
 }
+
 /* Requests Page */
 @media (max-width: 926px) {
   .ucubook#requests {
@@ -845,8 +873,8 @@ section .loginButtons a {
   }
 
   section .loginButtons button {
-    width: 40%;
-    height: 4rem;
+    width: 24vw;
+    height: 7vw;
   }
 
   /* Requests Page */
