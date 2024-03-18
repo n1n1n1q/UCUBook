@@ -230,10 +230,24 @@ function updateRequestStatus(request, newStatus, requestDiv) {
         console.log('Request status updated successfully');
         requestDiv.remove(); 
       } else {
-        console.error('Error updating request status');
+        console.error('Error updating request statusdasda');
+        errorText=document.createElement("p");
+        errorText.textContent="Сталася помилка при обробці запиту...";
+        const buttonsDiv = requestDiv.querySelector('.pending-buttons');
+        buttonsDiv.innerHTML=""
+        buttonsDiv.appendChild(errorText);
+        errorText.style.display="flex";
+        errorText.style.marginBottom="30px";
       }
     })
-    .catch(error => console.error('Error updating request status:', error));
+    .catch(error => {
+      console.error('Error updating request status иуи:', error);
+      errorText=document.createElement("p");
+      errorText.textContent="Помилка:(";
+      const buttonsDiv = requestDiv.querySelector('.pending-buttons');
+      buttonsDiv.innerHTML="";
+      buttonsDiv.appendChild(errorText);
+    });
 }
 
 const event = new Event('click');

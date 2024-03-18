@@ -90,9 +90,14 @@ function showAvailableTimeSlots(date,room) {
     availableSlotsP.classList.add("text-field");
     requestMenu.appendChild(availableSlotsP);
     requestMenu.appendChild(availableSlotsDiv);
-
+    const timeLoad = document.createElement("p");
+    timeLoad.classList.add("text-field");
+    timeLoad.textContent = "Завантаження даних...";
+    requestMenu.appendChild(timeLoad);
+    console.log("sis")
     getAvailableTimeSlots(date, room).then(timeSlots =>
       {
+        timeLoad.textContent="";
         console.log(timeSlots);
         timeSlots.forEach(timeSlot => {
           const timeSlotP = document.createElement("p");
@@ -120,6 +125,9 @@ function requestFormMenu(room,date) {
   document.getElementById("requestFormButton").remove();
   requestForm = document.createElement("div");
   requestForm.id = "requestForm";
+  const infoText = document.createElement("p");
+  infoText.classList.add("text-field");
+  infoText.textContent = "Часовий проміжок (цілі числа)"
   const timeDiv = document.createElement("div");
   timeDiv.id = "timeDiv";
   const startDiv = document.createElement("div");
@@ -169,6 +177,7 @@ function requestFormMenu(room,date) {
   sendButton.addEventListener("click", () => sendRequest(
     room, startInput.value.trim(), endInput.value.trim(), date, eventNameInput.value.trim(), descriptionInput.value.trim(),timeSlots
     ));
+  requestForm.appendChild(infoText);
   requestForm.appendChild(timeDiv);
   requestForm.appendChild(nameDiv);
   requestForm.appendChild(descriptionDiv);

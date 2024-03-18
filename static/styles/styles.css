@@ -513,8 +513,8 @@ section .loginButtons a {
   background-color: #7f1716;
   color:#FFF;
   border: None;
-  width: 15rem;
-  height: 3.6rem;
+  width: 17rem;
+  height: 4.6rem;
   margin: 0 10px 10px 0;
   cursor: pointer;
   border-radius: 3px;
@@ -974,8 +974,8 @@ section .loginButtons a {
 }
 
 .text-field-msg {
-  margin: 1px 4px 3px 10px;
-  font-size: 18px;
+  margin: 40px 40px 40px 40px;
+  font-size: 25px;
 }
 
 #dateInput{
