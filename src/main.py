@@ -96,7 +96,7 @@ async def read_requests(
     Requests render
     """
     return templates.TemplateResponse(
-        "user_requests.html", {"request": request, "id": id, "get_random": get_random}
+        "user_requests.html", {"request": request, "id": id}
     )
 
 
