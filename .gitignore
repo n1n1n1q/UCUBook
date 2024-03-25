@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 src/db/magnetic-nimbus-414610-2bcd9c115d01.json
 src/dependencies/credentials.py
+deploy.sh
