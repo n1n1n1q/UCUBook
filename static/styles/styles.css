@@ -890,7 +890,7 @@ section .loginButtons a {
 
   /* Admin Requests */
   .admin-requests {
-    flex-direction: row;
+    flex-direction: column;
   }
 
   #pendingRequestsContainer,
