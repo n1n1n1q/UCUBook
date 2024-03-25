@@ -133,6 +133,7 @@ function showRooms(floorId) {
         roomElement.style.fontWeight = "500";
         roomElement.style.color = "rgb(185, 185, 185)";
         roomElement.style.transition = "all 0.3s";
+
         if (room==="002") {
             roomElement.style.fontSize = "18px";
             roomElement.style.height = "80px";
@@ -262,6 +263,7 @@ function showRooms(floorId) {
             roomElement.style.marginLeft = "322px";
             roomElement.id = getRoomId("416","ЦШ");
         }
+
         roomElement.textContent = roomElement.id;
         roomElement.addEventListener("click", () => createRequestMenu(roomElement.id));
         roomElement.addEventListener("mouseover", () => showRoomName(roomElement.id)); 

@@ -6,7 +6,6 @@ loadingText.style.marginLeft = "10px";
 loadingText.style.marginBottom = "40vw";
 requestsContainer.appendChild(loadingText);
 
-
 function createPaginationArrows(numPages, currentPage, container, requests) {
   const pagesDiv = document.createElement('div');
   pagesDiv.classList.add('pages');

@@ -189,7 +189,6 @@ filterButton.addEventListener('click', function() {
     
         if (filteredRequests.length === 0) {
             prevLoadingText.textContent = 'Минулих запитів не знайдено';
-            // prevContainer.appendChild(prevLoadingText)
         } else {
             prevLoadingText.textContent = '';
             const itemsPerPage = 10; 

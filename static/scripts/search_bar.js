@@ -1,16 +1,13 @@
-// DOM Elements
 const searchBar = document.getElementById("searchInput");
 const searchRoomsButton = document.getElementById("searchButton");
 const foundRoomsDiv = document.getElementById("results");
 const requestMenu = document.getElementById("requestMenu");
 const screenBlur = document.getElementById("menuOverlay");
 
-// Event Listeners
 document.addEventListener("keyup", handleEscapeKey);
 searchRoomsButton.addEventListener("click", searchRooms);
 searchBar.addEventListener("keyup", handleEnterKey);
 
-// Functions
 function handleEscapeKey(event) {
   if (event.key === "Escape") {
     closeMenu();
@@ -405,6 +402,5 @@ function requestResult(ind) {
   }
 }
 
-// Initial Setup
 searchBar.value = "";
 closeMenu();

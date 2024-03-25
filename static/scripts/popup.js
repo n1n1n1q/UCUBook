@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loginIcon.addEventListener('click', function(event) {
             event.preventDefault();
             event.stopPropagation();
+
             if (popupMenu.style.display === 'block') {
                 popupMenu.style.display = 'none';
             } else {
