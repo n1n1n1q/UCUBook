@@ -647,6 +647,7 @@ section .loginButtons a {
     width: 60vw;
     margin: 0;
     height: 10vw;
+    margin-bottom: 1.5rem;
   }
 
   #searchButton {
@@ -843,12 +844,13 @@ section .loginButtons a {
 
   #searchButton{
     height: 6vw;
-    /* margin-bottom: 1rem; */
+    margin-bottom: 1rem;
   }
 
   #searchInput {
-    width: 70%;
+    width: 60%;
     height: 6vw;
+    margin-bottom: 0;
   }
 
   #searchButton {
@@ -934,19 +936,16 @@ section .loginButtons a {
 }
 
 #requestMenu {
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
+  display: none;
   z-index: 100;
+  position: fixed;
+  align-self: center;
   background-color: #171717;
   width: 95rem;
   height: 55rem;
   color: #ffffff;
   border-radius: 0.5vw;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-
 
 #roomNameRequest {
   text-align: center;
@@ -1060,9 +1059,4 @@ section .loginButtons a {
 
 .time-gap {
   width: 40%;
-}
-
-.no-image {
-  margin-top: 1vw;
-  margin-left: 1vw;
 }
