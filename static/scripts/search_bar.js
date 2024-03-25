@@ -50,7 +50,6 @@ async function searchRooms() {
 
     renderFoundRooms(data);
   } catch (error) {
-    console.log(error);
     renderResultMessage("Помилка!");
   }
 }
@@ -79,7 +78,6 @@ function renderFoundRooms(rooms) {
 }
 
 function showAvailableTimeSlots(date,room) {
-    console.log(date);
     clearTimeSlotsDiv();
     let availableSlotsDiv = document.createElement("div");
     availableSlotsDiv.id = "availableSlots";
@@ -94,11 +92,9 @@ function showAvailableTimeSlots(date,room) {
     timeLoad.classList.add("text-field");
     timeLoad.textContent = "Завантаження даних...";
     requestMenu.appendChild(timeLoad);
-    console.log("sis")
     getAvailableTimeSlots(date, room).then(timeSlots =>
       {
         timeLoad.textContent="";
-        console.log(timeSlots);
         timeSlots.forEach(timeSlot => {
           const timeSlotP = document.createElement("p");
           timeSlotP.classList.add("text-field");
@@ -115,7 +111,6 @@ function showAvailableTimeSlots(date,room) {
 }
 
 function requestFormMenu(room,date) {
-  console.log(room);
   let requestForm = document.getElementById("requestForm");
   if (requestForm) {
     requestForm.remove();
@@ -188,10 +183,8 @@ function requestFormMenu(room,date) {
 
 async function sendRequest(room,start,end,date,name,description,available) {
   if (!validateRequestInput(start,end,name,description)) {
-    console.log("ZRADA");
     return;
   }
-  console.log("Peremoga bude?");
   try {
   const response = await fetch("/requests/", {
     method: "POST",
@@ -204,8 +197,6 @@ async function sendRequest(room,start,end,date,name,description,available) {
     throw new Error("Couldn't create request");
   }
   const data = await response.json();
-  console.log("Peremoga");
-  console.log(data);
   requestResult(true);
   return data;
   } catch (error) {
@@ -216,8 +207,6 @@ async function sendRequest(room,start,end,date,name,description,available) {
 }
 
 async function getAvailableTimeSlots(date, room) {
-  console.log(date);
-  console.log(room);
   try {
     const response = await fetch("/get_by_data", {
       method: 'POST',
@@ -226,8 +215,6 @@ async function getAvailableTimeSlots(date, room) {
       },
       body: JSON.stringify({ input_date: date, input_room: room }),
     });
-
-    console.log(response)
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -241,7 +228,6 @@ async function getAvailableTimeSlots(date, room) {
 }
 
 function createRequestMenu(roomId) {
-  console.log(roomId)
   requestMenu.innerHTML = "";
   const exit = document.createElement("p");
   exit.textContent = "x";
@@ -283,9 +269,7 @@ function createRequestMenu(roomId) {
   image.id="image";
   const imageFolder = roomId.slice(0,2).toLowerCase();
   const imageFile = roomId.slice(3);
-  console.log(imageFolder);
   image.src = `static/assets/photos/${imageFolder}/${imageFile}.jpeg`;
-  console.log(image.src);
   imageDiv.appendChild(image);
   requestMenu.appendChild(imageDiv);
 }
@@ -293,26 +277,20 @@ function createRequestMenu(roomId) {
 function handleDateInput(room) {
   let dateInputValue = dateInput.value;
   let inputList = dateInputValue.split("-");
-  console.log(inputList);
+
   let dateInp = new Date(inputList[0],inputList[1]-1,inputList[2]);
-  console.log(dateInp);
   let currentDate = new Date();
-  console.log(currentDate);
   let maxDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 6, currentDate.getDate());
-  console.log(maxDate);
   if (isNaN(dateInp.getDay())) {
     renderResultDate("Введіть дату!");
-    console.log("0");
     return;
   }
   if (dateInp<currentDate) {
     renderResultDate("Бронювання на цей день неможливе");
-    console.log("1");
     return;
   }
   if (dateInp>maxDate) {
     renderResultDate("Бронювання можливе лише на наступні 6 місяців");
-    console.log("2");
     return;
   }
   showAvailableTimeSlots(dateInputValue,room);
@@ -356,7 +334,6 @@ function validateRequestInput(start,end,name,description) {
   inputErrorRemove();
   startTime = parseInt(start);
   endTime = parseInt(end);
-  console.log(name);
   if (isNaN(startTime)) {
     inputError("Введіть час початку події");
     return false;
@@ -384,7 +361,6 @@ function validateRequestInput(start,end,name,description) {
     inputError("Введіть назву події");
     return false;
   }
-  console.log(name.length);
   if (name.length<5) {
     inputError("Надто коротка назва події");
     return false;

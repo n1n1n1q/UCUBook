@@ -6,7 +6,6 @@ loadingText.style.marginLeft = "10px";
 loadingText.style.marginBottom = "40vw";
 requestsContainer.appendChild(loadingText);
 
-console.log("SSA");
 
 function createPaginationArrows(numPages, currentPage, container, requests) {
   const pagesDiv = document.createElement('div');
@@ -113,7 +112,6 @@ fetch('/requests/current_user')
   .then(data => {
     if (data.length === 0) {
       loadingText.textContent = "На жаль, у Вас немає жодних запитів.";
-      console.log("HI");
     } else {
       loadingText.remove();
 
