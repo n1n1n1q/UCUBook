@@ -453,11 +453,11 @@ section .loginButtons a {
   /* height: 70px;  */
 }
 .status-confirm{
-  background-color: rgba(46, 171, 33, 200);
+  background-color: rgb(46, 171, 33);
   color: #ffffff;
 }
 .status-decline{
-  background-color: rgba(213, 33, 47, 200);
+  background-color: rgb(213, 33, 47);
   color: #ffffff;
 }
 
@@ -640,7 +640,7 @@ section .loginButtons a {
   .search-bar {
     flex-direction: row;
     margin-top: 1rem;
-    justify-items: space-between;
+    justify-content: space-between;
   }
 
   #searchInput {
@@ -962,7 +962,6 @@ section .loginButtons a {
   margin-top: 0.4vw;
   top: 0px;
   font-size: 20px;
-  cursor: active;
   font-family: 'Courier New', Courier, monospace;
   cursor: pointer;
 }
@@ -1052,9 +1051,8 @@ section .loginButtons a {
   
 }
 #image {
-
   width: 300px;
-  height: relative;
+  /* height: relative; */
   margin: 10px;
 }
 
