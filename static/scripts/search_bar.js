@@ -119,28 +119,28 @@ function requestFormMenu(room,date) {
   requestForm.id = "requestForm";
   const infoText = document.createElement("p");
   infoText.classList.add("text-field");
-  infoText.textContent = "Часовий проміжок (цілі числа)"
+  infoText.textContent = "Час, початок і кінець (цілі числа)"
   const timeDiv = document.createElement("div");
   timeDiv.id = "timeDiv";
   const startDiv = document.createElement("div");
   startDiv.id = "startDiv";
   const endDiv = document.createElement("div");
   endDiv.id = "endDiv";
-  const startText = document.createElement("p");
-  startText.textContent = "Початок: ";
+  // const startText = document.createElement("p");
+  // startText.textContent = "Початок: ";
   const startInput = document.createElement("input");
-  const endText = document.createElement("p");
-  endText.textContent = "Кінець: ";
+  // const endText = document.createElement("p");
+  // endText.textContent = "Кінець: ";
   const endInput = document.createElement("input");
   startInput.classList.add("menu-input");
   endInput.classList.add("menu-input");
-  startDiv.appendChild(startText);
+  // startDiv.appendChild(startText);
   startDiv.appendChild(startInput);
   startInput.classList.add("time-gap");
   endInput.classList.add("time-gap");
-  startText.classList.add("text-field");
-  endText.classList.add("text-field");
-  endDiv.appendChild(endText);
+  // startText.classList.add("text-field");
+  // endText.classList.add("text-field");
+  // endDiv.appendChild(endText);
   endDiv.appendChild(endInput);
   timeDiv.appendChild(startDiv);
   timeDiv.appendChild(endDiv);

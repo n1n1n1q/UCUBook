@@ -34,7 +34,7 @@ def change_status(request: UpdateRequest):
     }
     database.update_request_status(input_data, request.new_status)
     print(request.new_status)
-    if request.renter.endswith("@ucu.edu.ua") and request.new_status==1:
+    if request.renter.endswith("@ucu.edu.ua") and request.new_status == 1:
         Message.send_invitation(
             request.renter,
             f"Бронювання {request.room_name}",

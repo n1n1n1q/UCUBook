@@ -1,6 +1,7 @@
 """
 Search input model
 """
+
 from pydantic import BaseModel
 
 

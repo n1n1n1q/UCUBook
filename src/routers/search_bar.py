@@ -1,6 +1,7 @@
 """
 Search bar router
 """
+
 from fastapi import APIRouter
 from pydantic import BaseModel
 from db.db import DBOperations

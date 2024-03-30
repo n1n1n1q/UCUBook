@@ -1,6 +1,7 @@
 """
 User model
 """
+
 from pydantic import BaseModel
 
 

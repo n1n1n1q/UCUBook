@@ -1,6 +1,7 @@
 """
 Admin router
 """
+
 from datetime import datetime
 from fastapi import APIRouter, Depends
 from db.db import DBOperations

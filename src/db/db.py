@@ -1,6 +1,7 @@
 """
 DB module
 """
+
 import os
 from google.cloud import bigquery
 
@@ -14,9 +15,9 @@ class DBOperations:
         """
         Set up the database
         """
-        os.environ[
-            "GOOGLE_APPLICATION_CREDENTIALS"
-        ] = "src/db/magnetic-nimbus-414610-2bcd9c115d01.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (
+            "src/db/magnetic-nimbus-414610-2bcd9c115d01.json"
+        )
         self.client = bigquery.Client()
         self.proj_id = self.client.project
         self.data_id = "ucubook"
@@ -202,7 +203,7 @@ if __name__ == "__main__":
     MyDB = DBOperations()
     MyDB.set_up()
     curr_client = bigquery.Client()
-    delete_data(MyDB, "requests")
+    # delete_data(MyDB, "requests")
     print("Finished!")
 
     import hashlib
@@ -216,10 +217,10 @@ if __name__ == "__main__":
     MyDB.add_data(
         "users",
         {
-            "login": "admin1",
-            "password": f"{hash_password('admin')}",
+            "login": "user",
+            "password": f"{hash_password('password')}",
             "can_rent": True,
-            "group": 9,
+            "group": 1,
             "display_name": "Ucubook Admin",
         },
     )

@@ -1,6 +1,7 @@
 """
 Auth
 """
+
 import smtplib
 import random
 import hashlib
@@ -111,25 +112,27 @@ END:VCALENDAR
         server.sendmail(gmail_user, email, msg.as_string())
         server.quit()
         print(f"надіслано успішно: {email}")
+
     def reject_mail(email, time, district, room_number):
         email_content = f"<h3>Вам відмовили у бронюванні аудиторії {district} №{room_number} на {time}</h3>\
         <p>Нам щиро шкода,</p>\
         <p>UCUbook Team</p>"
         gmail_user = GMAIL_LOGIN
         gmail_password = GMAIL_PASSWORD
-    
+
         # Create the email message
-        msg = MIMEText(email_content, 'html')
-        msg['Subject'] = 'UCUBook Booking Denied'
-        msg['From'] = gmail_user
-        msg['To'] = email
-    
+        msg = MIMEText(email_content, "html")
+        msg["Subject"] = "UCUBook Booking Denied"
+        msg["From"] = gmail_user
+        msg["To"] = email
+
         # Send the email
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login(gmail_user, gmail_password)
         server.send_message(msg)
         server.quit()
+
 
 class Authentication:
     """
