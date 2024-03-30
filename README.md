@@ -1,40 +1,68 @@
 # UCUBook
-*UCUBook* - сервіс для зручного бронювання авдиторій в екосистемі УКУ.  
-#### Проблеми теперішньої системи  
-1) Незручність інтерфейсу
-2) Довгий фідбек
-3) Неорганізованість
-4) Використання 3-х різних сервісів задля бронювання 
-#### Чому UCUBook? 
-При розробці даного веб-застосунку ми намагались виправити всі недоліки теперішньої системи та покращити інші аспекти задля найкращого досвіду з бронюванням авдиторій.  
-1) Усі взаємодії - 1 сервіс 
-2) Доступність фідбеку (через пошту)
-3) Спеціалізовані сторінки під користувача та людину, яка керує бронюваннями
-4) Зручність мобільного та десктопного інтерфейсу
-5) Інтерактивна мапа, на десктоп інтерфейсі, задля зручнішого бронювання та розуміння, де знаходиться кожна авдиторія
-#### Як користуватися?
-Перш за все, для того, щоб використовувати сервіс - Ви маєте бути студентом, викладачем чи працівником УКУ.
+
+**UCUBook** is a service for a more convenient experience of room reservations within the UCU ecosystem.
+
+#### Our main goal was to fix the issues of the current booking system:
+
+1. Inconvenient user interface
+2. Long waiting time for feedback (or lack of feedback)
+3. Lack of efficiency and organization
+4. The need to use three different services for booking
+
+#### Why UCUBook?
+
+In the process of developing the web app, we attempted to fix these flaws of the current reservations system and improve other aspects in order to enhance the user's experience.
+
+1. All interactions take place within one service
+2. Timely feedback
+3. Specialized pages for the user and the person in charge of reservation approvals
+4. A more user-friendly interface and a more pleasant experience on mobile
+5. Interactive map (available for desktop users) for better understanding of the rooms' locations
+
+#### How to use UCUBook?
+
+Firstly, in order to use the service, you are required to be a UCU student, teacher, or another part of the personnel.
+
 ![](https://i.imgur.com/SXm8SPR.png)
-Зайшовши на сайт вперше через корпоративну пошту УКУ, Вам автоматично створиться аккаунт. Надалі Ви зможете користуватися застосунком, увійшовши з допомогою Google, але, окрім того, на пошту прийде рандомно згенерований пароль до Вашого аккаунту.  
-<br>Отож, після успішного входу, Вас перекине на головну сторінку веб-застосунку.
+
+After logging into the service for the first time using your UCU email, your UCUBook account is created automatically. From now on, you can continue using Google login and your UCU email, but aside from that, your password, randomly generated specifically for your account, will be emailed to you.
+
+After logging in successfully, you will be redirected to the main page of the web app.
+
 ![](https://i.imgur.com/deZCBwn.png)
-Саме на цій сторінці відбуваються всі бронювання. Для того, щоб забронювати з десктоп-версії, потрібно натиснути на одну з авдиторій на карті, або ж в поле пошуку ввести назву шуканої кімнати.  
-Після вибору авдиторії, перед вами з'явиться менюшка, в якій потрібно буде ввести дату бронювання.
+
+All reservations can be made on this page. In order to book a room on desktop, press on the room on the map or enter the room number into the search box.
+
+After you have chosen the room, a menu will appear, where you need to enter the date of your reservation.
+
 ![](https://i.imgur.com/NIdS0B0.png)
-Згодом, після вибору дати, застосунок обробить ваші дані та виведе список доступних на обраний Вами день годин.
+
+After the date is chosen, the data will be processed, and a list of available time slots will appear on your screen.
+
 ![](https://i.imgur.com/DjrjTbq.png)
-Як тільки Ви натиснете "забронювати", з'явиться форма, яку потрібно заповнити, аби створити запит.
+
+After you press "Забронювати" (Book), a form will appear, which needs to be filled out in order to create a request.
+
 ![](https://i.imgur.com/PRl32m6.png)
-Якщо не виникне ніяких помилок із вхідними даними, по натисненню кнопки "Надіслати запит", у вас з'явиться текст, що свідчить про те, що все добре :)
+
+If no error occurs, after pressing "Надіслати запит" (Send request), a message will appear, saying that the booking request was sent successfully.
+
 ![](https://i.imgur.com/qgat3i1.png)
 
+To see your reservation history, press on the user icon. A menu will appear, where you need to choose the "Історія бронювань" (Reservation history) option.
 
-<br>Для того, щоб подивитись історію своїх запитів - потрібно натиснути на іконку користувача. З'явиться меню, у якому потрібно обрати опцію "Історія бронювань".
-![](https://i.imgur.com/Rz9VRSG.png)  
-Вас перекине на сторінку, на якій, після підвантаження даних, з'явиться історія Ваших запитів.
-![](https://i.imgur.com/8E7WmUd.png)  
-Справа відображається статус Ваших запитів, де "В очікуванні" означає, що запит ще не підтвердили.
-#### Користування для адмінів
-Користувачі, які мають права адміністратора, отримують доступ до підтвердження/відхилиння запиту на бронювання (з лівого боку), а також до історії уже опрацьованих запитів.
+![](https://i.imgur.com/Rz9VRSG.png)
+
+You will be redirected to a page, where, after the data has been loaded, the history of your reservations will appear.
+
+![](https://i.imgur.com/8E7WmUd.png)
+
+To the right, the status of your request is displayed.
+
+#### Admin interface
+
+Users that have administrator rights have access to approving and declining reservation requests and the history of already processed requests.  
+
 ![](https://i.imgur.com/Lh2P2Ik.png)
-До історії бронювань можна застосувати фільтр, який посортує запити за потрібною авдиторією (корпусом в майбутньому) або вказаною датою. До кожного запиту є опис, час, дата та логін користувача, який надіслав запит. В іншому адміністратори мають такі ж права, як звичайні користувачі, тобто вони можуть надсилати свої запити та окремо переглядати свою історію бронювань.
+
+A filter can be applied to the reservation history, which will sort the requests by room or date. Every request has a description, time, date, and login of the user who sent the request. Apart from processing requests, the admin interface has the same functionality as the user's interface, meaning they can also send requests and review their own reservation history separately.
