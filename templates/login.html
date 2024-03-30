@@ -1,55 +1,67 @@
 <!DOCTYPE html>
 <html lang="uk-UA">
-<head>
-  <meta charset="utf-8">
-  <link rel="icon" href="/static/assets/ucu.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#000000">
-  <title>UCUBook</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../static/styles/styles.css">
-</head>
-<body>
-<div class="ucubook">
-  <div class="header-group">
-    <div class="header-background">
-    </div>
-    <a href="/"><img alt="logo" class="logo-image" src="../static/assets/ucu_logo.png"></a>
-  </div>
-  <section>
-   <div class="signin"> 
-    <div class="content"> 
-    <form class="form" action="/login" method="post"> 
-      <div class="inputBox"> 
-       <input type="text" name="name" required> <i>Користувач</i> 
-      </div> 
-      <div class="inputBox"> 
-       <input type="password" name="password" required> <i>Пароль</i> 
-      </div> 
-      <div class="loginButtons">
-      <div class="loginBox">
-        <button type="submit">Увійти</button>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/static/assets/ucu.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>UCUBook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/styles/styles.css" />
+  </head>
+  <body>
+    <div class="ucubook">
+      <div class="header-group">
+        <div class="header-background"></div>
+        <a href="/"
+          ><img
+            alt="logo"
+            class="logo-image"
+            src="../static/assets/ucu_logo.png"
+        /></a>
       </div>
-      <div class="googleLoginBox">
-        <button onclick="window.location.href='/login/google'">Google login</button>
+      <section>
+        <div class="signin">
+          <div class="content">
+            <form class="form" action="/login" method="post">
+              <div class="inputBox">
+                <input type="text" name="name" required /> <i>Користувач</i>
+              </div>
+              <div class="inputBox">
+                <input type="password" name="password" required /> <i>Пароль</i>
+              </div>
+              <div class="loginButtons">
+                <div class="loginBox">
+                  <button type="submit">Увійти</button>
+                </div>
+                <div class="googleLoginBox">
+                  <button onclick="window.location.href='/login/google'">
+                    Google login
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <div id="firstTimeContainer">
+        <p id="firstTimeHeader">Для тих, хто тут вперше</p>
+        <div id="firstTimeInput">
+          UCUBook - сервіс для бронювання авдиторій безпосередньо в УКУ.<br />
+          Для того, щоб отримати доступ до сайту, Ви:
+          <p>1. Маєте бути студентом УКУ.</p>
+          <p>2. Маєте бути власником корпоративної пошти.</p>
+          Після цього, просто заходьте через свою корпоративну пошту. Вам
+          згенерується пароль, який прийде на пошту. <br />
+          Якщо Ви не студент, або студент з пільгами - зверніться до
+          адміністраторів сайту: bookucu@gmail.com
+        </div>
       </div>
-     </div>
-    </form>
-    </div> 
-   </div>
-  </section>
-  <div id="firstTimeContainer">
-    <p id="firstTimeHeader">Для тих, хто тут вперше</p>
-    <div id="firstTimeInput"> UCUBook - сервіс для бронювання авдиторій безпосередньо в УКУ.<br> 
-      Для того, щоб отримати доступ до сайту, Ви:
-      <p>1. Маєте бути студентом УКУ.</p>
-      <p>2. Маєте бути власником корпоративної пошти.</p>
-      Після цього, просто заходьте через свою корпоративну пошту. Вам згенерується пароль, який прийде на пошту. <br>
-      Якщо Ви не студент, або студент з пільгами - зверніться до адміністраторів сайту: bookucu@gmail.com
     </div>
-  </div>
-</div>
-</body>
+  </body>
 </html>

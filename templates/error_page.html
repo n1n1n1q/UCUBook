@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html lang="uk-UA">
-<head>
-  <meta charset="utf-8">
-  <link rel="icon" href="/static/assets/ucu.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#000000">
-  <title>UCUBook</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../static/styles/styles.css">
-</head>
-<body>
-<div class="ucubook">
-  <div class="header-group">
-    <div class="header-background">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/static/assets/ucu.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>UCUBook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/styles/styles.css" />
+  </head>
+  <body>
+    <div class="ucubook">
+      <div class="header-group">
+        <div class="header-background"></div>
+        <img
+          id="loginIcon"
+          class="login-icon"
+          src="../static/assets/user.png"
+          alt="Login/User icon"
+        />
+        <a href="/"
+          ><img
+            alt="logo"
+            class="logo-image"
+            src="../static/assets/ucu_logo.png"
+        /></a>
+        <!-- pop-up menu -->
+        <div class="popup-menu" id="popupMenu">
+          <ul>
+            <li><a href="requests">Історія бронювань</a></li>
+            <li id="adminTab"><a href="admin">Керування</a></li>
+            <li><a id="logout" href="logout">Вийти</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="errorContainer">
+        <div id="errorText">
+          Такої сторінки не існує, <br />
+          або у Вас немає доступу до неї
+        </div>
+      </div>
+      <a id="readressButton" href="/"> <p id="readressText">На головну</p></a>
     </div>
-    <img id="loginIcon" class="login-icon" src="../static/assets/user.png" alt="Login/User icon">
-    <a href="/"><img alt="logo" class="logo-image" src="../static/assets/ucu_logo.png"></a>
-    <!-- pop-up menu -->
-    <div class="popup-menu" id="popupMenu">
-      <ul>
-        <li><a href="requests">Історія бронювань</a></li>
-        <li id = "adminTab"><a href="admin" >Керування</a></li>
-        <li><a id="logout" href="logout">Вийти</a></li>
-      </ul>
-    </div>
-  </div>
-  <div id="errorContainer">
-    <div id="errorText">Такої сторінки не існує, <br>
-      або у Вас немає доступу до неї</div>
-    </div>
-  <a id="readressButton" href="/">
-    <p id="readressText">На головну</p></a>
-</div>
-<script src="../static/scripts/popup.js"></script>
-</body>
+    <script src="../static/scripts/popup.js"></script>
+  </body>
 </html>

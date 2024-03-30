@@ -1,35 +1,39 @@
-const requestsContainer = document.getElementById('requestsContainer');
-const loadingText = document.createElement('p');
-loadingText.textContent = 'Завантаження даних...';
+const requestsContainer = document.getElementById("requestsContainer");
+const loadingText = document.createElement("p");
+loadingText.textContent = "Завантаження даних...";
 loadingText.style.fontSize = "24px";
 loadingText.style.marginLeft = "10px";
 loadingText.style.marginBottom = "40vw";
 requestsContainer.appendChild(loadingText);
 
 function createPaginationArrows(numPages, currentPage, container, requests) {
-  const pagesDiv = document.createElement('div');
-  pagesDiv.classList.add('pages');
+  const pagesDiv = document.createElement("div");
+  pagesDiv.classList.add("pages");
 
-  const prevArrow = document.createElement('span');
-  prevArrow.classList.add('arrow', 'prev');
-  prevArrow.innerHTML = '←'
-  prevArrow.addEventListener('click', () => showPage(currentPage - 1, requests, container));
+  const prevArrow = document.createElement("span");
+  prevArrow.classList.add("arrow", "prev");
+  prevArrow.innerHTML = "←";
+  prevArrow.addEventListener("click", () =>
+    showPage(currentPage - 1, requests, container)
+  );
   if (currentPage === 1) {
-    prevArrow.classList.add('disabled');
+    prevArrow.classList.add("disabled");
   }
   pagesDiv.appendChild(prevArrow);
 
-  const pageInfo = document.createElement('span');
-  pageInfo.classList.add('page-info');
+  const pageInfo = document.createElement("span");
+  pageInfo.classList.add("page-info");
   pageInfo.textContent = ` ${currentPage} / ${numPages} `;
   pagesDiv.appendChild(pageInfo);
 
-  const nextArrow = document.createElement('span');
-  nextArrow.classList.add('arrow', 'next');
-  nextArrow.innerHTML = '→';
-  nextArrow.addEventListener('click', () => showPage(currentPage + 1, requests, container));
+  const nextArrow = document.createElement("span");
+  nextArrow.classList.add("arrow", "next");
+  nextArrow.innerHTML = "→";
+  nextArrow.addEventListener("click", () =>
+    showPage(currentPage + 1, requests, container)
+  );
   if (currentPage === numPages) {
-    nextArrow.classList.add('disabled');
+    nextArrow.classList.add("disabled");
   }
   pagesDiv.appendChild(nextArrow);
 
@@ -42,41 +46,41 @@ function showPage(pageNum, requests, container) {
   const endIndex = startIndex + itemsPerPage;
   const currentRequests = requests.slice(startIndex, endIndex);
   const numPages = Math.ceil(requests.length / itemsPerPage);
-  if (pageNum>numPages || pageNum<1){
-    return ;
+  if (pageNum > numPages || pageNum < 1) {
+    return;
   }
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
 
   if (requests.length === 0) {
-    const noRequestsText = document.createElement('p');
-    noRequestsText.textContent = 'На жаль, у Вас немає жодних запитів.';
+    const noRequestsText = document.createElement("p");
+    noRequestsText.textContent = "На жаль, у Вас немає жодних запитів.";
     noRequestsText.style.fontSize = "24px";
     noRequestsText.style.marginLeft = "10px";
     container.appendChild(noRequestsText);
   } else {
-    currentRequests.forEach(request => {
-      requestsContainer.appendChild(document.createElement('hr'));
+    currentRequests.forEach((request) => {
+      requestsContainer.appendChild(document.createElement("hr"));
 
-      const requestDiv = document.createElement('div');
-      requestDiv.classList.add('request');
+      const requestDiv = document.createElement("div");
+      requestDiv.classList.add("request");
 
-      const requestInfoDiv = document.createElement('div');
-      requestInfoDiv.classList.add('request-info');
+      const requestInfoDiv = document.createElement("div");
+      requestInfoDiv.classList.add("request-info");
 
-      const mainInfoP = document.createElement('p');
-      mainInfoP.classList.add('request-main');
+      const mainInfoP = document.createElement("p");
+      mainInfoP.classList.add("request-main");
       mainInfoP.textContent = `Аудиторія: ${request.room_name}; ${request.day}, ${request.busy_from}:00 - ${request.busy_to}:00`;
 
-      const descriptionP = document.createElement('p');
-      descriptionP.classList.add('request-description');
+      const descriptionP = document.createElement("p");
+      descriptionP.classList.add("request-description");
       descriptionP.textContent = `${request.event_name}: ${request.description}`;
 
       requestInfoDiv.appendChild(mainInfoP);
       requestInfoDiv.appendChild(descriptionP);
 
-      const statusDiv = document.createElement('div');
+      const statusDiv = document.createElement("div");
       statusDiv.classList.add("status");
       statusDiv.textContent = "В очікуванні...";
 
@@ -97,7 +101,7 @@ function showPage(pageNum, requests, container) {
     });
   }
 
-  const pagesDiv = container.querySelector('.pages');
+  const pagesDiv = container.querySelector(".pages");
   if (pagesDiv) {
     pagesDiv.remove();
   }
@@ -106,15 +110,15 @@ function showPage(pageNum, requests, container) {
   }
 }
 
-fetch('/requests/current_user')
-  .then(response => response.json())
-  .then(data => {
+fetch("/requests/current_user")
+  .then((response) => response.json())
+  .then((data) => {
     if (data.length === 0) {
       loadingText.textContent = "На жаль, у Вас немає жодних запитів.";
     } else {
       loadingText.remove();
 
-      const itemsPerPage = 10; 
+      const itemsPerPage = 10;
       const numPages = Math.ceil(data.length / itemsPerPage);
 
       createPaginationArrows(numPages, 1, requestsContainer, data);
@@ -122,4 +126,4 @@ fetch('/requests/current_user')
       showPage(1, data, requestsContainer);
     }
   })
-  .catch(error => console.error('Error:', error));
+  .catch((error) => console.error("Error:", error));

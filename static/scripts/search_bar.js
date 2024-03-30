@@ -32,9 +32,9 @@ async function searchRooms() {
 
   try {
     const response = await fetch("/search", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ input_data: searchInput }),
     });
@@ -53,16 +53,16 @@ async function searchRooms() {
 
 function renderResultMessage(message) {
   const resultMessage = document.createElement("p");
-  resultMessage.classList.add('result-message');
+  resultMessage.classList.add("result-message");
   resultMessage.textContent = message;
   foundRoomsDiv.appendChild(resultMessage);
 }
 
 function renderFoundRooms(rooms) {
-  const foundRoomsList = document.createElement('div');
+  const foundRoomsList = document.createElement("div");
   foundRoomsList.classList.add("room-list");
 
-  rooms.forEach(room => {
+  rooms.forEach((room) => {
     const roomDiv = document.createElement("div");
     roomDiv.classList.add("found-room");
     roomDiv.id = room;
@@ -74,40 +74,41 @@ function renderFoundRooms(rooms) {
   foundRoomsDiv.appendChild(foundRoomsList);
 }
 
-function showAvailableTimeSlots(date,room) {
-    clearTimeSlotsDiv();
-    let availableSlotsDiv = document.createElement("div");
-    availableSlotsDiv.id = "availableSlots";
-    availableSlotsDiv.classList.add("available-list");
-    let availableSlotsP = document.createElement("p");
-    availableSlotsP.id = "availableSlotsHeading";
-    availableSlotsP.textContent = "Доступний час для бронювання";
-    availableSlotsP.classList.add("text-field");
-    requestMenu.appendChild(availableSlotsP);
-    requestMenu.appendChild(availableSlotsDiv);
-    const timeLoad = document.createElement("p");
-    timeLoad.classList.add("text-field");
-    timeLoad.textContent = "Завантаження даних...";
-    requestMenu.appendChild(timeLoad);
-    getAvailableTimeSlots(date, room).then(timeSlots =>
-      {
-        timeLoad.textContent="";
-        timeSlots.forEach(timeSlot => {
-          const timeSlotP = document.createElement("p");
-          timeSlotP.classList.add("text-field");
-          timeSlotP.textContent =  `${timeSlot[0]}-${timeSlot[1]}`;
-          availableSlotsDiv.appendChild(timeSlotP);
-        });
-      });
-      let requestFormButton = document.createElement("button");
-      requestFormButton.id = "requestFormButton";
-      requestFormButton.textContent = "Забронювати";
-      requestFormButton.addEventListener("click", () => requestFormMenu(room,date));
-      requestMenu.appendChild(requestFormButton);
-      requestFormButton.classList.add("submit-button");
+function showAvailableTimeSlots(date, room) {
+  clearTimeSlotsDiv();
+  let availableSlotsDiv = document.createElement("div");
+  availableSlotsDiv.id = "availableSlots";
+  availableSlotsDiv.classList.add("available-list");
+  let availableSlotsP = document.createElement("p");
+  availableSlotsP.id = "availableSlotsHeading";
+  availableSlotsP.textContent = "Доступний час для бронювання";
+  availableSlotsP.classList.add("text-field");
+  requestMenu.appendChild(availableSlotsP);
+  requestMenu.appendChild(availableSlotsDiv);
+  const timeLoad = document.createElement("p");
+  timeLoad.classList.add("text-field");
+  timeLoad.textContent = "Завантаження даних...";
+  requestMenu.appendChild(timeLoad);
+  getAvailableTimeSlots(date, room).then((timeSlots) => {
+    timeLoad.textContent = "";
+    timeSlots.forEach((timeSlot) => {
+      const timeSlotP = document.createElement("p");
+      timeSlotP.classList.add("text-field");
+      timeSlotP.textContent = `${timeSlot[0]}-${timeSlot[1]}`;
+      availableSlotsDiv.appendChild(timeSlotP);
+    });
+  });
+  let requestFormButton = document.createElement("button");
+  requestFormButton.id = "requestFormButton";
+  requestFormButton.textContent = "Забронювати";
+  requestFormButton.addEventListener("click", () =>
+    requestFormMenu(room, date)
+  );
+  requestMenu.appendChild(requestFormButton);
+  requestFormButton.classList.add("submit-button");
 }
 
-function requestFormMenu(room,date) {
+function requestFormMenu(room, date) {
   let requestForm = document.getElementById("requestForm");
   if (requestForm) {
     requestForm.remove();
@@ -119,7 +120,7 @@ function requestFormMenu(room,date) {
   requestForm.id = "requestForm";
   const infoText = document.createElement("p");
   infoText.classList.add("text-field");
-  infoText.textContent = "Час, початок і кінець (цілі числа)"
+  infoText.textContent = "Час, початок і кінець (цілі числа)";
   const timeDiv = document.createElement("div");
   timeDiv.id = "timeDiv";
   const startDiv = document.createElement("div");
@@ -165,37 +166,63 @@ function requestFormMenu(room,date) {
   const sendButton = document.createElement("button");
   sendButton.textContent = "Надіслати запит";
   sendButton.classList.add("submit-button");
-  getAvailableTimeSlots(date,room).then(timeSlots=>{
-  sendButton.addEventListener("click", () => sendRequest(
-    room, startInput.value.trim(), endInput.value.trim(), date, eventNameInput.value.trim(), descriptionInput.value.trim(),timeSlots
-    ));
-  requestForm.appendChild(infoText);
-  requestForm.appendChild(timeDiv);
-  requestForm.appendChild(nameDiv);
-  requestForm.appendChild(descriptionDiv);
-  requestForm.appendChild(sendButton);
-  requestMenu.appendChild(requestForm);
-  })
+  getAvailableTimeSlots(date, room).then((timeSlots) => {
+    sendButton.addEventListener("click", () =>
+      sendRequest(
+        room,
+        startInput.value.trim(),
+        endInput.value.trim(),
+        date,
+        eventNameInput.value.trim(),
+        descriptionInput.value.trim(),
+        timeSlots
+      )
+    );
+    requestForm.appendChild(infoText);
+    requestForm.appendChild(timeDiv);
+    requestForm.appendChild(nameDiv);
+    requestForm.appendChild(descriptionDiv);
+    requestForm.appendChild(sendButton);
+    requestMenu.appendChild(requestForm);
+  });
 }
 
-async function sendRequest(room,start,end,date,name,description,available) {
-  if (!validateRequestInput(start,end,name,description)) {
+async function sendRequest(
+  room,
+  start,
+  end,
+  date,
+  name,
+  description,
+  available
+) {
+  if (!validateRequestInput(start, end, name, description)) {
     return;
   }
   try {
-  const response = await fetch("/requests/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ room_name: room, busy_from: start, busy_to: end, day: date, event_name: name, description: description, renter: '', status:0, available:available})
-  });
-  if (!response.ok) {
-    throw new Error("Couldn't create request");
-  }
-  const data = await response.json();
-  requestResult(true);
-  return data;
+    const response = await fetch("/requests/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        room_name: room,
+        busy_from: start,
+        busy_to: end,
+        day: date,
+        event_name: name,
+        description: description,
+        renter: "",
+        status: 0,
+        available: available,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Couldn't create request");
+    }
+    const data = await response.json();
+    requestResult(true);
+    return data;
   } catch (error) {
     console.error("Error sending request ", error);
     requestResult(false);
@@ -206,20 +233,20 @@ async function sendRequest(room,start,end,date,name,description,available) {
 async function getAvailableTimeSlots(date, room) {
   try {
     const response = await fetch("/get_by_data", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ input_date: date, input_room: room }),
     });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching available time slots:', error);
+    console.error("Error fetching available time slots:", error);
     return [];
   }
 }
@@ -263,8 +290,8 @@ function createRequestMenu(roomId) {
   imageDiv.id = "imagesDiv";
   const image = document.createElement("img");
   image.classList.add("room-image");
-  image.id="image";
-  const imageFolder = roomId.slice(0,2).toLowerCase();
+  image.id = "image";
+  const imageFolder = roomId.slice(0, 2).toLowerCase();
   const imageFile = roomId.slice(3);
   image.src = `static/assets/photos/${imageFolder}/${imageFile}.jpeg`;
   imageDiv.appendChild(image);
@@ -275,30 +302,33 @@ function handleDateInput(room) {
   let dateInputValue = dateInput.value;
   let inputList = dateInputValue.split("-");
 
-  let dateInp = new Date(inputList[0],inputList[1]-1,inputList[2]);
+  let dateInp = new Date(inputList[0], inputList[1] - 1, inputList[2]);
   let currentDate = new Date();
-  let maxDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 6, currentDate.getDate());
+  let maxDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 6,
+    currentDate.getDate()
+  );
   if (isNaN(dateInp.getDay())) {
     renderResultDate("Введіть дату!");
     return;
   }
-  if (dateInp<currentDate) {
+  if (dateInp < currentDate) {
     renderResultDate("Бронювання на цей день неможливе");
     return;
   }
-  if (dateInp>maxDate) {
+  if (dateInp > maxDate) {
     renderResultDate("Бронювання можливе лише на наступні 6 місяців");
     return;
   }
-  showAvailableTimeSlots(dateInputValue,room);
-
+  showAvailableTimeSlots(dateInputValue, room);
 }
 
 function renderResultDate(message) {
   clearTimeSlotsDiv();
   let availableSlotsMessage = document.createElement("p");
-  availableSlotsMessage.id = "availableSlots"
-  availableSlotsMessage.classList.add('text-field-msg');
+  availableSlotsMessage.id = "availableSlots";
+  availableSlotsMessage.classList.add("text-field-msg");
   availableSlotsMessage.textContent = message;
   requestMenu.appendChild(availableSlotsMessage);
 }
@@ -310,24 +340,24 @@ function closeMenu() {
 
 function clearTimeSlotsDiv() {
   let availableSlotsDiv = document.getElementById("availableSlots");
-    if (availableSlotsDiv) {
-      availableSlotsDiv.remove();
-    }
-    let availableSlotsP = document.getElementById("availableSlotsHeading");
-    if (availableSlotsP) {
-      availableSlotsP.remove();
-    }
-    let requestFormButton = document.getElementById("requestFormButton");
-    if (requestFormButton) {
-      requestFormButton.remove();
-    }
-    let requestForm = document.getElementById("requestForm");
-    if (requestForm) {
-      requestForm.remove();
-    }
+  if (availableSlotsDiv) {
+    availableSlotsDiv.remove();
+  }
+  let availableSlotsP = document.getElementById("availableSlotsHeading");
+  if (availableSlotsP) {
+    availableSlotsP.remove();
+  }
+  let requestFormButton = document.getElementById("requestFormButton");
+  if (requestFormButton) {
+    requestFormButton.remove();
+  }
+  let requestForm = document.getElementById("requestForm");
+  if (requestForm) {
+    requestForm.remove();
+  }
 }
 
-function validateRequestInput(start,end,name,description) {
+function validateRequestInput(start, end, name, description) {
   inputErrorRemove();
   startTime = parseInt(start);
   endTime = parseInt(end);
@@ -335,7 +365,7 @@ function validateRequestInput(start,end,name,description) {
     inputError("Введіть час початку події");
     return false;
   }
-  if (startTime<8||startTime>20) {
+  if (startTime < 8 || startTime > 20) {
     inputError("Час початку поза межами робочого часу");
     return false;
   }
@@ -343,26 +373,26 @@ function validateRequestInput(start,end,name,description) {
     inputError("Введіть час завершення події");
     return false;
   }
-  if (endTime<9||endTime>21) {
+  if (endTime < 9 || endTime > 21) {
     inputError("Час завершення поза межами робочого часу");
     return false;
   }
-  if (endTime<startTime) {
+  if (endTime < startTime) {
     inputError("Неправильний час");
     return false;
   }
-  if (endTime-startTime>3) {
-    inputError("Тривалість події перевищує 3 години")
+  if (endTime - startTime > 3) {
+    inputError("Тривалість події перевищує 3 години");
   }
-  if (name.length===0) {
+  if (name.length === 0) {
     inputError("Введіть назву події");
     return false;
   }
-  if (name.length<5) {
+  if (name.length < 5) {
     inputError("Надто коротка назва події");
     return false;
   }
-  if (description.length>256) {
+  if (description.length > 256) {
     inputError("Опис не повинен перевищувати 256 символів");
     return false;
   }
@@ -396,7 +426,8 @@ function requestResult(ind) {
   requestRes.classList.add("text-field-msg");
   requestMenu.appendChild(requestRes);
   if (ind) {
-    requestRes.textContent = "Запит успішно надіслано. Очікуйте лист про підтвердження.";
+    requestRes.textContent =
+      "Запит успішно надіслано. Очікуйте лист про підтвердження.";
   } else {
     requestRes.textContent = "При надсиланні запиту виникла помилка.";
   }
